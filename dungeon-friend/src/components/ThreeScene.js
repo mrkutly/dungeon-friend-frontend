@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 
 class ThreeScene extends Component {
+
 	componentDidMount() {
 		this.scene = new THREE.Scene();
 		this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -31,34 +32,6 @@ class ThreeScene extends Component {
 	  this.scene.add( this.line );
 
 		this.material = new THREE.MeshPhongMaterial({ color: 0xffffff });
-		this.iso = new THREE.Mesh( geometry, this.material );
-
-		// this.scene.add( this.iso );
-
-		// let spotLight = new THREE.SpotLight( 0xffffff );
-		// spotLight.position.set( 100, 1000, 100 );
-
-		let spotLightTwo = new THREE.SpotLight( 0xffffff );
-		spotLightTwo.position.set( 100, 100, 1000 );
-
-		// let spotLightThree = new THREE.SpotLight( 0xffffff );
-		// spotLightThree.position.set( 1000, 100, 100 );
-
-		// let spotLightFour = new THREE.SpotLight( 0xffffff );
-		// spotLightFour.position.set( -1000, -100, -100 );
-
-		// let spotLightFive = new THREE.SpotLight( 0xffffff );
-		// spotLightFive.position.set( -100, -100, -1000 );
-
-		let spotLightSix = new THREE.SpotLight( 0xffffff );
-		spotLightSix.position.set( -100, -1000, -100 );
-
-		// this.scene.add( spotLight )
-		this.scene.add( spotLightTwo )
-		// this.scene.add( spotLightThree )
-		// this.scene.add( spotLightFour )
-		// this.scene.add( spotLightFive )
-		// this.scene.add( spotLightSix )
 
 		this.start()
 	}
@@ -79,8 +52,6 @@ class ThreeScene extends Component {
   }
 
 	animate = () => {
-		this.iso.rotation.x += this.props.rotation[0];
-		this.iso.rotation.y += this.props.rotation[1];
 		this.line.rotation.x += this.props.rotation[0];
 		this.line.rotation.y += this.props.rotation[1];
 

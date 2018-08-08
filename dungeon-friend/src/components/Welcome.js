@@ -8,6 +8,7 @@ class Welcome extends Component {
     super(props)
 
     this.welcomeText = React.createRef()
+    this.welcomeDiv = React.createRef()
   }
 
   componentDidMount() {
@@ -18,11 +19,15 @@ class Welcome extends Component {
     setTimeout(() => {
       this.welcomeText.current.className = "welcome-text hidden"
     }, 4000)
+
+    setTimeout(() => {
+      this.welcomeDiv.current.className = "welcome zoom"
+    }, 6000)
   }
 
   render() {
     return (
-      <div id="welcome">
+      <div className="welcome" ref={this.welcomeDiv}>
         <p className="welcome-text hidden" ref={this.welcomeText}>Welcome to Dungeon Friend</p>
         <ThreeScene rotation={[0.008, 0.008]} sizeDivisor={1} />
       </div>

@@ -5,7 +5,7 @@ font-family: 'Quicksand', sans-serif; */
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: white;
+  background-color: black;
   min-width: 70rem;
   margin: 0;
 }
@@ -84,6 +84,14 @@ li {
   left: 21.152%;
 }
 
+.welcome {
+  transition: transform 4s;
+}
+
+.welcome.zoom {
+  transform: scale(0.001);
+}
+
 .welcome-text {
   text-align: center;
   font-family: 'Monoton', sans-serif;
@@ -92,7 +100,6 @@ li {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4em;
-  background-color: #00000000;
   color: #fff;
   text-shadow: 1px 1px black;
   opacity: 1;
@@ -101,5 +108,5 @@ li {
 
 .welcome-text.hidden {
   opacity: 0;
-  transition: 3s;
+  transition: 2s;
 }

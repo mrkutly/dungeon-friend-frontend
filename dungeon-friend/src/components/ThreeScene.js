@@ -10,13 +10,13 @@ class ThreeScene extends Component {
 		this.camera.position.z = 5;
 
 		this.renderer = new THREE.WebGLRenderer();
-		this.renderer.setSize( window.innerWidth / 4, window.innerHeight / 4 );
+		this.renderer.setSize( window.innerWidth / this.props.sizeDivisor, window.innerHeight / this.props.sizeDivisor );
 		this.mount.appendChild(this.renderer.domElement)
 
 		let geometry = new THREE.IcosahedronGeometry(2.5);
 		let wireframe = new THREE.WireframeGeometry( geometry );
 		let material = new THREE.LineBasicMaterial( {
-			color: 0x222222,
+			color: 0x777777,
 			linewidth: 1,
 			linecap: 'round', //ignored by WebGLRenderer
 			linejoin:  'round' //ignored by WebGLRenderer
@@ -28,15 +28,37 @@ class ThreeScene extends Component {
 		this.line.material.opacity = 1;
 		this.line.material.transparent = true;
 
-		this.scene.add( this.line );
+	  this.scene.add( this.line );
 
-		// this.material = new THREE.MeshPhongMaterial({ color: 0x000000 });
-		// this.iso = new THREE.Mesh( geometry, this.material );
+		this.material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+		this.iso = new THREE.Mesh( geometry, this.material );
+
 		// this.scene.add( this.iso );
-		//
-		// this.spotLight = new THREE.SpotLight( 0xffffff,1 );
-		// this.spotLight.position.set( 0, 0, 10 );
-		// this.scene.add( this.spotLight );
+
+		// let spotLight = new THREE.SpotLight( 0xffffff );
+		// spotLight.position.set( 100, 1000, 100 );
+
+		let spotLightTwo = new THREE.SpotLight( 0xffffff );
+		spotLightTwo.position.set( 100, 100, 1000 );
+
+		// let spotLightThree = new THREE.SpotLight( 0xffffff );
+		// spotLightThree.position.set( 1000, 100, 100 );
+
+		// let spotLightFour = new THREE.SpotLight( 0xffffff );
+		// spotLightFour.position.set( -1000, -100, -100 );
+
+		// let spotLightFive = new THREE.SpotLight( 0xffffff );
+		// spotLightFive.position.set( -100, -100, -1000 );
+
+		let spotLightSix = new THREE.SpotLight( 0xffffff );
+		spotLightSix.position.set( -100, -1000, -100 );
+
+		// this.scene.add( spotLight )
+		this.scene.add( spotLightTwo )
+		// this.scene.add( spotLightThree )
+		// this.scene.add( spotLightFour )
+		// this.scene.add( spotLightFive )
+		// this.scene.add( spotLightSix )
 
 		this.start()
 	}
@@ -57,12 +79,10 @@ class ThreeScene extends Component {
   }
 
 	animate = () => {
-		// this.iso.rotation.x += 0.008;
-		// this.iso.rotation.y += 0.008;
-		this.line.rotation.x += 0.008;
-		this.line.rotation.y += 0.008;
-
-
+		this.iso.rotation.x += this.props.rotation[0];
+		this.iso.rotation.y += this.props.rotation[1];
+		this.line.rotation.x += this.props.rotation[0];
+		this.line.rotation.y += this.props.rotation[1];
 
 		this.renderScene()
  		this.frameId = window.requestAnimationFrame(this.animate)
@@ -74,7 +94,7 @@ class ThreeScene extends Component {
 
 	render() {
 		return(
-      <div ref={(mount) => { this.mount = mount }} className="dice"/>
+      <div ref={(mount) => { this.mount = mount }} className="dice" />
 		)
 	}
 }

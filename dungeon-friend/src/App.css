@@ -6,6 +6,7 @@ font-family: 'Quicksand', sans-serif; */
 body {
   font-family: 'Quicksand', sans-serif;
   background-color: black;
+  color: white;
   min-width: 70rem;
   margin: 0;
 }
@@ -46,6 +47,17 @@ li {
   border-bottom: solid #333;
   position: sticky;
   top: -208px;
+  margin-bottom: 5%;
+}
+
+.home {
+  opacity: 1;
+  transition: 1s;
+}
+
+.home.hidden {
+  opacity: 0;
+  transition: 1s;
 }
 
 .navigation-btns-container {

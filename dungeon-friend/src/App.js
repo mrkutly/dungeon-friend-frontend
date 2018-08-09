@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Welcome from './components/Welcome'
-import Navbar from './components/Navbar'
+import Home from './components/Home'
 
 
 class App extends Component {
@@ -22,14 +22,14 @@ class App extends Component {
     return <Welcome />
   }
 
-  renderNav = () => {
-    return  <Navbar />
+  renderHome = () => {
+    return  <Home />
   }
 
   render() {
     return (
       <div id="main">
-        {this.state.welcome ? this.renderWelcome() : this.renderNav()}
+        {this.state.welcome ? this.renderWelcome() : this.renderHome()}
       </div>
     )
   }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import ThreeScene from './ThreeScene'
-import { Transition } from 'react-transition-group'
-
 
 class Welcome extends Component {
   constructor(props) {

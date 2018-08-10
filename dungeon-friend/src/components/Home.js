@@ -29,9 +29,9 @@ class Home extends Component {
   }
 
   render() {
-    return <div class="home hidden" ref={this.homeDiv}>
+    return <div className="home hidden" ref={this.homeDiv}>
       <Navbar setCurrentPage={this.setCurrentPage} />
-      {this.state.currentPage === 'signIn' ? <SignIn /> : null }
+      {this.state.currentPage === 'signIn' ? <SignIn setUserId={this.props.setUserId} /> : null }
       {this.state.currentPage === 'createCharacter' ? <CreateCharacter /> : null }
       {this.state.currentPage === 'manageCharacter' ? <ManageCharacter /> : null }
     </div>

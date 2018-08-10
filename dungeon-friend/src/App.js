@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      welcome: true
+      welcome: true,
+      user_id: null
     }
 
     setTimeout(this.showNav, 10000)
@@ -18,12 +19,16 @@ class App extends Component {
     this.setState({ welcome: false })
   }
 
+  setUserId = (user_id) => {
+    this.setState({ user_id })
+  }
+
   renderWelcome = () => {
     return <Welcome />
   }
 
   renderHome = () => {
-    return  <Home />
+    return  <Home setUserId={this.setUserId} />
   }
 
   render() {

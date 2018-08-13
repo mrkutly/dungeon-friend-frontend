@@ -7,12 +7,12 @@ class Navigation extends Component {
   }
 
   render() {
+    const { currentUser } = this.props
     return (
       <div className="navigation-btns-container">
         <ul>
-          <li><button className="navigation-btns" onClick={this.handleButtonClick} value="signIn">Sign In</button></li>
-          <li><button className="navigation-btns" onClick={this.handleButtonClick} value="createCharacter">Create Character</button></li>
-          <li><button className="navigation-btns" onClick={this.handleButtonClick} value="manageCharacter">Manage Character</button></li>
+          {currentUser ? <li><button className="navigation-btns" onClick={this.handleButtonClick} value="createCharacter">Create Character</button></li> : null }
+          {currentUser ? <li><button className="navigation-btns" onClick={this.handleButtonClick} value="manageCharacter">Manage Characters</button></li> : null }
         </ul>
       </div>
     )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Navbar'
 import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
-import ManageCharacter from './ManageCharacter'
+import ManageCharacters from './ManageCharacters'
 
 
 class Home extends Component {
@@ -12,7 +12,8 @@ class Home extends Component {
     this.homeDiv = React.createRef()
 
     this.state = {
-      currentPage: 'signIn'
+      currentPage: 'signIn',
+      currentUser: null
     }
   }
 
@@ -28,12 +29,19 @@ class Home extends Component {
     })
   }
 
+  setCurrentUser = (currentUser) => {
+    this.setState({ currentUser, currentPage: 'manageCharacter' })
+  }
+
+
   render() {
+    const { currentUser, currentPage } = this.state
+    
     return <div className="home hidden" ref={this.homeDiv}>
-      <Navbar setCurrentPage={this.setCurrentPage} />
-      {this.state.currentPage === 'signIn' ? <SignIn setUserId={this.props.setUserId} /> : null }
-      {this.state.currentPage === 'createCharacter' ? <CreateCharacter /> : null }
-      {this.state.currentPage === 'manageCharacter' ? <ManageCharacter /> : null }
+      <Navbar setCurrentPage={this.setCurrentPage} currentUser={currentUser} />
+      {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
+      {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id}/> : null }
+      {currentPage === 'manageCharacter' ? <ManageCharacters currentUser={currentUser}/> : null }
     </div>
   }
 }

@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
-
-const URL = 'http://localhost:3000/sessions' //not done. check rails api for routes
+import Adapter from '../Adapter'
 
 class SignIn extends Component {
+  constructor() {
+    super()
 
-  state = {
-    username: null
+    this.state = {
+      username: ''
+    }
   }
 
   handleChange = (e) => {
+    e.persist()
     this.setState({ username: e.target.value })
   }
 
   handleSubmit = (e) => {
-    //fetch to localhost to hit the sessions#create method,
-    // which will find or create a user by the username and send a response with that user_id.
-    // after that, we can call this.props.setUserId with that ID.
+    e.preventDefault()
+    Adapter.login(this.state.username)
+      .then(user => this.props.setCurrentUser(user))
   }
 
   render() {

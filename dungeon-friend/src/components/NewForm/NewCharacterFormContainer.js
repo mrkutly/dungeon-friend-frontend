@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import RaceTilesContainer from './NewForm/RaceTilesContainer'
-import JobTilesContainer from './NewForm/JobTilesContainer'
 
-class CreateCharacter extends Component {
+class NewCharacterFormContainer extends Component {
 
   state = {
     name: '',
@@ -14,11 +12,11 @@ class CreateCharacter extends Component {
     magicSchoolId: null
   }
 
-  handleNameChange = (e) => {
+  handleLvlChange = (e) => {
     this.setState({ name: e.target.value })
   }
 
-  handleLvlChange = (e) => {
+  handleNameChange = (e) => {
     this.setState({ startingLvl: e.target.value })
   }
 
@@ -52,24 +50,19 @@ class CreateCharacter extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <h1>Name</h1>
-          <input type="text" value={this.state.name} onChange={this.handleNameChange} />
-
-          <h1>Starting Level</h1>
-          <input type="number" min="1" max="99" value={this.state.startingLvl} onChange={this.handleLvlChange}/>
-
-          <h1>Race</h1>
-          <RaceTilesContainer setRaceId={this.setRaceId}/>
-
-          <h1>Class</h1>
-          <JobTilesContainer setClassId={this.setJobId}/>
-          <button type="submit">Create</button>
-        </form>
-      </div>
+      <form>
+        <h1>Name</h1>
+        <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+        <h1>Starting Level</h1>
+        <input type="number" min="1" max="99" value={this.state.startingLvl} onChange={this.handleLvlChange}/>
+        <h1>Race</h1>
+        <RaceTilesContainer setRaceId={this.setRaceId}/>
+        <h1>Class</h1>
+        <ClassTilesContainer setClassId={this.setClassId}/>
+        <button type="submit">Create</button>
+      </form>
     )
   }
 }
 
-export default CreateCharacter
+export default NewCharacterFormContainer

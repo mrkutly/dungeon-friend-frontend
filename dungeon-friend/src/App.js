@@ -7,7 +7,7 @@ import Home from './components/Home'
 class App extends Component {
 
   state = {
-    welcome: false,
+    welcome: false
   }
 
   componentDidMount() {

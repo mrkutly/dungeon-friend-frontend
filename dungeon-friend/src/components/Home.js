@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Navbar from './Navbar'
+import Adapter from '../Adapter'
+import Navbar from './Nav/Navbar'
 import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
 import ManageCharacters from './ManageCharacters'
@@ -13,7 +14,7 @@ class Home extends Component {
 
     this.state = {
       currentPage: 'signIn',
-      currentUser: null
+      currentUser: null,
     }
   }
 
@@ -30,19 +31,21 @@ class Home extends Component {
   }
 
   setCurrentUser = (currentUser) => {
-    this.setState({ currentUser, currentPage: 'manageCharacter' })
+    this.setState({ currentUser })
+    Adapter.get(`test_users/${currentUser.id}/characters`).then( ({ characters }) => this.setState({ characters }))
   }
 
-
   render() {
-    const { currentUser, currentPage } = this.state
-    
-    return <div className="home hidden" ref={this.homeDiv}>
-      <Navbar setCurrentPage={this.setCurrentPage} currentUser={currentUser} />
-      {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
-      {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id}/> : null }
-      {currentPage === 'manageCharacter' ? <ManageCharacters currentUser={currentUser}/> : null }
-    </div>
+    const { currentPage, currentUser } = this.state
+
+    return (
+      <div className="home hidden" ref={this.homeDiv}>
+        <Navbar setCurrentPage={this.setCurrentPage} currentUser={currentUser} />
+        {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
+        {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id} /> : null }
+        {currentPage === 'manageCharacter' ? <ManageCharacters /> : null }
+      </div>
+    )
   }
 }
 

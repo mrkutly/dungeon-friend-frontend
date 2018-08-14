@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import RaceTilesContainer from './NewForm/RaceTilesContainer'
-import JobTilesContainer from './NewForm/JobTilesContainer'
+import Adapter from '../Adapter'
+import RaceTilesContainer from './Containers/RaceTilesContainer'
+import JobTilesContainer from './Containers/JobTilesContainer'
 
 class CreateCharacter extends Component {
 
   state = {
+    jobs: [],
+    races: [],
     name: '',
     startingLvl: 1,
     raceId: null,
@@ -50,21 +53,27 @@ class CreateCharacter extends Component {
     this.setState({ magicSchoolId })
   }
 
+  componentDidMount() {
+    Adapter.get('jobs').then(({ jobs }) => this.setState({ jobs }))
+    Adapter.get('races').then(({ races }) => this.setState({ races }))
+  }
+
   render() {
+    const { races, jobs, name, startingLvl } = this.state
     return (
       <div>
         <form>
           <h1>Name</h1>
-          <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+          <input type="text" value={name} onChange={this.handleNameChange} />
 
           <h1>Starting Level</h1>
-          <input type="number" min="1" max="99" value={this.state.startingLvl} onChange={this.handleLvlChange}/>
+          <input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
 
           <h1>Race</h1>
-          <RaceTilesContainer setRaceId={this.setRaceId}/>
+          <RaceTilesContainer setRaceId={this.setRaceId} races={races} />
 
           <h1>Class</h1>
-          <JobTilesContainer setClassId={this.setJobId}/>
+          <JobTilesContainer setClassId={this.setJobId} jobs={jobs} />
           <button type="submit">Create</button>
         </form>
       </div>

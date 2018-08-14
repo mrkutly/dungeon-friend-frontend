@@ -5,14 +5,14 @@ font-family: 'Quicksand', sans-serif; */
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   min-width: 70rem;
   margin: 0;
 }
 
 canvas {
-  background-color: #0000;
+  background-color: white;
 }
 
 ul {
@@ -36,8 +36,6 @@ li {
 }
 
 .logo {
-  position: relative;
-  left: 12.5%;
   z-index: 0;
 }
 
@@ -112,7 +110,7 @@ li {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4em;
-  color: #fff;
+  color: #000;
   text-shadow: 1px 1px black;
   opacity: 1;
   transition: 2s;

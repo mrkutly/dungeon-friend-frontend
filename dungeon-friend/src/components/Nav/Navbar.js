@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Navigation from './Navigation'
-import Logo from './Logo'
+import Logo from '../Logo/Logo'
 
 class Navbar extends Component {
   constructor(props) {

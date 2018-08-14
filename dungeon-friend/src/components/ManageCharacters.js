@@ -1,6 +1,6 @@
 import React from 'react'
-import CharacterSheet from './ManageCharacters/CharacterSheet'
-import CharactersListContainer from './ManageCharacters/CharactersListContainer'
+import CharacterSheet from './Characters/CharacterSheet'
+import CharactersListContainer from './Containers/CharactersListContainer.js'
 
 const ManageCharacters = (props) => {
 

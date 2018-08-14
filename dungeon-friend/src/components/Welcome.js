@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ThreeScene from './ThreeScene'
+import ThreeScene from './Logo/ThreeScene'
 
 class Welcome extends Component {
   constructor(props) {

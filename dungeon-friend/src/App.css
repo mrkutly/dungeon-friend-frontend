@@ -5,10 +5,28 @@ font-family: 'Quicksand', sans-serif; */
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   min-width: 70rem;
   margin: 0;
+}
+
+button {
+  outline: none;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+}
+
+button:active {
+  transform: translateY(1px);
 }
 
 canvas {
@@ -17,11 +35,14 @@ canvas {
 
 ul {
   list-style-type: none;
+}
+
+ul.nav-list {
   margin-top: 0;
   text-align: right;
 }
 
-li {
+li.nav-items {
   display: inline;
 }
 
@@ -49,6 +70,9 @@ li {
 }
 
 .home {
+  min-height: 100vh;
+  background-color: white;
+  color: black;
   opacity: 1;
   transition: 1s;
 }
@@ -66,29 +90,18 @@ li {
 }
 
 .navigation-btns {
-  outline: none;
-  border: 1px solid black;
-  background-color: black;
-  color: white;
   font-size: 1.4em;
   display: inline;
-  transition-duration: 0.2s;
-  -webkit-transition-duration: 0.2s;
 }
 
-.navigation-btns:hover {
-  background-color: white;
-  color: black;
-}
-
-.navigation-btns:active {
-  transform: translateY(1px);
+.page-body {
+  margin: 0 5%;
 }
 
 .site-name {
   font-family: 'Monoton', cursive;
   font-size: 300%;
-  color: White;
+  color: white;
   position: absolute;
   top: 4rem;
   left: 21.152%;
@@ -110,7 +123,7 @@ li {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 4em;
-  color: #000;
+  color: white;
   text-shadow: 1px 1px black;
   opacity: 1;
   transition: 2s;

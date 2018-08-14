@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Grid from '@material-ui/core/Grid';
 import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
@@ -63,17 +64,20 @@ class CreateCharacter extends Component {
     return (
       <div>
         <form>
+
           <h1>Name</h1>
           <input type="text" value={name} onChange={this.handleNameChange} />
 
           <h1>Starting Level</h1>
           <input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
 
+
           <h1>Race</h1>
           <RaceTilesContainer setRaceId={this.setRaceId} races={races} />
 
           <h1>Class</h1>
           <JobTilesContainer setClassId={this.setJobId} jobs={jobs} />
+
           <button type="submit">Create</button>
         </form>
       </div>

@@ -8,14 +8,14 @@ class Navigation extends Component {
 
   showButtons = () => {
     return (
-      <ul>
-        <li>
+      <ul className='nav-list'>
+        <li className='nav-items'>
           <button className="navigation-btns" onClick={this.handleButtonClick} value="createCharacter">
             Create Character
           </button>
         </li>
 
-        <li>
+        <li className='nav-items'>
           <button className="navigation-btns" onClick={this.handleButtonClick} value="manageCharacter">
             Manage Characters
           </button>

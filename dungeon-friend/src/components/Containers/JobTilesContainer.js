@@ -26,7 +26,9 @@ class JobTilesContainer extends Component {
     return (
       <div>
         { currentJob ? <JobDisplay job={this.state.currentJob} /> : null }
-        { this.jobTiles() }
+        <ul>  
+          { this.jobTiles() }
+        </ul>
       </div>
     )
   }

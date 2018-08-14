@@ -41,9 +41,11 @@ class Home extends Component {
     return (
       <div className="home hidden" ref={this.homeDiv}>
         <Navbar setCurrentPage={this.setCurrentPage} currentUser={currentUser} />
-        {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
-        {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id} /> : null }
-        {currentPage === 'manageCharacter' ? <ManageCharacters /> : null }
+        <div className="page-body">
+          {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
+          {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id} /> : null }
+          {currentPage === 'manageCharacter' ? <ManageCharacters /> : null }
+        </div>
       </div>
     )
   }

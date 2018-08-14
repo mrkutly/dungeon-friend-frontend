@@ -26,7 +26,9 @@ class RaceTilesContainer extends Component {
     return (
       <div>
         { currentRace ? <RaceDisplay race={this.state.currentRace} /> : null }
-        {this.raceTiles()}
+        <ul>
+          {this.raceTiles()}
+        </ul>
       </div>
     )
   }

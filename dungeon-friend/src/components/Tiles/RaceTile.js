@@ -5,13 +5,14 @@ const RaceTile = (props) => {
   const { race, setCurrentRace } = props
 
   const handleClick = (e) => {
+    e.preventDefault()
     setCurrentRace(race.id)
   }
 
   return (
-    <div onClick={handleClick}>
-      <p>{race.name}</p>
-    </div>
+    <li>
+      <a href="#" onClick={handleClick} >{race.name}</a>
+    </li>
   )
 }
 

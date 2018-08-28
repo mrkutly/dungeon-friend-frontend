@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Nav/Navbar'
 import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
-import ManageCharacters from './ManageCharacters'
+import CharacterCardsContainer from './Containers/CharacterCardsContainer'
 import { connect } from 'react-redux'
 
 
@@ -28,7 +28,7 @@ class Home extends Component {
         <div className="page-body">
           {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
           {currentPage === 'createCharacter' ? <CreateCharacter /> : null }
-          {currentPage === 'manageCharacter' ? <ManageCharacters /> : null }
+          {currentPage === 'characters' ? <CharacterCardsContainer /> : null }
         </div>
       </div>
     )

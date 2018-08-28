@@ -18,7 +18,7 @@ class Navigation extends Component {
         </li>
 
         <li className='nav-items'>
-          <button className="navigation-btns" onClick={this.handleButtonClick} value="manageCharacter">
+          <button className="navigation-btns" onClick={this.handleButtonClick} value="characters">
             Manage Characters
           </button>
         </li>

@@ -1,14 +1,14 @@
 import React from 'react'
 
 const JobDisplay = (props) => {
-  console.log(props)
+
   const { name,
           hit_die,
           proficiencies,
           proficiency_choices,
           saving_throws, subclasses } = props.job.data
 
-  const mappedProficiencies = proficiencies.map(prof => <li key={prof.name}>{prof.name}</li>)
+  const mappedProficiencies = proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
 
   const mappedProfiencyChoices = proficiency_choices.map(prof => {
     return (
@@ -24,22 +24,22 @@ const JobDisplay = (props) => {
   const mappedSavingThrows = saving_throws.map(save => {
     switch(save.name){
       case 'DEX':
-        return <li>Dexterity</li>;
+        return <li key="dexterity">Dexterity</li>;
 
       case 'CHA':
-        return <li>Charisma</li>;
+        return <li key="charisma">Charisma</li>;
 
       case 'STR':
-        return <li>Strength</li>;
+        return <li key="strength">Strength</li>;
 
       case 'CON':
-        return <li>Constitution</li>;
+        return <li key="constitution">Constitution</li>;
 
       case 'WIS':
-        return <li>Wisdom</li>;
+        return <li key="wisdom">Wisdom</li>;
 
       case 'INT':
-        return <li>Intelligence</li>;
+        return <li key="intelligence">Intelligence</li>;
 
       default:
         return null;
@@ -49,31 +49,42 @@ const JobDisplay = (props) => {
 
   return (
     <div className="display">
-      <div className="job-display-left">
+      <div>
         <h1>{name}</h1>
         <h2>Hit Die: {hit_die}</h2>
       </div>
 
-      <div className="job-display-left">
+      <div>
         <h2>Starting Proficiencies</h2>
         <ul>
           {mappedProficiencies}
         </ul>
       </div>
 
-      <div className="job-display-left">
+      <div>
         <h2>Profiency Choices</h2>
         {mappedProfiencyChoices}
       </div>
 
-      <div className="job-display-left">
+      <div>
         <h2>Saving Throws</h2>
         <ul>
           {mappedSavingThrows}
         </ul>
       </div>
 
-      <button className="show-all-jobs-btn" onClick={() => props.back()}> Show all classes </button>
+      {
+        subclasses.length > 0 ?
+          <div>
+            <h2>Subclasses</h2>
+            <ul>
+              {subclasses.map(sub => <li key={sub.name}>{sub.name}</li>)}
+            </ul>
+          </div> :
+          null
+      }
+
+      <button onClick={() => props.back()}> Show all classes </button>
     </div>
   )
 }

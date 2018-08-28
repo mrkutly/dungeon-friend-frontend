@@ -19,7 +19,7 @@ class Navbar extends Component {
     return (
       <div className="navbar hidden" ref={this.navbarDiv}>
         <Logo />
-        <Navigation setCurrentPage={this.props.setCurrentPage} currentUser={this.props.currentUser} />
+        <Navigation />
       </div>
     )
   }

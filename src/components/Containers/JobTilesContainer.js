@@ -2,22 +2,25 @@ import React, { Component } from 'react'
 import Adapter from '../../Adapter'
 import JobTile from '../Tiles/JobTile'
 import JobDisplay from '../Tiles/JobDisplay.js'
+import { connect } from 'react-redux'
+import { setCurrentJob, setJobs } from '../../redux/actions.js'
+
 
 class JobTilesContainer extends Component {
 
-  state = {
-    currentJob: null
+  componentDidMount() {
+    Adapter.get('jobs').then(({ jobs }) => this.props.setJobs(jobs))
   }
 
   setCurrentJob = (jobId) => {
     Adapter.get(`jobs/${jobId}`)
       .then(currentJob => {
-        this.setState({ currentJob })
+        this.props.setCurrentJob(currentJob)
       })
   }
 
   removeCurrentJob = () => {
-    this.setState({ currentJob: null })
+    this.props.setCurrentJob(null)
   }
 
   jobTiles = () => {
@@ -27,16 +30,30 @@ class JobTilesContainer extends Component {
   }
 
   render() {
-    const { currentJob } = this.state
+    const { currentJob } = this.props
 
     return (
       <div>
         <div className="flex-container">
-          { currentJob ? <JobDisplay job={this.state.currentJob} back={this.removeCurrentJob} /> : this.jobTiles() }
+          { currentJob ? <JobDisplay job={currentJob} back={this.removeCurrentJob} /> : this.jobTiles() }
         </div>
       </div>
     )
   }
 }
 
-export default JobTilesContainer
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentJob: (job) => { dispatch( setCurrentJob(job) ) },
+    setJobs: (jobs) => { dispatch( setJobs(jobs) )}
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    jobs: state.jobs,
+    currentJob: state.currentJob
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(JobTilesContainer)

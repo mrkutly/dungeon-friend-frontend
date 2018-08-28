@@ -2,22 +2,25 @@ import React, { Component } from 'react'
 import Adapter from '../../Adapter'
 import RaceTile from '../Tiles/RaceTile'
 import RaceDisplay from '../Tiles/RaceDisplay.js'
+import { connect } from 'react-redux'
+import { setCurrentRace, setRaces } from '../../redux/actions.js'
+
 
 class RaceTilesContainer extends Component {
 
-  state = {
-    currentRace: null
+  componentDidMount() {
+    Adapter.get('races').then(({ races }) => this.props.setRaces(races))
   }
 
   setCurrentRace = (raceId) => {
     Adapter.get(`races/${raceId}`)
       .then(currentRace => {
-        this.setState({ currentRace })
+        this.props.setCurrentRace(currentRace)
       })
   }
 
   removeCurrentRace = () => {
-    this.setState({ currentRace: null })
+    this.props.setCurrentRace(null)
   }
 
   raceTiles = () => {
@@ -27,14 +30,29 @@ class RaceTilesContainer extends Component {
   }
 
   render(){
-    const { currentRace } = this.state
+    const { currentRace } = this.props
 
     return (
       <div className='flex-container'>
-        { currentRace ? <RaceDisplay race={this.state.currentRace} back={this.removeCurrentRace} /> : this.raceTiles() }
-      </div>  
+        { currentRace ? <RaceDisplay race={currentRace} back={this.removeCurrentRace} /> : this.raceTiles() }
+      </div>
     )
   }
 }
 
-export default RaceTilesContainer
+const mapStateToProps = (state) => {
+  return {
+    races: state.races,
+    currentRace: state.currentRace
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setRaces: (races) => { dispatch( setRaces(races) )},
+    setCurrentRace: (race) => { dispatch( setCurrentRace(race) )}
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RaceTilesContainer)

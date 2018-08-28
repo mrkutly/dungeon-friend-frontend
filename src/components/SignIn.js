@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Adapter from '../Adapter'
+import { connect } from 'react-redux'
+import { setCharacters, setCurrentUser } from '../redux/actions.js'
 
 class SignIn extends Component {
   constructor() {
@@ -18,7 +20,12 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     Adapter.login(this.state.username)
-      .then(user => this.props.setCurrentUser(user))
+      .then(user => this.setCurrentUser(user))
+  }
+
+  setCurrentUser = (user) => {
+    this.props.setCurrentUser(user)
+    Adapter.get(`test_users/${user.id}/characters`).then( ({ characters }) => this.props.setCharacters(characters))
   }
 
   render() {
@@ -31,4 +38,12 @@ class SignIn extends Component {
   }
 }
 
-export default SignIn
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCharacters: (characters) => { dispatch( setCharacters(characters) )},
+    setCurrentUser: (user) => { dispatch( setCurrentUser(user) )}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)

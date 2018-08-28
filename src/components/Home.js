@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Adapter from '../Adapter'
 import Navbar from './Nav/Navbar'
 import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
 import ManageCharacters from './ManageCharacters'
+import { connect } from 'react-redux'
 
 
 class Home extends Component {
@@ -11,11 +11,6 @@ class Home extends Component {
     super(props)
 
     this.homeDiv = React.createRef()
-
-    this.state = {
-      currentPage: 'signIn',
-      currentUser: null,
-    }
   }
 
   componentDidMount() {
@@ -24,26 +19,15 @@ class Home extends Component {
     }, 500)
   }
 
-  setCurrentPage = (pageName) => {
-    this.setState({
-      currentPage: pageName
-    })
-  }
-
-  setCurrentUser = (currentUser) => {
-    this.setState({ currentUser })
-    Adapter.get(`test_users/${currentUser.id}/characters`).then( ({ characters }) => this.setState({ characters }))
-  }
-
   render() {
-    const { currentPage, currentUser } = this.state
+    const { currentPage } = this.props
 
     return (
       <div className="home hidden" ref={this.homeDiv}>
-        <Navbar setCurrentPage={this.setCurrentPage} currentUser={currentUser} />
+        <Navbar />
         <div className="page-body">
           {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
-          {currentPage === 'createCharacter' ? <CreateCharacter userId={currentUser.id} /> : null }
+          {currentPage === 'createCharacter' ? <CreateCharacter /> : null }
           {currentPage === 'manageCharacter' ? <ManageCharacters /> : null }
         </div>
       </div>
@@ -51,4 +35,10 @@ class Home extends Component {
   }
 }
 
-export default Home
+const mapStateToProps = (state) => {
+  return {
+    currentPage: state.currentPage
+  }
+}
+
+export default connect(mapStateToProps)(Home)

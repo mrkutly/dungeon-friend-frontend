@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { setCurrentPage } from '../../redux/actions.js'
 
 class Navigation extends Component {
 
@@ -34,4 +36,16 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentPage: (page) => { dispatch( setCurrentPage(page) )},
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

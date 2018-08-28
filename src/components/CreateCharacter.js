@@ -2,19 +2,14 @@ import React, { Component } from 'react'
 import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
+import { connect } from 'react-redux'
+import { addCharacter } from '../redux/actions.js'
 
 class CreateCharacter extends Component {
 
   state = {
-    jobs: [],
-    races: [],
     name: '',
     startingLvl: 1,
-    raceId: null,
-    jobId: null,
-    subRaceId: null,
-    subClassId: null,
-    magicSchoolId: null
   }
 
   handleNameChange = (e) => {
@@ -25,44 +20,33 @@ class CreateCharacter extends Component {
     this.setState({ startingLvl: e.target.value })
   }
 
-  setName = (name) => {
-    this.setState({ name })
+  handleCreate = (e) => {
+    e.preventDefault()
+    Adapter.createCharacter(this.newCharacter())
+      .then(r => this.props.addCharacter(r.character))
   }
 
-  setStartingLvl = (startingLvl) => {
-    this.setState({ startingLvl })
-  }
+  newCharacter = () => {
+    const { name, startingLvl } = this.state
+    const job_id = this.props.currentJob.id
+    const race_id = this.props.currentRace.id
+    const test_user_id = this.props.currentUser.id
 
-  setRaceId = (raceId) => {
-    this.setState({ raceId })
-  }
-
-  setJobId = (jobId) => {
-    this.setState({ jobId })
-  }
-
-  setSubRaceId = (subRaceId) => {
-    this.setState({ subRaceId })
-  }
-
-  setSubClassId = (subClassId) => {
-    this.setState({ subClassId })
-  }
-
-  setMagicSchoolId = (magicSchoolId) => {
-    this.setState({ magicSchoolId })
-  }
-
-  componentDidMount() {
-    Adapter.get('jobs').then(({ jobs }) => this.setState({ jobs }))
-    Adapter.get('races').then(({ races }) => this.setState({ races }))
+    return {
+      name,
+      level: startingLvl,
+      race_id,
+      job_id,
+      test_user_id
+    }
   }
 
   render() {
-    const { races, jobs, name, startingLvl } = this.state
+    const { name, startingLvl } = this.state
+
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleCreate}>
 
           <h1>Name</h1>
           <input type="text" value={name} onChange={this.handleNameChange} />
@@ -73,12 +57,12 @@ class CreateCharacter extends Component {
           <div className="grid">
             <div className="race-container">
               <h1>Race</h1>
-              <RaceTilesContainer setRaceId={this.setRaceId} races={races} />
+              <RaceTilesContainer />
             </div>
 
             <div className="class-container">
               <h1>Class</h1>
-              <JobTilesContainer setClassId={this.setJobId} jobs={jobs} />
+              <JobTilesContainer />
             </div>
           </div>
 
@@ -89,4 +73,18 @@ class CreateCharacter extends Component {
   }
 }
 
-export default CreateCharacter
+const mapStateToProps = (state) => {
+  return {
+    currentRace: state.currentRace,
+    currentJob: state.currentJob,
+    currentUser: state.currentUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addCharacter: (character) => { dispatch( addCharacter(character) )}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateCharacter)

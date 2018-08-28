@@ -3,11 +3,12 @@ const baseUrl = 'http://localhost:3000'
 
 
 const Adapter = {
-  login: function(name) {
-    return fetch(`${baseUrl}/sessions`, {
+
+  createCharacter: function(character) {
+    return fetch(`${baseUrl}/characters`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({ user: { name }})
+      body: JSON.stringify({ character })
     })
       .then(resp => resp.json())
   },
@@ -18,6 +19,15 @@ const Adapter = {
 
   getData: function(url) {
     return fetch(url).then(resp => resp.json())
+  },
+
+  login: function(name) {
+    return fetch(`${baseUrl}/sessions`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ user: { name }})
+    })
+      .then(resp => resp.json())
   }
 }
 

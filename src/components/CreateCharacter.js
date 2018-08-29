@@ -4,12 +4,18 @@ import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
 import { editNewCharacter } from '../redux/actions.js'
+import SelectLanguages from './modals/SelectLanguages'
+import SelectProficiencies from './modals/SelectProficiencies'
+import SelectStartingEquipment from './modals/SelectStartingEquipment'
+import SelectSubClass from './modals/SelectSubClass'
+import SelectSubRace from './modals/SelectSubRace'
+import SelectTraits from './modals/SelectTraits'
 
 class CreateCharacter extends Component {
 
   state = {
     name: '',
-    startingLvl: 1,
+    startingLvl: 1
   }
 
   handleNameChange = (e) => {
@@ -28,21 +34,24 @@ class CreateCharacter extends Component {
 
   newCharacter = () => {
     const { name, startingLvl } = this.state
-    const job_id = this.props.currentJob.id
-    const race_id = this.props.currentRace.id
+    const { currentJob, currentRace } = this.props
     const test_user_id = this.props.currentUser.id
 
     return {
       name,
       level: startingLvl,
-      race_id,
-      job_id,
+      race: currentRace,
+      job: currentJob,
       test_user_id
     }
   }
 
   render() {
+    const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
+
+    console.log("current job: ", currentJob)
+    console.log("current race: ", currentRace)
 
     return (
       <div>
@@ -66,7 +75,25 @@ class CreateCharacter extends Component {
             </div>
           </div>
 
-          <button className="create-button" type="submit">Next</button>
+          {/* Finish these ternaries. Check console for possible options in races and jobs */}
+          { currentRace && currentRace.data.language_options ? <SelectLanguages otherProps={{race: currentRace}}/> : null }
+
+          {
+            currentJob && currentRace && (currentJob.data.proficiency_choices || currentRace.data.starting_proficiency_options) ?
+              <SelectProficiencies otherProps={{ job: currentJob, race: currentRace }}/>
+              : null
+          }
+
+          { currentJob ? <SelectStartingEquipment otherProps={{ job: currentJob }}/> : null }
+
+          { currentJob && currentJob.data.subclasses ? <SelectSubClass otherProps={{ job: currentJob }}/> : null }
+
+          { currentRace && currentRace.data.trait_options ? <SelectTraits otherProps={{ race: currentRace }}/> : null }
+
+          { currentRace && currentRace.data.subraces ? <SelectSubRace otherProps={{ race: currentRace}}/> : null }
+
+          {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
+          <button className="create-button" type="submit">Create</button>
         </form>
       </div>
     )

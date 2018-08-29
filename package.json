@@ -11,6 +11,8 @@
     "react-scripts": "1.1.4",
     "react-transition-group": "^2.4.0",
     "redux": "^4.0.0",
+    "semantic-ui-css": "^2.3.3",
+    "semantic-ui-react": "^0.82.3",
     "three": "^0.95.0"
   },
   "scripts": {

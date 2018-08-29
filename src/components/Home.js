@@ -3,6 +3,8 @@ import Navbar from './Nav/Navbar'
 import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
 import CharacterCardsContainer from './Containers/CharacterCardsContainer'
+import CharacterSheet from './Characters/CharacterSheet'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -20,16 +22,18 @@ class Home extends Component {
   }
 
   render() {
-    const { currentPage } = this.props
-
+    const { currentUser } = this.props
     return (
       <div className="home hidden" ref={this.homeDiv}>
-        <Navbar />
-        <div className="page-body">
-          {currentPage === 'signIn' ? <SignIn setCurrentUser={this.setCurrentUser} /> : null }
-          {currentPage === 'createCharacter' ? <CreateCharacter /> : null }
-          {currentPage === 'characters' ? <CharacterCardsContainer /> : null }
-        </div>
+        <Router>
+          <React.Fragment>
+            <Navbar />
+            <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
+            <Route exact path="/create" component={CreateCharacter} />
+            <Route exact path="/characters" component={CharacterCardsContainer} />
+            <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
+          </React.Fragment>
+        </Router>
       </div>
     )
   }
@@ -37,7 +41,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentPage: state.currentPage
+    currentUser: state.currentUser
   }
 }
 

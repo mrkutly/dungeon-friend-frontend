@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import Welcome from './components/Welcome'
 import Home from './components/Home'
 
@@ -7,7 +7,7 @@ import Home from './components/Home'
 class App extends Component {
 
   state = {
-    welcome: true
+    welcome: false
   }
 
   componentDidMount() {
@@ -27,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App

@@ -3,11 +3,10 @@ import CharacterCard from '../Characters/CharacterCard'
 import { connect } from 'react-redux'
 
 const CharacterCardsContainer = (props) => {
-  console.log(props.characters)
   const mappedCharacters = props.characters.map(char => <CharacterCard key={char.name} character={char} />)
 
   return (
-    <div>
+    <div className="wrapper">
       {mappedCharacters}
     </div>
   )

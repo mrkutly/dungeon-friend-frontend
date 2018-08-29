@@ -1,39 +1,37 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setCurrentPage } from '../../redux/actions.js'
 
-class Navigation extends Component {
+const link = {
+  textDecoration: "none"
+}
 
-  handleButtonClick = (e) => {
-    this.props.setCurrentPage(e.target.value)
-  }
-
-  showButtons = () => {
-    return (
+const Navigation = (props) => {
+  return (
+    <div className="navigation-btns-container">
       <ul className='nav-list'>
+        {!props.currentUser ?
+          <li className='nav-items'>
+            <NavLink to="/signin" style={link}>
+              <button className="navigation-btns">Sign In</button>
+            </NavLink>
+          </li>
+          : null }
+
         <li className='nav-items'>
-          <button className="navigation-btns" onClick={this.handleButtonClick} value="createCharacter">
-            Create Character
-          </button>
+          <NavLink to="/create" style={link}>
+            <button className="navigation-btns">Create Character</button>
+          </NavLink>
         </li>
 
         <li className='nav-items'>
-          <button className="navigation-btns" onClick={this.handleButtonClick} value="characters">
-            Manage Characters
-          </button>
+          <NavLink to="/characters" style={link}>
+            <button className="navigation-btns">Characters</button>
+          </NavLink>
         </li>
       </ul>
-    )
-  }
-
-  render() {
-    const { currentUser } = this.props
-    return (
-      <div className="navigation-btns-container">
-        {currentUser ? this.showButtons() : null }
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
@@ -42,10 +40,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCurrentPage: (page) => { dispatch( setCurrentPage(page) )},
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation)
+export default connect(mapStateToProps)(Navigation)

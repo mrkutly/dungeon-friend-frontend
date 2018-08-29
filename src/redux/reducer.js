@@ -1,16 +1,14 @@
 
-const defaultState = {
+const initialState = {
   characters: [],
   currentRace: null,
   currentJob: null,
-  currentPage: 'signIn',
   currentUser: null,
   jobs: [],
-  races: [],
-  welcome: true
+  races: []
 }
 
-export const reducer = (state = defaultState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case 'ADD_CHARACTER':

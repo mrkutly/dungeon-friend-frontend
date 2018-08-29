@@ -50,6 +50,20 @@ li.nav-items {
   padding: 8px;
 }
 
+.card {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding: 20px;
+  text-align: center;
+}
+
+.card:hover {
+  overflow: hidden;
+  font-size: 1.05em;
+  transition: 0.2s;
+}
+
 .dice {
   margin: 0;
   padding: 0;
@@ -178,4 +192,18 @@ li.nav-items {
 .welcome-text.hidden {
   opacity: 0;
   transition: 2s;
+}
+
+
+
+/* GRID STYLES */
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.one {
+  grid-column: 1;
+  grid-row: 1;
 }

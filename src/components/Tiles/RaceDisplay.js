@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RaceDisplay = (props) => {
-
+  console.log(props.race)
   const { name, speed,
           ability_bonuses,
           starting_proficiencies,
@@ -22,6 +22,8 @@ const RaceDisplay = (props) => {
 
       <h2>Ability Score Bonuses</h2>
       <ul>
+        {/* Tiefling stats are backwards on the API */}
+        {/* Remove these ternaries when my pull request gets accepted */}
         <li>Strength: {name === 'Tiefling' ? ability_bonuses[5] : ability_bonuses[0]}</li>
         <li>Dexterity: {name === 'Tiefling' ? ability_bonuses[4] : ability_bonuses[1]}</li>
         <li>Constitution: {name === 'Tiefling' ? ability_bonuses[3] : ability_bonuses[2]}</li>

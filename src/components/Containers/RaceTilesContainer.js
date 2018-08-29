@@ -14,9 +14,7 @@ class RaceTilesContainer extends Component {
 
   setCurrentRace = (raceId) => {
     Adapter.get(`races/${raceId}`)
-      .then(currentRace => {
-        this.props.setCurrentRace(currentRace)
-      })
+      .then(race => this.props.setCurrentRace(race))
   }
 
   removeCurrentRace = () => {

@@ -5,7 +5,8 @@ const initialState = {
   currentJob: null,
   currentUser: null,
   jobs: [],
-  races: []
+  races: [],
+  newCharacter: {}
 }
 
 export const reducer = (state = initialState, action) => {
@@ -15,6 +16,15 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         characters: [...state.characters, action.payload]
+      };
+
+    case 'EDIT_NEW_CHARACTER':
+      return {
+        ...state,
+        newCharacter: {
+          ...state.newCharacter,
+          ...action.payload
+        }
       };
 
     case 'SET_CHARACTERS':

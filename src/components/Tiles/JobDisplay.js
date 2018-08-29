@@ -1,6 +1,7 @@
 import React from 'react'
 
 const JobDisplay = (props) => {
+  console.log(props.job)
 
   const { name,
           hit_die,

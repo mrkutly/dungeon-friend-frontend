@@ -5,6 +5,13 @@ export const addCharacter = (character) => {
   }
 }
 
+export const editNewCharacter = (character) => {
+  return {
+    type: "EDIT_NEW_CHARACTER",
+    payload: character
+  }
+}
+
 export const setCharacters = (characters) => {
   return {
     type: "SET_CHARACTERS",

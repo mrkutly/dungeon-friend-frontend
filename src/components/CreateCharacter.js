@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Adapter from '../Adapter'
+// import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
-import { addCharacter } from '../redux/actions.js'
+import { editNewCharacter } from '../redux/actions.js'
 
 class CreateCharacter extends Component {
 
@@ -20,10 +20,10 @@ class CreateCharacter extends Component {
     this.setState({ startingLvl: e.target.value })
   }
 
-  handleCreate = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault()
-    Adapter.createCharacter(this.newCharacter())
-      .then(r => this.props.addCharacter(r.character))
+    const character = this.newCharacter()
+    this.props.editNewCharacter(character)
   }
 
   newCharacter = () => {
@@ -46,7 +46,7 @@ class CreateCharacter extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleCreate}>
+        <form onSubmit={this.handleSubmit}>
 
           <h1>Name</h1>
           <input type="text" value={name} onChange={this.handleNameChange} />
@@ -66,7 +66,7 @@ class CreateCharacter extends Component {
             </div>
           </div>
 
-          <button className="create-button" type="submit">Create</button>
+          <button className="create-button" type="submit">Next</button>
         </form>
       </div>
     )
@@ -77,13 +77,14 @@ const mapStateToProps = (state) => {
   return {
     currentRace: state.currentRace,
     currentJob: state.currentJob,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    newCharacter: state.newCharacter
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addCharacter: (character) => { dispatch( addCharacter(character) )}
+    editNewCharacter: (character) => { dispatch( editNewCharacter(character) )}
   }
 }
 

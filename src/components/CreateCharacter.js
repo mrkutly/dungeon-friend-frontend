@@ -16,7 +16,8 @@ class CreateCharacter extends Component {
   state = {
     name: '',
     startingLvl: 1,
-    languages: []
+    languages: [],
+    startingEquipment: []
   }
 
   handleNameChange = (e) => {
@@ -51,6 +52,10 @@ class CreateCharacter extends Component {
     this.setState({ languages })
   }
 
+  setStartingEquipment = (startingEquipment) => {
+    this.setState({ startingEquipment })
+  }
+
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
@@ -80,7 +85,7 @@ class CreateCharacter extends Component {
           {/* Conditionally render buttons that open modals for options based on race or job */}
           { currentRace && currentRace.data.language_options ? <SelectLanguages setLanguages={this.setLanguages} /> : null }
 
-          { currentJob ? <SelectStartingEquipment /> : null }
+          { currentJob ? <SelectStartingEquipment setStartingEquipment={this.setStartingEquipment} /> : null }
 
           {/* { currentJob && currentJob.data.subclasses ? <SelectSubClass job={currentJob}/> : null } */}
 

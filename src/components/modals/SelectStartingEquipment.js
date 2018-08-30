@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Modal, Header, Button } from 'semantic-ui-react'
 import Adapter from '../../Adapter'
 
 class SelectStartingEquipment extends Component {
@@ -37,6 +37,29 @@ class SelectStartingEquipment extends Component {
         }
       })
     }
+  }
+
+  handleSave = (e) => {
+    const { choices, choice1, choice2, choice3, choice4, choice5, choice6, starting } = this.state
+    const selected = [
+      ...choice1, ...choice2,
+      ...choice3, ...choice4,
+      ...choice5, ...choice6
+    ]
+
+    let equipmentList = [...starting]
+
+    //get the full equipment object, not just this name
+    choices.forEach(choice => {
+      choice.from.forEach(equipment => {
+        if (selected.includes(equipment.item.name)) {
+          equipmentList.push(equipment)
+        }
+      })
+    })
+
+    this.props.setStartingEquipment(equipmentList)
+    e.target.textContent = "Saved!"
   }
 
   // choices the user must make
@@ -89,8 +112,6 @@ class SelectStartingEquipment extends Component {
   }
 
   render() {
-    console.log(this.state)
-    const { choices } = this.state
     return (
       <Modal trigger={<Button type="button">Choose your starting equipment</Button>}>
         <Modal.Header>Starting Equipment</Modal.Header>
@@ -107,8 +128,8 @@ class SelectStartingEquipment extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button primary>
-            Proceed <Icon name='right chevron' />
+          <Button primary onClick={this.handleSave}>
+            Save
           </Button>
         </Modal.Actions>
       </Modal>

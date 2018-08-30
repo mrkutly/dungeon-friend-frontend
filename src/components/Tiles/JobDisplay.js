@@ -1,80 +1,123 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const JobDisplay = (props) => {
+class JobDisplay extends Component {
 
-  const { name,
-          hit_die,
-          proficiencies,
-          proficiency_choices,
-          saving_throws, subclasses } = props.job.data
+  state = {
+    selectedProficiencies: [],
+    secondProficiencies: []
+  }
 
-  const mappedProficiencies = proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
+  handleCheckboxChange(e, num, proficiencyList) {
 
-  const mappedProfiencyChoices = proficiency_choices.map(prof => {
-    return (
-      <div key={prof.from[0].name}>
-        <p>Choose {prof.choose} from</p>
-        <ul>
-          {prof.from.map(choice => <li key={choice.url}>{choice.name}</li>)}
-        </ul>
-      </div>
-    )
-  })
+    // Checks to see if already selected. If it is, unselect it
+    if (this.state[proficiencyList].includes(e.target.value)) {
+      const filteredProfs = this.state[proficiencyList].filter(prof => prof !== e.target.value)
+      this.setState({ [proficiencyList]: filteredProfs })
 
-  const mappedSavingThrows = saving_throws.map(save => {
-    switch(save.name){
-      case 'DEX':
+    // Checks to see how many have been selected
+  } else if (this.state[proficiencyList].length < num) {
+      const prof = e.target.value
+      this.setState(prevState => {
+        return {
+          [proficiencyList]: [...prevState[proficiencyList], prof]
+        }
+      })
+    }
+  }
+
+  mappedProficiencies = (proficiencies) => proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
+
+  mappedProfiencyChoices = (proficiencyChoices) => {
+    let i = 0
+
+    return proficiencyChoices.map(prof => {
+      // Chooses which array in state to compare selected proficiencies to
+      let proficiencyList = (i === 0 ? "selectedProficiencies" : "secondProficiencies")
+      ++i
+
+      return (
+        <div key={prof.from[0].name}>
+          <p>Choose {prof.choose} from</p>
+          <ul>
+            {prof.from.map(choice => (
+              <li key={choice.url}>
+
+                <input type="checkbox"
+                  value={choice.url}
+                  onChange={(e) => this.handleCheckboxChange(e, prof.choose, proficiencyList)}
+                  checked={(this.state[proficiencyList].includes(choice.url) ? true : false)}
+                />
+
+                <label>{choice.name}</label>
+              </li>))}
+          </ul>
+        </div>
+      )
+    })
+  }
+
+  mappedSavingThrows = (savingThrows) => {
+    return savingThrows.map(save => {
+      switch(save.name){
+        case 'DEX':
         return <li key="dexterity">Dexterity</li>;
 
-      case 'CHA':
+        case 'CHA':
         return <li key="charisma">Charisma</li>;
 
-      case 'STR':
+        case 'STR':
         return <li key="strength">Strength</li>;
 
-      case 'CON':
+        case 'CON':
         return <li key="constitution">Constitution</li>;
 
-      case 'WIS':
+        case 'WIS':
         return <li key="wisdom">Wisdom</li>;
 
-      case 'INT':
+        case 'INT':
         return <li key="intelligence">Intelligence</li>;
 
-      default:
+        default:
         return null;
-    }
-  })
+      }
+    })
+  }
 
+  render() {
+    const { name,
+            hit_die,
+            proficiencies,
+            proficiency_choices,
+            saving_throws, subclasses } = this.props.job.data
 
-  return (
-    <div className="display">
-      <div>
-        <h1>{name}</h1>
-        <h2>Hit Die: {hit_die}</h2>
-      </div>
+    return (
+      <div className="display">
+        <div>
+          <h1>{name}</h1>
+          <h2>Hit Die: {hit_die}</h2>
+        </div>
 
-      <div>
-        <h2>Starting Proficiencies</h2>
-        <ul>
-          {mappedProficiencies}
-        </ul>
-      </div>
+        <div>
+          <h2>Starting Proficiencies</h2>
+          <ul>
+            {this.mappedProficiencies(proficiencies)}
+          </ul>
+        </div>
 
-      <div>
-        <h2>Profiency Choices</h2>
-        {mappedProfiencyChoices}
-      </div>
+        <div>
+          <h2>Profiency Choices</h2>
+          {this.mappedProfiencyChoices(proficiency_choices)}
+        </div>
 
-      <div>
-        <h2>Saving Throws</h2>
-        <ul>
-          {mappedSavingThrows}
-        </ul>
-      </div>
+        <div>
+          <h2>Saving Throws</h2>
+          <ul>
+            {this.mappedSavingThrows(saving_throws)}
+          </ul>
+        </div>
 
-      {
-        subclasses.length > 0 ?
+        {
+          subclasses.length > 0 ?
           <div>
             <h2>Subclasses</h2>
             <ul>
@@ -82,11 +125,12 @@ const JobDisplay = (props) => {
             </ul>
           </div> :
           null
-      }
+        }
 
-      <button onClick={() => props.back()}> Show all classes </button>
-    </div>
-  )
+        <button onClick={() => this.props.back()}> Show all classes </button>
+      </div>
+    )
+  }
 }
 
 export default JobDisplay

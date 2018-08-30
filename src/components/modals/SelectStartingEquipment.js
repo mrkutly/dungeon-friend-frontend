@@ -4,7 +4,7 @@ import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 const SelectStartingEquipment = (props) => {
 
   return (
-    <Modal trigger={<Button>Choose your starting equipment</Button>}>
+    <Modal trigger={<Button type="button">Choose your starting equipment</Button>}>
      <Modal.Header>Starting Equipment</Modal.Header>
      <Modal.Content >
        <Modal.Description>

@@ -4,7 +4,7 @@ import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 const SelectLanguages = (props) => {
 
   return (
-    <Modal trigger={<Button>Choose your languages</Button>}>
+    <Modal trigger={<Button type="button">Choose your languages</Button>}>
      <Modal.Header>Languages</Modal.Header>
      <Modal.Content >
        <Modal.Description>

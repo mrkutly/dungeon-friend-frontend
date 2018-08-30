@@ -4,7 +4,7 @@ import { Modal, Header, Button, Icon } from 'semantic-ui-react'
 const SelectTraits = (props) => {
 
   return (
-    <Modal trigger={<Button>Choose your traits</Button>}>
+    <Modal trigger={<Button type="button">Choose your traits</Button>}>
      <Modal.Header>Traits</Modal.Header>
      <Modal.Content >
        <Modal.Description>

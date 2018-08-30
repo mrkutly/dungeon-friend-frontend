@@ -52,7 +52,6 @@ class CreateCharacter extends Component {
   }
 
   render() {
-    console.log(this.state.languages)
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
 
@@ -78,16 +77,10 @@ class CreateCharacter extends Component {
             </div>
           </div>
 
-          {/* Finish these ternaries. Check console for possible options in races and jobs */}
+          {/* Conditionally render buttons that open modals for options based on race or job */}
           { currentRace && currentRace.data.language_options ? <SelectLanguages setLanguages={this.setLanguages} /> : null }
 
-          {/* {
-            currentJob && currentRace && (currentJob.data.proficiency_choices || currentRace.data.starting_proficiency_options) ?
-              <SelectProficiencies />
-              : null
-          } */}
-
-          { currentJob ? <SelectStartingEquipment job={currentJob}/> : null }
+          { currentJob ? <SelectStartingEquipment /> : null }
 
           {/* { currentJob && currentJob.data.subclasses ? <SelectSubClass job={currentJob}/> : null } */}
 

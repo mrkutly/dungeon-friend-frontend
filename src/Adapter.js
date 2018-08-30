@@ -21,6 +21,10 @@ const Adapter = {
     return fetch(url).then(resp => resp.json())
   },
 
+  getStartingEquipment: function(url) {
+    return fetch(`${baseUrl}/starting_equipment`, {headers: { url }}).then(r => r.json())
+  },
+
   login: function(name) {
     return fetch(`${baseUrl}/sessions`, {
       method: 'POST',

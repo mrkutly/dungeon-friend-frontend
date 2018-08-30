@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Modal, Header, Button } from 'semantic-ui-react'
 
 class SelectLanguages extends Component {
 
@@ -9,7 +9,6 @@ class SelectLanguages extends Component {
   }
 
   handleCheckbox = (e, num) => {
-    console.log(num)
     const lang = e.target.value
 
     //checks to see if it is already selected
@@ -29,6 +28,7 @@ class SelectLanguages extends Component {
 
   handleSave = (e) => {
     this.props.setLanguages(this.state.languages)
+    e.target.textContent = "Saved!"
   }
 
   mappedLanguages = () => {
@@ -52,7 +52,7 @@ class SelectLanguages extends Component {
   render() {
     const { options } = this.props
     return (
-      <Modal trigger={<Button type="button">Choose your languages</Button>}>
+      <Modal trigger={<Button type="button">Choose your languages</Button>}  closeIcon>
         <Modal.Header>Languages</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -64,7 +64,7 @@ class SelectLanguages extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button type="button" primary onClick={this.handleSave}>
-            Save <Icon name='right chevron' />
+            Save
           </Button>
         </Modal.Actions>
       </Modal>

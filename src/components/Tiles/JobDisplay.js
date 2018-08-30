@@ -45,7 +45,7 @@ class JobDisplay extends Component {
                 <input type="checkbox"
                   value={choice.name}
                   onChange={(e) => this.handleCheckboxChange(e, prof.choose, proficiencyList)}
-                  checked={(this.state[proficiencyList].includes(choice.url) ? true : false)}
+                  checked={(this.state[proficiencyList].includes(choice.name) ? true : false)}
                 />
 
                 <label>{choice.name}</label>
@@ -84,6 +84,7 @@ class JobDisplay extends Component {
   }
 
   render() {
+    console.log(this.state)
     const { name,
             hit_die,
             proficiencies,

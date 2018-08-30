@@ -6,19 +6,18 @@ import Adapter from '../../Adapter'
 class SelectStartingEquipment extends Component {
 
   state = {
-    options: null,
-    selected: []
+    starting: [],
+    choices: []
   }
 
   componentDidMount() {
     const { url } = this.props
     Adapter.getStartingEquipment(url)
-      .then(r => {
-        console.log(r)
-      })
+      .then(({ starting, choices }) => this.setState({ starting, choices }))
   }
 
   render() {
+    console.log(this.state)
     return (
       <Modal trigger={<Button type="button">Choose your starting equipment</Button>}>
         <Modal.Header>Starting Equipment</Modal.Header>

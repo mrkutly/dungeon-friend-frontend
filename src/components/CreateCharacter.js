@@ -15,7 +15,8 @@ class CreateCharacter extends Component {
 
   state = {
     name: '',
-    startingLvl: 1
+    startingLvl: 1,
+    languages: []
   }
 
   handleNameChange = (e) => {
@@ -46,7 +47,12 @@ class CreateCharacter extends Component {
     }
   }
 
+  setLanguages = (languages) => {
+    this.setState({ languages })
+  }
+
   render() {
+    console.log(this.state.languages)
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
 
@@ -73,7 +79,7 @@ class CreateCharacter extends Component {
           </div>
 
           {/* Finish these ternaries. Check console for possible options in races and jobs */}
-          { currentRace && currentRace.data.language_options ? <SelectLanguages race={currentRace} /> : null }
+          { currentRace && currentRace.data.language_options ? <SelectLanguages setLanguages={this.setLanguages} /> : null }
 
           {/* {
             currentJob && currentRace && (currentJob.data.proficiency_choices || currentRace.data.starting_proficiency_options) ?

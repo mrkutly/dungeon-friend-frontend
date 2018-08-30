@@ -43,7 +43,7 @@ class JobDisplay extends Component {
               <li key={choice.url}>
 
                 <input type="checkbox"
-                  value={choice.url}
+                  value={choice.name}
                   onChange={(e) => this.handleCheckboxChange(e, prof.choose, proficiencyList)}
                   checked={(this.state[proficiencyList].includes(choice.url) ? true : false)}
                 />

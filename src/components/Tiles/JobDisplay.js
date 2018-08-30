@@ -3,23 +3,27 @@ import React, { Component } from 'react'
 class JobDisplay extends Component {
 
   state = {
-    selectedProficiencies: [],
-    secondProficiencies: []
+    proficiencies1: [],
+    proficiencies2: [],
+    proficiencies3: [],
+    proficiencies4: [],
+    proficiencies5: [],
+    proficiencies6: [],
   }
 
-  handleCheckboxChange(e, num, proficiencyList) {
+  handleCheckboxChange = (e, num, list) => {
 
     // Checks to see if already selected. If it is, unselect it
-    if (this.state[proficiencyList].includes(e.target.value)) {
-      const filteredProfs = this.state[proficiencyList].filter(prof => prof !== e.target.value)
-      this.setState({ [proficiencyList]: filteredProfs })
+    if (this.state[list].includes(e.target.value)) {
+      const filteredProfs = this.state[list].filter(prof => prof !== e.target.value)
+      this.setState({ [list]: filteredProfs })
 
     // Checks to see how many have been selected
-  } else if (this.state[proficiencyList].length < num) {
+  } else if (this.state[list].length < num) {
       const prof = e.target.value
       this.setState(prevState => {
         return {
-          [proficiencyList]: [...prevState[proficiencyList], prof]
+          [list]: [...prevState[list], prof]
         }
       })
     }
@@ -28,11 +32,11 @@ class JobDisplay extends Component {
   mappedProficiencies = (proficiencies) => proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
 
   mappedProfiencyChoices = (proficiencyChoices) => {
-    let i = 0
+    let i = 1
 
     return proficiencyChoices.map(prof => {
       // Chooses which array in state to compare selected proficiencies to
-      let proficiencyList = (i === 0 ? "selectedProficiencies" : "secondProficiencies")
+      let list = `proficiencies${i}`
       ++i
 
       return (
@@ -44,8 +48,8 @@ class JobDisplay extends Component {
 
                 <input type="checkbox"
                   value={choice.name}
-                  onChange={(e) => this.handleCheckboxChange(e, prof.choose, proficiencyList)}
-                  checked={(this.state[proficiencyList].includes(choice.name) ? true : false)}
+                  onChange={(e) => this.handleCheckboxChange(e, prof.choose, list)}
+                  checked={(this.state[list].includes(choice.name) ? true : false)}
                 />
 
                 <label>{choice.name}</label>
@@ -84,7 +88,6 @@ class JobDisplay extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { name,
             hit_die,
             proficiencies,

@@ -28,14 +28,14 @@ class SelectLanguages extends Component {
       this.setState(prevState => {
         prevState.languages.pop()
         return {
-          langauges: [...prevState.langauges, lang]
+          languages: [...prevState.languages, lang]
         }
       })
     }
   }
 
   handleSave = (e) => {
-    this.props.setLanguages([...this.state.languages, this.state.standard])
+    this.props.setLanguages([...this.state.languages, ...this.state.standard])
     e.target.textContent = "Saved!"
   }
 
@@ -59,7 +59,7 @@ class SelectLanguages extends Component {
 
   render() {
     const { options } = this.props
-    
+
     return (
       <Modal trigger={<Button type="button">Choose your languages</Button>}  closeIcon>
         <Modal.Header>Languages</Modal.Header>
@@ -82,8 +82,9 @@ class SelectLanguages extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const standard = state.currentRace.data.languages.map(lang => lang.name)
   return {
-    standard: state.currentRace.data.languages,
+    standard,
     options: state.currentRace.data.language_options
   }
 }

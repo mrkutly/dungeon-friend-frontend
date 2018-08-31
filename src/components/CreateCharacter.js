@@ -11,18 +11,50 @@ import SelectTraits from './modals/SelectTraits'
 class CreateCharacter extends Component {
 
   state = {
-    name: '',
-    startingLvl: 1,
     languages: [],
-    startingEquipment: []
+    name: '',
+    startingEquipment: [],
+    startingLvl: 1,
+    traits: []
   }
 
   componentDidUpdate(prevProps, prevState) {
     // if we are getting currentRace for the first time, set default languages
     if (this.props.currentRace && !prevProps.currentRace) {
-      const { languages } = this.props.currentRace.data
-      this.setState({ languages })
+      const { languages, traits } = this.props.currentRace.data
+      const formattedLanguages = languages.map(lang => lang.name)
+      const formattedTraits = traits.map(trait => trait.name)
+
+      this.setState({
+        languages: formattedLanguages,
+        traits: formattedTraits
+      })
+    // if currentRace has been removed, remove languages and traits
+    } else if (!this.props.currentRace && prevProps.currentRace) {
+      this.setState({
+        languages: [],
+        traits: []
+      })
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.currentRace !== nextProps.currentRace) {
+      return true
+    } else if (this.props.currentJob !== nextProps.currentJob) {
+      return true
+    } else if (this.state.languages !== nextState.languages) {
+      return true
+    } else if (this.state.startingEquipment !== nextState.startingEquipment) {
+      return true
+    } else if (this.state.startingLvl !== nextState.startingLvl) {
+      return true
+    } else if (this.state.traits !== nextState.traits) {
+      return true
+    } else if (this.state.name !== nextState.name) {
+      return true
+    }
+    return false
   }
 
   handleNameChange = (e) => {
@@ -61,10 +93,14 @@ class CreateCharacter extends Component {
     this.setState({ startingEquipment })
   }
 
+  setTraits = (traits) => {
+    this.setState({ traits })
+  }
+
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
-    console.log(this.state.languages)
+    console.log(this.state.traits)
 
     return (
       <div>
@@ -93,7 +129,7 @@ class CreateCharacter extends Component {
 
           { currentJob ? <SelectStartingEquipment setStartingEquipment={this.setStartingEquipment} /> : null }
 
-          { currentRace && currentRace.data.trait_options ? <SelectTraits race={currentRace}/> : null }
+          { currentRace && currentRace.data.trait_options ? <SelectTraits setTraits={this.setTraits} /> : null }
 
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
           <button className="create-button" type="submit">Create</button>

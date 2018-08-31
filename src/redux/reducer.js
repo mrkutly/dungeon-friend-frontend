@@ -18,13 +18,10 @@ export const reducer = (state = initialState, action) => {
         characters: [...state.characters, action.payload]
       };
 
-    case 'EDIT_NEW_CHARACTER':
+    case 'CREATE_NEW_CHARACTER':
       return {
         ...state,
-        newCharacter: {
-          ...state.newCharacter,
-          ...action.payload
-        }
+        newCharacter: action.payload
       };
 
     case 'SET_CHARACTERS':

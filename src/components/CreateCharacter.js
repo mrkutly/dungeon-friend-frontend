@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-// import Adapter from '../Adapter'
+import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
-import { editNewCharacter } from '../redux/actions.js'
+import { createNewCharacter, addCharacter } from '../redux/actions.js'
 import SelectLanguages from './modals/SelectLanguages'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
@@ -84,21 +84,30 @@ class CreateCharacter extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const character = this.newCharacter()
-    this.props.editNewCharacter(character)
+    if (!character) return
+
+    Adapter.createCharacter(character).then(({ character }) => this.props.addCharacter(character))
   }
 
   newCharacter = () => {
-    const { name, startingLvl, languages, startingEquipment, traits } = this.state
-    const { currentJob, currentRace } = this.props
-    const test_user_id = this.props.currentUser.id
+    if (!this.props.currentUser) {
+      alert("sign in to create a character")
+      return
+    }
+
+    const { name, startingLvl, languages, startingEquipment, proficiencies, traits } = this.state
+    const { currentJob, currentRace, currentUser } = this.props
+    const test_user_id = currentUser.id
+
 
     return {
-      job: currentJob,
+      job_id: currentJob.id,
       languages,
       level: startingLvl,
       name,
-      race: currentRace,
-      startingEquipment,
+      proficiencies,
+      race_id: currentRace.id,
+      equipment: startingEquipment,
       test_user_id,
       traits
     }
@@ -123,7 +132,6 @@ class CreateCharacter extends Component {
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
-    console.log(this.state)
 
     return (
       <div>
@@ -172,10 +180,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    editNewCharacter: (character) => { dispatch( editNewCharacter(character) )}
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateCharacter)
+export default connect(mapStateToProps, { createNewCharacter, addCharacter })(CreateCharacter)

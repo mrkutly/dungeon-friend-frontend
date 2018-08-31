@@ -5,9 +5,9 @@ export const addCharacter = (character) => {
   }
 }
 
-export const editNewCharacter = (character) => {
+export const createNewCharacter = (character) => {
   return {
-    type: "EDIT_NEW_CHARACTER",
+    type: "CREATE_NEW_CHARACTER",
     payload: character
   }
 }

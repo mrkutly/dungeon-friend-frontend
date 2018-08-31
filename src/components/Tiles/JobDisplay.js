@@ -12,18 +12,24 @@ class JobDisplay extends Component {
   }
 
   handleCheckboxChange = (e, num, list) => {
-
+    const chosenProf = e.target.value
     // Checks to see if already selected. If it is, unselect it
-    if (this.state[list].includes(e.target.value)) {
-      const filteredProfs = this.state[list].filter(prof => prof !== e.target.value)
+    if (this.state[list].includes(chosenProf)) {
+      const filteredProfs = this.state[list].filter(prof => prof !== chosenProf)
       this.setState({ [list]: filteredProfs })
 
     // Checks to see how many have been selected
-  } else if (this.state[list].length < num) {
-      const prof = e.target.value
+    } else if (this.state[list].length < num) {
       this.setState(prevState => {
         return {
-          [list]: [...prevState[list], prof]
+          [list]: [...prevState[list], chosenProf]
+        }
+      })
+    } else {
+      this.setState(prevState => {
+        prevState[list].pop()
+        return {
+          [list]: [...prevState[list], chosenProf]
         }
       })
     }

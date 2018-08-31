@@ -5,10 +5,7 @@ import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
 import { editNewCharacter } from '../redux/actions.js'
 import SelectLanguages from './modals/SelectLanguages'
-// import SelectProficiencies from './modals/SelectProficiencies'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
-// import SelectSubClass from './modals/SelectSubClass'
-// import SelectSubRace from './modals/SelectSubRace'
 import SelectTraits from './modals/SelectTraits'
 
 class CreateCharacter extends Component {
@@ -18,6 +15,14 @@ class CreateCharacter extends Component {
     startingLvl: 1,
     languages: [],
     startingEquipment: []
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // if we are getting currentRace for the first time, set default languages
+    if (this.props.currentRace && !prevProps.currentRace) {
+      const { languages } = this.props.currentRace.data
+      this.setState({ languages })
+    }
   }
 
   handleNameChange = (e) => {
@@ -59,6 +64,7 @@ class CreateCharacter extends Component {
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
+    console.log(this.state.languages)
 
     return (
       <div>
@@ -87,12 +93,7 @@ class CreateCharacter extends Component {
 
           { currentJob ? <SelectStartingEquipment setStartingEquipment={this.setStartingEquipment} /> : null }
 
-          {/* { currentJob && currentJob.data.subclasses ? <SelectSubClass job={currentJob}/> : null } */}
-
           { currentRace && currentRace.data.trait_options ? <SelectTraits race={currentRace}/> : null }
-
-          {/* Subraces in API are not up to date */}
-          {/* { currentRace && currentRace.data.subraces ? <SelectSubRace subraces={currentRace.data.subraces}/> : null } */}
 
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
           <button className="create-button" type="submit">Create</button>

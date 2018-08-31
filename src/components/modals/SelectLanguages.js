@@ -5,6 +5,7 @@ import { Modal, Header, Button } from 'semantic-ui-react'
 class SelectLanguages extends Component {
 
   state = {
+    standard: [...this.props.standard],
     languages: []
   }
 
@@ -23,11 +24,18 @@ class SelectLanguages extends Component {
           languages: [...prevState.languages, lang]
         }
       })
+    } else {
+      this.setState(prevState => {
+        prevState.languages.pop()
+        return {
+          langauges: [...prevState.langauges, lang]
+        }
+      })
     }
   }
 
   handleSave = (e) => {
-    this.props.setLanguages(this.state.languages)
+    this.props.setLanguages([...this.state.languages, this.state.standard])
     e.target.textContent = "Saved!"
   }
 
@@ -51,6 +59,7 @@ class SelectLanguages extends Component {
 
   render() {
     const { options } = this.props
+    
     return (
       <Modal trigger={<Button type="button">Choose your languages</Button>}  closeIcon>
         <Modal.Header>Languages</Modal.Header>
@@ -74,6 +83,7 @@ class SelectLanguages extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    standard: state.currentRace.data.languages,
     options: state.currentRace.data.language_options
   }
 }

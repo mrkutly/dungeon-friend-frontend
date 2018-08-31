@@ -7,3 +7,5 @@ get language options for character creation
 
 get starting_proficiencies and starting_equipment options on character creation
 (job is stored in state)
+
+Make pull request to fix rogue starting equipment

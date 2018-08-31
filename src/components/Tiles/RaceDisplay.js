@@ -1,12 +1,12 @@
 import React from 'react'
 
 const RaceDisplay = (props) => {
-  
+
   const { name, speed,
           ability_bonuses,
           starting_proficiencies,
-          subraces, traits, alignment,
-          age, language_desc, size_description } = props.race.data
+          subraces, traits, alignment, age,
+          language_desc, languages, size_description } = props.race.data
 
   const mappedProficiencies = starting_proficiencies.map(prof => (
     <li key={prof.name}>{prof.name}</li>)

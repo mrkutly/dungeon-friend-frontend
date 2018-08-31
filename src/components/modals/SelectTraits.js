@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button, Icon } from 'semantic-ui-react'
+import { Modal, Header, Button } from 'semantic-ui-react'
 
 class SelectTraits extends Component {
 
@@ -14,8 +14,8 @@ class SelectTraits extends Component {
 
     //checks to see if it is already selected
     if(this.state.traits.includes(chosenTrait)){
-      const filteredLangs = this.state.traits.filter(trait => trait !== chosenTrait)
-      this.setState({ traits: filteredLangs })
+      const filteredTraits = this.state.traits.filter(trait => trait !== chosenTrait)
+      this.setState({ traits: filteredTraits })
 
     //check to see if max number of traits have been selected
   } else if (this.state.traits.length < num) {

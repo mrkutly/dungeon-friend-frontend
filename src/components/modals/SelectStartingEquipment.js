@@ -23,17 +23,17 @@ class SelectStartingEquipment extends Component {
   }
 
   handleCheckboxChange = (e, num, list) => {
-    const chosenProf = e.target.value
+    const choseEquipment = e.target.value
     // Checks to see if already selected. If it is, unselect it
-    if (this.state[list].includes(chosenProf)) {
-      const filteredProfs = this.state[list].filter(prof => prof !== chosenProf)
-      this.setState({ [list]: filteredProfs })
+    if (this.state[list].includes(choseEquipment)) {
+      const filteredEquipment = this.state[list].filter(prof => prof !== choseEquipment)
+      this.setState({ [list]: filteredEquipment })
 
     // Checks to see how many have been selected
     } else if (this.state[list].length < num) {
       this.setState(prevState => {
         return {
-          [list]: [...prevState[list], chosenProf]
+          [list]: [...prevState[list], choseEquipment]
         }
       })
 
@@ -42,7 +42,7 @@ class SelectStartingEquipment extends Component {
       this.setState(prevState => {
         prevState[list].pop()
         return {
-          [list]: [...prevState[list], chosenProf]
+          [list]: [...prevState[list], choseEquipment]
         }
       })
     }

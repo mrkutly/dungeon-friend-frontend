@@ -7,20 +7,34 @@ import { editNewCharacter } from '../redux/actions.js'
 import SelectLanguages from './modals/SelectLanguages'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
+import SelectProficiencies from './modals/SelectProficiencies'
 
 class CreateCharacter extends Component {
 
   state = {
     languages: [],
     name: '',
+    proficiencies: [],
     startingEquipment: [],
     startingLvl: 1,
     traits: []
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { currentJob, currentRace } = this.props
+    const raceAdded = (currentRace && !prevProps.currentRace)
+    const jobAdded = (currentJob && !prevProps.currentJob)
+    const jobAndRaceSelected = (currentJob && currentRace)
+    const raceRemoved = (!currentRace && prevProps.currentRace)
+
+    // Set default proficiencies when both race and job are selected
+    if (( raceAdded || jobAdded ) && jobAndRaceSelected ) {
+      const proficiencies =[...currentJob.data.proficiencies, ...currentRace.data.starting_proficiencies]
+      this.setState({ proficiencies })
+    }
+
     // if we are getting currentRace for the first time, set default languages
-    if (this.props.currentRace && !prevProps.currentRace) {
+    if (raceAdded) {
       const { languages, traits } = this.props.currentRace.data
       const formattedLanguages = languages.map(lang => lang.name)
       const formattedTraits = traits.map(trait => trait.name)
@@ -30,7 +44,7 @@ class CreateCharacter extends Component {
         traits: formattedTraits
       })
     // if currentRace has been removed, remove languages and traits
-    } else if (!this.props.currentRace && prevProps.currentRace) {
+    } else if (raceRemoved) {
       this.setState({
         languages: [],
         traits: []
@@ -53,6 +67,8 @@ class CreateCharacter extends Component {
       return true
     } else if (this.state.name !== nextState.name) {
       return true
+    } else if (this.state.proficiencies !== nextState.proficiencies) {
+      return true
     }
     return false
   }
@@ -72,21 +88,28 @@ class CreateCharacter extends Component {
   }
 
   newCharacter = () => {
-    const { name, startingLvl } = this.state
+    const { name, startingLvl, languages, startingEquipment, traits } = this.state
     const { currentJob, currentRace } = this.props
     const test_user_id = this.props.currentUser.id
 
     return {
-      name,
-      level: startingLvl,
-      race: currentRace,
       job: currentJob,
-      test_user_id
+      languages,
+      level: startingLvl,
+      name,
+      race: currentRace,
+      startingEquipment,
+      test_user_id,
+      traits
     }
   }
 
   setLanguages = (languages) => {
     this.setState({ languages })
+  }
+
+  setProficiencies = (proficiencies) => {
+    this.setState({ proficiencies })
   }
 
   setStartingEquipment = (startingEquipment) => {
@@ -100,7 +123,7 @@ class CreateCharacter extends Component {
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
-    console.log(this.state.traits)
+    console.log(this.state)
 
     return (
       <div>
@@ -131,6 +154,7 @@ class CreateCharacter extends Component {
 
           { currentRace && currentRace.data.trait_options ? <SelectTraits setTraits={this.setTraits} /> : null }
 
+          { currentRace && currentJob ? <SelectProficiencies setProficiencies={this.setProficiencies} /> : null }
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
           <button className="create-button" type="submit">Create</button>
         </form>

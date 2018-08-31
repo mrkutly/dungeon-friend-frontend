@@ -1,73 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 
-class JobDisplay extends Component {
+const JobDisplay = (props) => {
 
-  state = {
-    proficiencies1: [],
-    proficiencies2: [],
-    proficiencies3: [],
-    proficiencies4: [],
-    proficiencies5: [],
-    proficiencies6: [],
-  }
+  const { name,
+    hit_die,
+    proficiencies,
+    proficiency_choices,
+    saving_throws, subclasses } = props.job.data
 
-  handleCheckboxChange = (e, num, list) => {
-    const chosenProf = e.target.value
-    // Checks to see if already selected. If it is, unselect it
-    if (this.state[list].includes(chosenProf)) {
-      const filteredProfs = this.state[list].filter(prof => prof !== chosenProf)
-      this.setState({ [list]: filteredProfs })
+  const mappedProficiencies = proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
 
-    // Checks to see how many have been selected
-    } else if (this.state[list].length < num) {
-      this.setState(prevState => {
-        return {
-          [list]: [...prevState[list], chosenProf]
-        }
-      })
-    } else {
-      this.setState(prevState => {
-        prevState[list].pop()
-        return {
-          [list]: [...prevState[list], chosenProf]
-        }
-      })
-    }
-  }
-
-  mappedProficiencies = (proficiencies) => proficiencies.map(prof => <li key={prof.url}>{prof.name}</li>)
-
-  mappedProfiencyChoices = (proficiencyChoices) => {
-    let i = 1
-
-    return proficiencyChoices.map(prof => {
-      // Chooses which array in state to compare selected proficiencies to
-      let list = `proficiencies${i}`
-      ++i
-
+  const mappedProfiencyChoices = proficiency_choices.map(prof => {
       return (
         <div key={prof.from[0].name}>
           <p>Choose {prof.choose} from</p>
           <ul>
             {prof.from.map(choice => (
               <li key={choice.url}>
-
-                <input type="checkbox"
-                  value={choice.name}
-                  onChange={(e) => this.handleCheckboxChange(e, prof.choose, list)}
-                  checked={(this.state[list].includes(choice.name) ? true : false)}
-                />
-
-                <label>{choice.name}</label>
+                {choice.name}
               </li>))}
           </ul>
         </div>
       )
-    })
-  }
+    }
+  )
 
-  mappedSavingThrows = (savingThrows) => {
-    return savingThrows.map(save => {
+  const mappedSavingThrows = saving_throws.map(save => {
       switch(save.name){
         case 'DEX':
         return <li key="dexterity">Dexterity</li>;
@@ -91,56 +50,55 @@ class JobDisplay extends Component {
         return null;
       }
     })
-  }
 
-  render() {
-    const { name,
-            hit_die,
-            proficiencies,
-            proficiency_choices,
-            saving_throws, subclasses } = this.props.job.data
-
-    return (
-      <div className="display">
-        <div>
-          <h1>{name}</h1>
-          <h2>Hit Die: {hit_die}</h2>
-        </div>
-
-        <div>
-          <h2>Starting Proficiencies</h2>
-          <ul>
-            {this.mappedProficiencies(proficiencies)}
-          </ul>
-        </div>
-
-        <div>
-          <h2>Profiency Choices</h2>
-          {this.mappedProfiencyChoices(proficiency_choices)}
-        </div>
-
-        <div>
-          <h2>Saving Throws</h2>
-          <ul>
-            {this.mappedSavingThrows(saving_throws)}
-          </ul>
-        </div>
-
-        {
-          subclasses.length > 0 ?
-          <div>
-            <h2>Subclasses</h2>
-            <ul>
-              {subclasses.map(sub => <li key={sub.name}>{sub.name}</li>)}
-            </ul>
-          </div> :
-          null
-        }
-
-        <button onClick={() => this.props.back()}> Show all classes </button>
+  return (
+    <div className="display">
+      <div>
+        <h1>{name}</h1>
+        <h2>Hit Die: {hit_die}</h2>
       </div>
-    )
+
+      <div>
+        <h2>Starting Proficiencies</h2>
+        <ul>
+          {mappedProficiencies}
+        </ul>
+      </div>
+
+      <div>
+        <h2>Profiency Choices</h2>
+        {mappedProfiencyChoices}
+      </div>
+
+      <div>
+        <h2>Saving Throws</h2>
+        <ul>
+          {mappedSavingThrows}
+        </ul>
+      </div>
+
+      {
+        subclasses.length > 0 ?
+        <div>
+          <h2>Subclasses</h2>
+          <ul>
+            {subclasses.map(sub => <li key={sub.name}>{sub.name}</li>)}
+          </ul>
+        </div> :
+        null
+      }
+
+      <button onClick={() => props.back()}> Show all classes </button>
+    </div>
+  )
+}
+
+const mapStateToProps = (state) => {
+  return {
+    race: state.currentRace,
+    job: state.currentJob
   }
 }
 
-export default JobDisplay
+
+export default connect(mapStateToProps)(JobDisplay)

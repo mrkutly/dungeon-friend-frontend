@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -22,14 +23,14 @@ class Home extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
+    const { currentUser, characterCreated } = this.props
     return (
       <div className="home hidden" ref={this.homeDiv}>
         <Router>
           <React.Fragment>
             <Navbar />
             <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
-            <Route exact path="/create" component={CreateCharacter} />
+            <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
             <Route exact path="/characters" component={CharacterCardsContainer} />
             <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
           </React.Fragment>
@@ -41,6 +42,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    characterCreated: state.characterCreated,
     currentUser: state.currentUser
   }
 }

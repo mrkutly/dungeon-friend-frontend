@@ -5,6 +5,18 @@ export const addCharacter = (character) => {
   }
 }
 
+export const characterCreatedFalse = () => {
+  return {
+    type: "CHARACTER_CREATED_FALSE"
+  }
+}
+
+export const characterCreatedTrue = () => {
+  return {
+    type: "CHARACTER_CREATED_TRUE"
+  }
+}
+
 export const createNewCharacter = (character) => {
   return {
     type: "CREATE_NEW_CHARACTER",

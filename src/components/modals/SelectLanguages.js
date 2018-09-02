@@ -82,10 +82,67 @@ class SelectLanguages extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const standard = state.currentRace.data.languages.map(lang => lang.name)
+  let standard
+  let options
+
+  if (state.currentRace.data.name === "Half-Elf") {
+    standard = ["Common", "Elvish"]
+    options = {
+      choose: 1,
+      from: [
+        {
+          name: "Dwarvish",
+			    url: "http://www.dnd5eapi.co/api/languages/2"
+        }, {
+          name: "Giant",
+    			url: "http://www.dnd5eapi.co/api/languages/4"
+        }, {
+    			name: "Gnomish",
+    			url: "http://www.dnd5eapi.co/api/languages/5"
+    		}, {
+    			name: "Goblin",
+    			url: "http://www.dnd5eapi.co/api/languages/6"
+    		}, {
+    			name: "Halfling",
+    			url: "http://www.dnd5eapi.co/api/languages/7"
+    		}, {
+    			name: "Orc",
+    			url: "http://www.dnd5eapi.co/api/languages/8"
+    		}, {
+    			name: "Abyssal",
+    			url: "http://www.dnd5eapi.co/api/languages/9"
+    		}, {
+    			name: "Celestial",
+    			url: "http://www.dnd5eapi.co/api/languages/10"
+    		}, {
+    			name: "Draconic",
+    			url: "http://www.dnd5eapi.co/api/languages/11"
+    		}, {
+    			name: "Deep Speech",
+    			url: "http://www.dnd5eapi.co/api/languages/12"
+    		}, {
+    			name: "Infernal",
+    			url: "http://www.dnd5eapi.co/api/languages/13"
+    		}, {
+    			name: "Primordial",
+    			url: "http://www.dnd5eapi.co/api/languages/14"
+    		}, {
+    			name: "Sylvan",
+    			url: "http://www.dnd5eapi.co/api/languages/15"
+    		}, {
+    			name: "Undercommon",
+    			url: "http://www.dnd5eapi.co/api/languages/16"
+    		}
+      ]
+    }
+  } else {
+    standard = state.currentRace.data.languages.map(lang => lang.name)
+    options = state.currentRace.data.language_options
+  }
+
   return {
     standard,
-    options: state.currentRace.data.language_options
+    options
   }
 }
 

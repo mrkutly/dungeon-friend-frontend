@@ -1,6 +1,7 @@
 
 const initialState = {
   characters: [],
+  characterCreated: false,
   currentRace: null,
   currentJob: null,
   currentUser: null,
@@ -16,6 +17,18 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         characters: [...state.characters, action.payload]
+      };
+
+    case 'CHARACTER_CREATED_FALSE':
+      return {
+        ...state,
+        characterCreated: false
+      };
+
+    case 'CHARACTER_CREATED_TRUE':
+      return {
+        ...state,
+        characterCreated: true
       };
 
     case 'CREATE_NEW_CHARACTER':
@@ -64,7 +77,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload
-      }
+      };
 
     default:
       return state;

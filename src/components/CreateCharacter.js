@@ -3,7 +3,7 @@ import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
-import { createNewCharacter, addCharacter } from '../redux/actions.js'
+import { createNewCharacter, addCharacter, characterCreatedTrue } from '../redux/actions.js'
 import SelectLanguages from './modals/SelectLanguages'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
@@ -86,7 +86,9 @@ class CreateCharacter extends Component {
     const character = this.newCharacter()
     if (!character) return
 
-    Adapter.createCharacter(character).then(({ character }) => this.props.addCharacter(character))
+    Adapter.createCharacter(character)
+      .then(({ character }) => this.props.addCharacter(character))
+      .then(char => this.props.characterCreatedTrue())
   }
 
   newCharacter = () => {
@@ -180,4 +182,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createNewCharacter, addCharacter })(CreateCharacter)
+export default connect(mapStateToProps, { createNewCharacter, addCharacter, characterCreatedTrue })(CreateCharacter)

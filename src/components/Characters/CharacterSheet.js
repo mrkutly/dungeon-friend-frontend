@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const CharacterSheet = (props) => {
-  // const { character } = props
-  // console.log(character)
+  const { character } = props
+  console.log(character)
   return (
     <h1> I'm a character sheet</h1>
   )

@@ -1,7 +1,6 @@
 const headers = {'Content-Type': 'application/json', 'Accepts': 'application/json'}
 const baseUrl = 'http://localhost:3000'
 
-
 const Adapter = {
 
   createCharacter: function(character) {

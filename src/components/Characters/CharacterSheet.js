@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Dice } from '../../Dice'
+import { Adapter } from '../../Adapter'
+import { Container } from 'semantic-ui-react'
 
-const CharacterSheet = (props) => {
-  const { character } = props
-  console.log(character)
-  return (
-    <h1> I'm a character sheet</h1>
-  )
+
+class CharacterSheet extends Component {
+
+  render() {
+    const { character } = this.props
+    console.log(character)
+
+    return (
+      <Container>
+        <h1>{character.name}</h1>
+      </Container>
+    )
+  }
 }
 
 const mapStateToProps = (state, _props) => {

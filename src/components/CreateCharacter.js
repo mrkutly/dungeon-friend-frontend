@@ -8,10 +8,19 @@ import SelectLanguages from './modals/SelectLanguages'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
 import SelectProficiencies from './modals/SelectProficiencies'
+import RollStats from './modals/RollStats'
 
 class CreateCharacter extends Component {
 
   state = {
+    abilityScores: {
+      strength: 0,
+      constitution: 0,
+      dexterity: 0,
+      intelligence: 0,
+      wisdom: 0,
+      charisma: 0
+    },
     languages: [],
     name: '',
     proficiencies: [],
@@ -115,6 +124,10 @@ class CreateCharacter extends Component {
     }
   }
 
+  setAbilityScores = (abilityScores) => {
+    this.setStatae({ abilityScores })
+  }
+
   setLanguages = (languages) => {
     this.setState({ languages })
   }
@@ -165,6 +178,8 @@ class CreateCharacter extends Component {
           { currentRace && currentRace.data.trait_options ? <SelectTraits setTraits={this.setTraits} /> : null }
 
           { currentRace && currentJob ? <SelectProficiencies setProficiencies={this.setProficiencies} /> : null }
+
+          { currentRace && currentJob ? <RollStats setAbilityScores={this.setAbilityScores} /> : null }
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
           <button className="create-button" type="submit">Create</button>
         </form>

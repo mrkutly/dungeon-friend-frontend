@@ -6,6 +6,7 @@ import CharacterCardsContainer from './Containers/CharacterCardsContainer'
 import CharacterSheet from './Characters/CharacterSheet'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Container } from 'semantic-ui-react'
 
 
 
@@ -29,10 +30,12 @@ class Home extends Component {
         <Router>
           <React.Fragment>
             <Navbar />
-            <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
-            <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
-            <Route exact path="/characters" component={CharacterCardsContainer} />
-            <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
+            <Container>
+              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
+              <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
+              <Route exact path="/characters" component={CharacterCardsContainer} />
+              <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
+            </Container>
           </React.Fragment>
         </Router>
       </div>

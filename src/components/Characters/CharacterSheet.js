@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Dice } from '../../Dice'
-import { Adapter } from '../../Adapter'
+// import { Dice } from '../../Dice'
+// import { Adapter } from '../../Adapter'
 import { Container } from 'semantic-ui-react'
 
 

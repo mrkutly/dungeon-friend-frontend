@@ -78,6 +78,8 @@ class CreateCharacter extends Component {
       return true
     } else if (this.state.proficiencies !== nextState.proficiencies) {
       return true
+    } else if (this.state.abilityScores !== nextState.abilityScores) {
+      return true
     }
     return false
   }
@@ -106,26 +108,44 @@ class CreateCharacter extends Component {
       return
     }
 
-    const { name, startingLvl, languages, startingEquipment, proficiencies, traits } = this.state
+    const { name, startingLvl, languages, startingEquipment, proficiencies, traits, abilityScores } = this.state
     const { currentJob, currentRace, currentUser } = this.props
     const test_user_id = currentUser.id
 
-
     return {
+      charisma: abilityScores.charisma,
+      constitution: abilityScores.constitution,
+      dexterity: abilityScores.dexterity,
+      equipment: startingEquipment,
+      intelligence: abilityScores.intelligence,
       job_id: currentJob.id,
       languages,
       level: startingLvl,
       name,
       proficiencies,
       race_id: currentRace.id,
-      equipment: startingEquipment,
+      strength: abilityScores.strength,
       test_user_id,
-      traits
+      traits,
+      wisdom: abilityScores.wisdom
     }
   }
 
-  setAbilityScores = (abilityScores) => {
-    this.setStatae({ abilityScores })
+  setAbilityScores = (scores) => {
+    // debugger
+    const abilityScores = {}
+
+    scores.forEach(score => {
+      let key = Object.keys(score)[0]
+      abilityScores[key] = score[key]
+    })
+    this.setState((prevState) => {
+      debugger
+      return {
+        ...prevState,
+        abilityScores: { ...abilityScores }
+      }
+    })
   }
 
   setLanguages = (languages) => {
@@ -147,6 +167,7 @@ class CreateCharacter extends Component {
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
+    console.log(this.state.abilityScores)
 
     return (
       <div>

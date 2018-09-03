@@ -1,66 +1,150 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button } from 'semantic-ui-react'
+import { Modal, Header, Button, Grid } from 'semantic-ui-react'
 import { Dice } from '../../Dice'
 
 class RollStats extends Component {
 
   state = {
-    charisma: null,
-    constitution: null,
-    dexterity: null,
-    intelligence: null,
-    strength: null,
-    wisdom: null
+    rolls: [...Dice.rollStats()],
   }
 
-  roll() {
-    const rolls = []
-    const currentRoll = []
+  handleCheckbox = (e) => {
+    const splitValue = e.target.value.split(" - ")
+    const ability = splitValue[0]
+    const num = parseInt(splitValue[1], 10)
+    const i = parseInt(splitValue[2], 10) - 1
+    const notChosen = ["charisma", "constitution", "dexterity", "intelligence", "strength", "wisdom"].filter(el => el !== ability)
 
-    for (let i = 0; i < 6; i++) {
-      let acc = 0
+    this.setState((prevState) => {
+      const rolls = prevState.rolls.map(roll => {
+        if (roll.num === num && i === prevState.rolls.indexOf(roll)) {
+          roll[ability] = true
+          notChosen.forEach(ab => roll[ab] = false)
+        } else {
+          roll[ability] = false
+        }
+        return roll
+      })
+      return { rolls }
+    })
+  }
 
-      for (let k = 0; k < 4; k++) {
-        let roll = Dice.d6()
-        currentRoll.push(roll)
-        acc += roll
+  handleSave = (e) => {
+    const scores = this.state.rolls.map(roll => {
+      let score = {}
+
+      Object.keys(roll).forEach(ability => {
+        if (roll[ability] === true) {
+          score[ability] = roll.num
+        }
+      })
+
+      if (Object.keys(score).length === 1) {
+        return score
+      } else {
+        return null
       }
-      acc = acc - Math.min(...currentRoll)
-      rolls.push(acc)
+    })
+
+    if (scores.some(score => !score)) {
+      alert("Make sure you select a roll for each of your ability scores!")
+      return
+    } else {
+      this.props.setAbilityScores(scores)
+      e.target.textContent = "Saved!"
     }
-    return rolls
   }
 
-  // make a form that has six sections (one for each number you rolled),
-  // each with the six stats as options. When a number is selected in one,
-  // disable it in all others
+  mappedRolls = (ability) => {
+    let i = 0
+    return this.state.rolls.map(roll => {
+      i++
+      return (
+        <li key={`${ability} - ${roll.num} - ${i}`}>
+          <input
+            type="checkbox"
+            value={`${ability} - ${roll.num} - ${i}`}
+            onChange={this.handleCheckbox}
+            checked={roll[ability]}
+          />
+          <label>{roll.num}</label>
+        </li>
+      )
+    })
+  }
+
 
   // implement these ability_bonuses from currentRace
-  // <li>Strength: {name === 'Tiefling' ? ability_bonuses[5] : ability_bonuses[0]}</li>
-  // <li>Dexterity: {name === 'Tiefling' ? ability_bonuses[4] : ability_bonuses[1]}</li>
-  // <li>Constitution: {name === 'Tiefling' ? ability_bonuses[3] : ability_bonuses[2]}</li>
-  // <li>Intelligence: {name === 'Tiefling' ? ability_bonuses[2] : ability_bonuses[3]}</li>
-  // <li>Wisdom: {name === 'Tiefling' ? ability_bonuses[1] : ability_bonuses[4]}</li>
-  // <li>Charisma: {name === 'Tiefling' ? ability_bonuses[0] : ability_bonuses[5]}</li>
-  // { name === 'Half-Elf' ? <li>Two other Ability Scores of your choice increase by 1</li> : null }
+  // Strength:  ability_bonuses[0]
+  // Dexterity: ability_bonuses[1]
+  // Constitution: ability_bonuses[2]
+  // Intelligence: ability_bonuses[3]
+  // Wisdom: ability_bonuses[4]
+  // Charisma: ability_bonuses[5]
+  // name === 'Half-Elf' ? Two other Ability Scores of your choice increase by 1
 
   render() {
-    console.log(this.roll())
-    console.log(this.props)
     return (
       <Modal trigger={<Button type="button">Roll for stats</Button>}  closeIcon>
         <Modal.Header>Stats</Modal.Header>
         <Modal.Content >
           <Modal.Description>
-            <Header></Header>
-            <ul>
 
-            </ul>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={4}>
+                  <Header>Strength</Header>
+                  <ul>
+                    {this.mappedRolls("strength")}
+                  </ul>
+                </Grid.Column>
+
+
+                <Grid.Column width={4}>
+                  <Header>Dexterity</Header>
+                  <ul>
+                    {this.mappedRolls("dexterity")}
+                  </ul>
+                </Grid.Column>
+
+
+                <Grid.Column width={4}>
+                  <Header>Constitution</Header>
+                  <ul>
+                    {this.mappedRolls("constitution")}
+                  </ul>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column width={4}>
+                  <Header>Wisdom</Header>
+                  <ul>
+                    {this.mappedRolls("wisdom")}
+                  </ul>
+                </Grid.Column>
+
+                <Grid.Column width={4}>
+                  <Header>Intelligence</Header>
+                  <ul>
+                    {this.mappedRolls("intelligence")}
+                  </ul>
+                </Grid.Column>
+
+
+                <Grid.Column width={4}>
+                  <Header>Charisma</Header>
+                  <ul>
+                    {this.mappedRolls("charisma")}
+                  </ul>
+                </Grid.Column>
+
+              </Grid.Row>
+            </Grid>
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button type="button" primary>
+          <Button type="button" primary onClick={this.handleSave}>
             Save
           </Button>
         </Modal.Actions>

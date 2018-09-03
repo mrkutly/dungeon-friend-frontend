@@ -11,8 +11,6 @@ get starting_proficiencies and starting_equipment options on character creation
 Make pull request to fix rogue starting equipment
 
 For monday:
--Finish RollStats
--Set Starting HP
 -Build out Character sheet component to display all info
 
 Tuesday:

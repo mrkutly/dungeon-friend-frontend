@@ -20,6 +20,10 @@ const Adapter = {
     return fetch(url).then(resp => resp.json())
   },
 
+  getPackData: function(urls) {
+    return fetch(`${baseUrl}/packs`, { headers: { urls } }).then(r => r.json())
+  },
+
   getStartingEquipment: function(url) {
     return fetch(`${baseUrl}/starting_equipment`, {headers: { url }}).then(r => r.json())
   },

@@ -34,7 +34,7 @@ class Home extends Component {
               <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
               <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
               <Route exact path="/characters" component={CharacterCardsContainer} />
-              <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
+              <Route path="/characters/:id" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterSheet {...props} />)} />
             </Container>
           </React.Fragment>
         </Router>

@@ -113,6 +113,7 @@ class CreateCharacter extends Component {
     const test_user_id = currentUser.id
 
     return {
+      hit_die: currentJob.data.hit_die,
       charisma: abilityScores.charisma,
       constitution: abilityScores.constitution,
       dexterity: abilityScores.dexterity,

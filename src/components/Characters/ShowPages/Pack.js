@@ -1,22 +1,47 @@
 import React, { Component } from 'react'
 import Adapter from '../../../Adapter'
+import { Divider } from 'semantic-ui-react'
 
 export default class Pack extends Component {
 
   state = {
-    items: []
+    items: [],
+    quantities: {}
   }
 
   componentDidMount() {
-    const urls = this.props.item.contents.map(item => item.item_url)
-    Adapter.getPackData(urls).then(({ items }) => this.setState({ items }))
+    let quantities = {}
+    const urls = this.props.item.contents.map(item => {
+      quantities[item.item_url] = item.quantity
+      return item.item_url
+    })
+
+    Adapter.getPackData(urls).then(({ items }) => this.setState({ items, quantities }))
+  }
+
+  mappedItems = () => {
+    const { quantities } = this.state
+    return this.state.items.map(item => {
+      let num = quantities[item.url]
+      return (
+        <li key={item.name}>
+
+          <p>{num} {item.name}</p>
+          { item.desc ? <p>{item.desc[0]}</p> : null }
+          <Divider />
+        </li>
+      )
+    })
   }
 
   render() {
-    // I have my items, now I can map over them and format the data
-    console.log(this.state)
     return (
-      <h1>hi</h1>
+      <React.Fragment>
+        <p>Starting with this pack gives you...</p>
+        <ul>
+          {this.mappedItems()}
+        </ul>
+      </React.Fragment>
     )
   }
 }

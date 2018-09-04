@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Equipment from './ShowPages/Equipment'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
+import { NavLink } from 'react-router-dom'
 // import { Dice } from '../../Dice'
 // import { Adapter } from '../../Adapter'
 import { Grid, Menu, Divider } from 'semantic-ui-react'
@@ -19,8 +20,13 @@ class CharacterSheet extends Component {
 
     return (
       <React.Fragment>
-        <h1>Character Sheet</h1>
+        <h1 className="center">Character Sheet</h1>
         <Grid celled>
+          <Grid.Row>
+            <Grid.Column width={12}>
+              <NavLink to="/characters">Back</NavLink>
+            </Grid.Column>
+          </Grid.Row>
           <Grid.Row>
             <Grid.Column width={10}>
               <h1>{character.name}</h1>

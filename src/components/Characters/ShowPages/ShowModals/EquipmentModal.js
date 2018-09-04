@@ -37,12 +37,13 @@ class EquipmentModal extends Component  {
             { armor_category && equipment_category ? <p>Category - {armor_category} {equipment_category}</p> : null }
             { armor_class ? <p>Armor Class - {armor_class.base}</p> : null }
 
+            {/* Gear Info */}
+            { gear_category ? <h4>Category - {gear_category}</h4> : null }
+            { desc ? <p>{desc[0]}</p> : null }
+
             {/* Pack Info */}
             { contents ? <Pack item={this.state.data} /> : null }
 
-            {/* Gear Info */}
-            { gear_category ? <h4>{gear_category}</h4> : null }
-            { desc ? <p>{desc[0]}</p> : null }
           </Modal.Description>
         </Modal.Content>
       </Modal>

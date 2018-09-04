@@ -168,11 +168,10 @@ class CreateCharacter extends Component {
   render() {
     const { currentRace, currentJob } = this.props
     const { name, startingLvl } = this.state
-    console.log(this.state.abilityScores)
 
     return (
       <div>
-        <h1 className="center">Create Character</h1>
+        <h1 className="center">Create a Character</h1>
         <form onSubmit={this.handleSubmit}>
 
           <h2>Name</h2>

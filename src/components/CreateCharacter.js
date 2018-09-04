@@ -21,12 +21,12 @@ class CreateCharacter extends Component {
       wisdom: 0,
       charisma: 0
     },
-    languages: [],
+    languages: null,
     name: '',
-    proficiencies: [],
-    startingEquipment: [],
+    proficiencies: null,
+    startingEquipment: null,
     startingLvl: 1,
-    traits: []
+    traits: null
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -55,8 +55,8 @@ class CreateCharacter extends Component {
     // if currentRace has been removed, remove languages and traits
     } else if (raceRemoved) {
       this.setState({
-        languages: [],
-        traits: []
+        languages: null,
+        traits: null
       })
     }
   }
@@ -112,6 +112,29 @@ class CreateCharacter extends Component {
     const { currentJob, currentRace, currentUser } = this.props
     const test_user_id = currentUser.id
 
+    if (!name) {
+      alert("Please give your character a name.")
+      return
+    } else if (!currentRace) {
+      alert("Please select a race.")
+      return
+    } else if (!currentJob) {
+      alert("Please select a class.")
+      return
+    } else if(!proficiencies) {
+      alert("Please choose your proficiencies.")
+      return
+    } else if (!traits) {
+      alert("Please choose your traits.")
+      return
+    } else if (Object.values(abilityScores).some(score => score === 0)) {
+      alert("Please roll for stats.")
+      return
+    } else if (!startingEquipment) {
+      alert("Please select your starting equipment.")
+      return
+    }
+
     return {
       hit_die: currentJob.data.hit_die,
       charisma: abilityScores.charisma,
@@ -133,7 +156,6 @@ class CreateCharacter extends Component {
   }
 
   setAbilityScores = (scores) => {
-    // debugger
     const abilityScores = {}
 
     scores.forEach(score => {
@@ -141,7 +163,6 @@ class CreateCharacter extends Component {
       abilityScores[key] = score[key]
     })
     this.setState((prevState) => {
-      debugger
       return {
         ...prevState,
         abilityScores: { ...abilityScores }

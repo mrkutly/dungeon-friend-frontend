@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import Equipment from './ShowPages/Equipment'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
+import Spells from './ShowPages/Spells'
 import SearchBar from './SearchBar'
 import { NavLink } from 'react-router-dom'
 import Adapter from '../../Adapter'
-import { Grid, Menu, Divider, Button } from 'semantic-ui-react'
+import { Grid, Menu, Button } from 'semantic-ui-react'
 import { updateCharacter } from '../../redux/actions'
 
 
@@ -21,6 +22,10 @@ class CharacterEdit extends Component {
     Adapter.updateCharacter(this.props.character).then(r => {
       e.target.textContent = "Saved!"
     })
+  }
+
+  componentWillUnmount() {
+    Adapter.updateCharacter(this.props.character)
   }
 
   increase = (score) => {
@@ -52,8 +57,8 @@ class CharacterEdit extends Component {
             <h4>{character[score]}</h4>
           </Grid.Column>
           <Grid.Column width={6}>
-            <Button type="button" onClick={() => this.increase(score)} icon="add"></Button>
             <Button type="button" onClick={() => this.decrease(score)} icon="minus"></Button>
+            <Button type="button" onClick={() => this.increase(score)} icon="add"></Button>
           </Grid.Column>
         </Grid.Row>
       )
@@ -85,7 +90,7 @@ class CharacterEdit extends Component {
             <Grid.Column width={8}>
               <h1>{character.name}</h1>
               <p>Lvl {character.level} {character.race.name} {character.job.name}</p>
-              <Button type="button" onClick={this.handleLevelUp}>Lvl Up</Button>
+              <Button type="button" onClick={() => this.increase("level")}>Lvl Up</Button>
             </Grid.Column>
 
             <Grid.Column width={8}>
@@ -143,6 +148,15 @@ class CharacterEdit extends Component {
                 >
                   Skills
                 </Menu.Item>
+
+                <Menu.Item
+                  name='spells'
+                  active={activeItem === 'spells'}
+                  onClick={this.handleItemClick}
+                >
+                  Spells
+                </Menu.Item>
+
                 {
                   activeItem ?
                   <Menu.Item position="right">
@@ -168,6 +182,7 @@ class CharacterEdit extends Component {
               { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
+              { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

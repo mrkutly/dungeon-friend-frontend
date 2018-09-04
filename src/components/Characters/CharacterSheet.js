@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Equipment from './ShowPages/Equipment'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
+import Spells from './ShowPages/Spells'
 import { NavLink } from 'react-router-dom'
 // import { Dice } from '../../Dice'
 // import { Adapter } from '../../Adapter'
@@ -66,6 +67,14 @@ class CharacterSheet extends Component {
                 >
                   Skills
                 </Menu.Item>
+
+                <Menu.Item
+                  name='spells'
+                  active={activeItem === 'spells'}
+                  onClick={this.handleItemClick}
+                >
+                  Spells
+                </Menu.Item>
               </Menu>
             </Grid.Column>
           </Grid.Row>
@@ -101,6 +110,7 @@ class CharacterSheet extends Component {
               { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
+              { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

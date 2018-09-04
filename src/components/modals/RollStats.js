@@ -108,6 +108,7 @@ class RollStats extends Component {
     const { bonuses } = this.props
     return (
       <p>
+        Your Bonuses -
         {bonuses[0] > 0 ? `| +${bonuses[0]} Strength |` : null }
         {bonuses[1] > 0 ? `| +${bonuses[1]} Dexterity |` : null }
         {bonuses[2] > 0 ? `| +${bonuses[2]} Constitution |` : null }
@@ -122,7 +123,6 @@ class RollStats extends Component {
     let i = 0
     return this.state.rolls.map(roll => {
       i++
-      debugger
       let num = this.addBonuses(ability, roll.num)
 
       return (
@@ -156,7 +156,7 @@ class RollStats extends Component {
         <Modal.Content >
           <Modal.Description>
             <Header>You rolled - {this.showRolls()}</Header>
-            <p>Your bonuses - {this.mappedBonuses()}</p>
+            {this.mappedBonuses()}
 
             <Grid>
               <Grid.Row>

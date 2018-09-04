@@ -11,9 +11,12 @@ const CharacterCardsContainer = (props) => {
   const mappedCharacters = props.characters.map(char => <CharacterCard key={char.id} character={char} />)
 
   return (
-    <div className="wrapper">
-      {mappedCharacters}
-    </div>
+    <React.Fragment>
+      <h1 className="center">Your Characters</h1>
+      <div className="wrapper">
+        {mappedCharacters}
+      </div>
+    </React.Fragment>  
   )
 }
 

@@ -17,3 +17,7 @@ Tuesday:
 -Build an EditCharacter component that looks identical to the view component,
 but is editable
 -Build a store to search for equipment to give to your character
+
+TODO PT 2
+-Add back buttons
+-Roll for stats be better

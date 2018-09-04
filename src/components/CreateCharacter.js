@@ -172,12 +172,13 @@ class CreateCharacter extends Component {
 
     return (
       <div>
+        <h1 className="center">Create Character</h1>
         <form onSubmit={this.handleSubmit}>
 
-          <h1>Name</h1>
+          <h2>Name</h2>
           <input type="text" value={name} onChange={this.handleNameChange} />
 
-          <h1>Starting Level</h1>
+          <h2>Starting Level</h2>
           <input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
 
           <div className="grid">

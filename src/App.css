@@ -45,6 +45,10 @@ li.nav-items {
   display: inline;
 }
 
+.center {
+  text-align: center;
+}
+
 .create-button {
   margin-top: 10px;
   padding: 8px;

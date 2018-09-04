@@ -5,12 +5,13 @@ import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import SearchBar from './SearchBar'
 import { NavLink } from 'react-router-dom'
-// import { Dice } from '../../Dice'
 import Adapter from '../../Adapter'
 import { Grid, Menu, Divider, Button } from 'semantic-ui-react'
+import { updateCharacter } from '../../redux/actions'
 
 
 class CharacterEdit extends Component {
+
   state = {}
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -22,48 +23,101 @@ class CharacterEdit extends Component {
     })
   }
 
+  increase = (score) => {
+    const { character } = this.props
+    character[score] += 1
+    this.props.updateCharacter(character)
+    this.setState(this.state)
+  }
+
+  decrease = (score) => {
+    const { character } = this.props
+    character[score] -= 1
+    this.props.updateCharacter(character)
+    this.setState(this.state)
+  }
+
+  mappedScores = (scores) => {
+    const { character } = this.props
+    return scores.map(score => {
+      let arr = score.split("")
+      const title = arr.shift().toUpperCase() + arr.join("")
+
+      return (
+        <Grid.Row key={score}>
+          <Grid.Column width={6}>
+            <h4>{title}</h4>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <h4>{character[score]}</h4>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <Button type="button" onClick={() => this.increase(score)} icon="add"></Button>
+            <Button type="button" onClick={() => this.decrease(score)} icon="minus"></Button>
+          </Grid.Column>
+        </Grid.Row>
+      )
+    })
+  }
+
   render() {
     const { character } = this.props
     const { activeItem } = this.state
+    const fullHp = character.current_hp >= character.max_hp
 
     return (
       <React.Fragment>
-        <h1 className="center">Character Sheet</h1>
+        <h1 className="center">Edit Character Sheet</h1>
         <Grid celled>
           <Grid.Row>
-            <Grid.Column width={6}>
+
+            <Grid.Column width={12}>
               <NavLink to={`/characters/${character.id}`}>Back</NavLink>
             </Grid.Column>
-            <Grid.Column width={4}>
 
-              {
-                activeItem ?
-                <React.Fragment>
-                  {activeItem}
-                  <SearchBar query={activeItem} character={character} />
-                </React.Fragment>
-                :
-                null
-              }
-
-            </Grid.Column>
             <Grid.Column width={4}>
               <Button type="button" onClick={this.handleSave} primary>Save</Button>
             </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid.Column width={10}>
-              <h1>{character.name}</h1>
-              {/* becomes input */}
-              <p>Lvl {character.level} {character.race.name} {character.job.name}</p>
-            </Grid.Column>
-            <Grid.Column width={6}>
-              {/* becomes inputs */}
-              <h3>HP {character.current_hp} / {character.max_hp}</h3>
-            </Grid.Column>
-          </Grid.Row>
 
+          </Grid.Row>
           <Grid.Row>
+
+            <Grid.Column width={8}>
+              <h1>{character.name}</h1>
+              <p>Lvl {character.level} {character.race.name} {character.job.name}</p>
+              <Button type="button" onClick={this.handleLevelUp}>Lvl Up</Button>
+            </Grid.Column>
+
+            <Grid.Column width={8}>
+              <h3>HP {character.current_hp} / {character.max_hp}</h3>
+
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={8}>
+
+                    <p>Current</p>
+                    <Button.Group basic>
+                      <Button type="button" onClick={() => this.decrease("current_hp")} icon="minus" />
+                      <Button type="button" onClick={() => this.increase("current_hp")} icon="plus" disabled={fullHp} />
+                    </Button.Group>
+
+                  </Grid.Column>
+                  <Grid.Column width={8}>
+
+                    <p>Max</p>
+                    <Button.Group basic>
+                      <Button type="button" onClick={() => this.decrease("max_hp")} icon="minus" />
+                      <Button type="button" onClick={() => this.increase("max_hp")} icon="plus" />
+                    </Button.Group>
+
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Grid.Column>
+
+          </Grid.Row>
+          <Grid.Row>
+
             <Grid.Column width={16}>
               <Menu>
                 <Menu.Item
@@ -89,38 +143,28 @@ class CharacterEdit extends Component {
                 >
                   Skills
                 </Menu.Item>
+                {
+                  activeItem ?
+                  <Menu.Item position="right">
+                    search {activeItem}
+                    <SearchBar query={activeItem} character={character} />
+                  </Menu.Item>
+                  :
+                  null
+                }
               </Menu>
             </Grid.Column>
-          </Grid.Row>
 
+          </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={2}>
-                <h4>Strength</h4>
-                <Divider />
-                <h4>Dexterity</h4>
-                <Divider />
-                <h4>Constitution</h4>
-                <Divider />
-                <h4>Wisdom</h4>
-                <Divider />
-                <h4>Intelligence</h4>
-                <Divider />
-                <h4>Charisma</h4>
+
+            <Grid.Column width={5}>
+              <Grid celled>
+                {this.mappedScores(["strength", "dexterity", "constitution", "wisdom", "intelligence", "charisma"])}
+              </Grid>
             </Grid.Column>
-            <Grid.Column width={1}>
-                <h4>{character.strength}</h4>
-                <Divider />
-                <h4>{character.dexterity}</h4>
-                <Divider />
-                <h4>{character.constitution}</h4>
-                <Divider />
-                <h4>{character.wisdom}</h4>
-                <Divider />
-                <h4>{character.intelligence}</h4>
-                <Divider />
-                <h4>{character.charisma}</h4>
-            </Grid.Column>
-            <Grid.Column width={13}>
+
+            <Grid.Column width={8}>
               { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
@@ -140,4 +184,11 @@ const mapStateToProps = (state, _props) => {
   }
 }
 
-export default connect(mapStateToProps)(CharacterEdit)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCharacter: (character) => { dispatch( updateCharacter(character) )}
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterEdit)

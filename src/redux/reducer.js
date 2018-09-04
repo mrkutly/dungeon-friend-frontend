@@ -79,6 +79,16 @@ export const reducer = (state = initialState, action) => {
         currentUser: action.payload
       };
 
+    case 'UPDATE_CHARACTER':
+      const characters = state.characters.filter(char => char.id !== action.payload.id )
+      return {
+        ...state,
+        characters: [
+          ...characters,
+          action.payload
+        ]
+      };
+
     default:
       return state;
   }

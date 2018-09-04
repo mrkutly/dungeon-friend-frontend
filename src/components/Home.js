@@ -4,6 +4,7 @@ import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
 import CharacterCardsContainer from './Containers/CharacterCardsContainer'
 import CharacterSheet from './Characters/CharacterSheet'
+import CharacterEdit from './Characters/CharacterEdit'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
@@ -34,7 +35,8 @@ class Home extends Component {
               <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
               <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
               <Route exact path="/characters" component={CharacterCardsContainer} />
-              <Route path="/characters/:id" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterSheet {...props} />)} />
+              <Route exact path="/characters/:id" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterSheet {...props} />)} />
+              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterEdit {...props} />)} />
             </Container>
           </React.Fragment>
         </Router>

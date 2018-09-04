@@ -26,6 +26,9 @@ class CharacterSheet extends Component {
             <Grid.Column width={12}>
               <NavLink to="/characters">Back</NavLink>
             </Grid.Column>
+            <Grid.Column width={4}>
+              <NavLink to={`/characters/${character.id}/edit`}>Edit</NavLink>
+            </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={10}>

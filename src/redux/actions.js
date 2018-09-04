@@ -65,3 +65,10 @@ export const setRaces = (races) => {
     payload: races
   }
 }
+
+export const updateCharacter = (character) => {
+  return {
+    type: "UPDATE_CHARACTER",
+    payload: character
+  }
+}

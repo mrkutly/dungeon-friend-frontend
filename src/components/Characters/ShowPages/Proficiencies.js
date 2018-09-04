@@ -5,10 +5,11 @@ const Proficiencies = (props) => {
 
   const mappedProfs = () => {
     const { profs } = props
-
+    let i = 0
     return profs.map(prof => {
+      i++
       return (
-        <li key={prof.name}>
+        <li key={`${prof.name} - ${i}`}>
           <h5>
             {prof.name}
           </h5>

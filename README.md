@@ -19,5 +19,4 @@ but is editable
 -Build a store to search for equipment to give to your character
 
 TODO PT 2
--Add back buttons
--Roll for stats be better
+-Inverted MEnu semantic ui react

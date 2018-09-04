@@ -35,17 +35,13 @@ class RollStats extends Component {
       case "charisma":
         num += bonuses[5];
         break;
+
+      default:
+        break;
     }
     return num
   }
 
-  // implement these ability_bonuses from currentRace
-  // Strength:  ability_bonuses[0]
-  // Dexterity: ability_bonuses[1]
-  // Constitution: ability_bonuses[2]
-  // Intelligence: ability_bonuses[3]
-  // Wisdom: ability_bonuses[4]
-  // Charisma: ability_bonuses[5]
   // name === 'Half-Elf' ? Two other Ability Scores of your choice increase by 1
 
   handleCheckbox = (e) => {
@@ -95,6 +91,19 @@ class RollStats extends Component {
     }
   }
 
+  mappedAbilities = (abilities) => {
+    return abilities.map(ability => {
+      return (
+        <Grid.Column width={4} key={ability}>
+          <Header>{ability}</Header>
+          <ul>
+            {this.mappedRolls(ability.toLowerCase())}
+          </ul>
+        </Grid.Column>
+      )
+    })
+  }
+
   mappedBonuses = () => {
     const { bonuses } = this.props
     return (
@@ -141,7 +150,6 @@ class RollStats extends Component {
   }
 
   render() {
-    const { bonuses } = this.props
     return (
       <Modal trigger={<Button type="button">Roll for stats</Button>}  closeIcon>
         <Modal.Header>Stats</Modal.Header>
@@ -152,52 +160,10 @@ class RollStats extends Component {
 
             <Grid>
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Header>Strength</Header>
-                  <ul>
-                    {this.mappedRolls("strength")}
-                  </ul>
-                </Grid.Column>
-
-
-                <Grid.Column width={4}>
-                  <Header>Dexterity</Header>
-                  <ul>
-                    {this.mappedRolls("dexterity")}
-                  </ul>
-                </Grid.Column>
-
-
-                <Grid.Column width={4}>
-                  <Header>Constitution</Header>
-                  <ul>
-                    {this.mappedRolls("constitution")}
-                  </ul>
-                </Grid.Column>
+                {this.mappedAbilities(["Strength", "Dexterity", "Constitution"])}
               </Grid.Row>
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Header>Wisdom</Header>
-                  <ul>
-                    {this.mappedRolls("wisdom")}
-                  </ul>
-                </Grid.Column>
-
-                <Grid.Column width={4}>
-                  <Header>Intelligence</Header>
-                  <ul>
-                    {this.mappedRolls("intelligence")}
-                  </ul>
-                </Grid.Column>
-
-
-                <Grid.Column width={4}>
-                  <Header>Charisma</Header>
-                  <ul>
-                    {this.mappedRolls("charisma")}
-                  </ul>
-                </Grid.Column>
-
+                {this.mappedAbilities(["Intelligence", "Wisdom", "Charisma"])}
               </Grid.Row>
             </Grid>
           </Modal.Description>

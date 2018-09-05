@@ -42,6 +42,23 @@ class CharacterEdit extends Component {
     this.setState(this.state)
   }
 
+  mappedMenuItems = (items) => {
+    const { activeItem } = this.state
+    return items.map(item => {
+      const arr = item.split('')
+      const title = arr.shift().toUpperCase() + arr.join('')
+      return (
+        <Menu.Item
+          name={item}
+          active={activeItem === {item}}
+          onClick={this.handleItemClick}
+        >
+          {}
+        </Menu.Item>
+      )
+    })
+  }
+
   mappedScores = (scores) => {
     const { character } = this.props
     return scores.map(score => {
@@ -125,37 +142,7 @@ class CharacterEdit extends Component {
 
             <Grid.Column width={16}>
               <Menu>
-                <Menu.Item
-                  name='equipment'
-                  active={activeItem === 'equipment'}
-                  onClick={this.handleItemClick}
-                >
-                  Equipment
-                </Menu.Item>
-
-                <Menu.Item
-                  name='proficiencies'
-                  active={activeItem === 'proficiencies'}
-                  onClick={this.handleItemClick}
-                >
-                  Proficiencies
-                </Menu.Item>
-
-                <Menu.Item
-                  name='skills'
-                  active={activeItem === 'skills'}
-                  onClick={this.handleItemClick}
-                >
-                  Skills
-                </Menu.Item>
-
-                <Menu.Item
-                  name='spells'
-                  active={activeItem === 'spells'}
-                  onClick={this.handleItemClick}
-                >
-                  Spells
-                </Menu.Item>
+                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells'])}
 
                 {
                   activeItem ?

@@ -15,9 +15,49 @@ class CharacterSheet extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  mappedMenuItems = (items) => {
+    const { activeItem } = this.state
+    return items.map(item => {
+      const arr = item.split('')
+      const title = arr.shift().toUpperCase() + arr.join('')
+      return (
+        <Menu.Item
+          name={item}
+          active={activeItem === {item}}
+          onClick={this.handleItemClick}
+        >
+          {}
+        </Menu.Item>
+      )
+    })
+  }
+
+  mappedH4s = (h4s) => {
+    let i = 0
+    return h4s.map(h4 => {
+      if (i === 5) {
+        return (
+          <React.Fragment>
+            <h4>{h4}</h4>
+          </React.Fragment>
+        )
+      } else {
+        i++
+        return (
+          <React.Fragment>
+            <h4>{h4}</h4>
+            <Divider />
+          </React.Fragment>
+        )
+      }
+    })
+  }
+
   render() {
     const { character } = this.props
     const { activeItem } = this.state
+    const stats = ["Strength", "Dexterity", "Constitution", "Wisdom", "Intelligence", "Charisma"]
+    const characterStats = [character.strength, character.dexterity, character.constitution, character.wisdom, character.intelligence, character.charisma]
 
     return (
       <React.Fragment>
@@ -44,44 +84,15 @@ class CharacterSheet extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Menu>
-                <Menu.Item
-                  name='equipment'
-                  active={activeItem === 'equipment'}
-                  onClick={this.handleItemClick}
-                >
-                  Equipment
-                </Menu.Item>
-
-                <Menu.Item
-                  name='proficiencies'
-                  active={activeItem === 'proficiencies'}
-                  onClick={this.handleItemClick}
-                >
-                  Proficiencies
-                </Menu.Item>
-
-                <Menu.Item
-                  name='skills'
-                  active={activeItem === 'skills'}
-                  onClick={this.handleItemClick}
-                >
-                  Skills
-                </Menu.Item>
-
-                <Menu.Item
-                  name='spells'
-                  active={activeItem === 'spells'}
-                  onClick={this.handleItemClick}
-                >
-                  Spells
-                </Menu.Item>
+                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells'])}
               </Menu>
             </Grid.Column>
           </Grid.Row>
 
           <Grid.Row>
             <Grid.Column width={2}>
-                <h4>Strength</h4>
+              {this.mappedH4s(stats)}
+                {/* <h4>Strength</h4>
                 <Divider />
                 <h4>Dexterity</h4>
                 <Divider />
@@ -91,10 +102,11 @@ class CharacterSheet extends Component {
                 <Divider />
                 <h4>Intelligence</h4>
                 <Divider />
-                <h4>Charisma</h4>
+                <h4>Charisma</h4> */}
             </Grid.Column>
             <Grid.Column width={1}>
-                <h4>{character.strength}</h4>
+              {this.mappedH4s(characterStats)}
+                {/* <h4>{character.strength}</h4>
                 <Divider />
                 <h4>{character.dexterity}</h4>
                 <Divider />
@@ -104,7 +116,7 @@ class CharacterSheet extends Component {
                 <Divider />
                 <h4>{character.intelligence}</h4>
                 <Divider />
-                <h4>{character.charisma}</h4>
+                <h4>{character.charisma}</h4> */}
             </Grid.Column>
             <Grid.Column width={13}>
               { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }

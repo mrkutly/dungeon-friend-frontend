@@ -1,9 +1,8 @@
 # Dungeon Friend
 A character creation and management app for Dungeons and Dragons.
 
-# TODO
-get language options for character creation
-(race is stored in state)
+### TODO
+Make pull request to fix rogue starting equipment
 
-get starting_proficiencies and starting_equipment options on character creation
-(job is stored in state)
+Fix all menus (inverted Menu semantic ui react)
+Give Characters XP

@@ -35,7 +35,7 @@ class JobTilesContainer extends Component {
     return (
       <div>
         <div className="flex-container">
-          { currentJob ? <JobDisplay job={currentJob} back={this.removeCurrentJob} /> : this.jobTiles() }
+          { currentJob ? <JobDisplay setProficiencies={this.props.setProficiencies} back={this.removeCurrentJob} /> : this.jobTiles() }
         </div>
       </div>
     )

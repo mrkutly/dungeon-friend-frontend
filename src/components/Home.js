@@ -4,8 +4,11 @@ import SignIn from './SignIn'
 import CreateCharacter from './CreateCharacter'
 import CharacterCardsContainer from './Containers/CharacterCardsContainer'
 import CharacterSheet from './Characters/CharacterSheet'
+import CharacterEdit from './Characters/CharacterEdit'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Container } from 'semantic-ui-react'
+
 
 
 class Home extends Component {
@@ -22,16 +25,19 @@ class Home extends Component {
   }
 
   render() {
-    const { currentUser } = this.props
+    const { currentUser, characterCreated } = this.props
     return (
       <div className="home hidden" ref={this.homeDiv}>
         <Router>
           <React.Fragment>
             <Navbar />
-            <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
-            <Route exact path="/create" component={CreateCharacter} />
-            <Route exact path="/characters" component={CharacterCardsContainer} />
-            <Route path="/characters/:id" render={props => <CharacterSheet {...props} />} />
+            <Container>
+              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
+              <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
+              <Route exact path="/characters" component={CharacterCardsContainer} />
+              <Route exact path="/characters/:id" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterSheet {...props} />)} />
+              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterEdit {...props} />)} />
+            </Container>
           </React.Fragment>
         </Router>
       </div>
@@ -41,6 +47,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    characterCreated: state.characterCreated,
     currentUser: state.currentUser
   }
 }

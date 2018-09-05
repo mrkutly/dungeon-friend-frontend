@@ -1,6 +1,7 @@
 
 const initialState = {
   characters: [],
+  characterCreated: false,
   currentRace: null,
   currentJob: null,
   currentUser: null,
@@ -18,13 +19,22 @@ export const reducer = (state = initialState, action) => {
         characters: [...state.characters, action.payload]
       };
 
-    case 'EDIT_NEW_CHARACTER':
+    case 'CHARACTER_CREATED_FALSE':
       return {
         ...state,
-        newCharacter: {
-          ...state.newCharacter,
-          ...action.payload
-        }
+        characterCreated: false
+      };
+
+    case 'CHARACTER_CREATED_TRUE':
+      return {
+        ...state,
+        characterCreated: true
+      };
+
+    case 'CREATE_NEW_CHARACTER':
+      return {
+        ...state,
+        newCharacter: action.payload
       };
 
     case 'SET_CHARACTERS':
@@ -67,7 +77,17 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload
-      }
+      };
+
+    case 'UPDATE_CHARACTER':
+      const characters = state.characters.filter(char => char.id !== action.payload.id )
+      return {
+        ...state,
+        characters: [
+          ...characters,
+          action.payload
+        ]
+      };
 
     default:
       return state;

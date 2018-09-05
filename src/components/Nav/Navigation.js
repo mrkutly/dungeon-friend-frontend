@@ -20,13 +20,13 @@ const Navigation = (props) => {
 
         <li className='nav-items'>
           <NavLink to="/create" style={link}>
-            <button className="navigation-btns">Create Character</button>
+            <button className="navigation-btns">Create a Character</button>
           </NavLink>
         </li>
 
         <li className='nav-items'>
           <NavLink to="/characters" style={link}>
-            <button className="navigation-btns">Characters</button>
+            <button className="navigation-btns">Character Sheets</button>
           </NavLink>
         </li>
       </ul>

@@ -3,7 +3,7 @@
 font-family: 'Quicksand', sans-serif; */
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   background-color: black;
   color: white;
   min-width: 70rem;
@@ -43,6 +43,10 @@ ul.nav-list {
 
 li.nav-items {
   display: inline;
+}
+
+.center {
+  text-align: center;
 }
 
 .create-button {

@@ -5,9 +5,21 @@ export const addCharacter = (character) => {
   }
 }
 
-export const editNewCharacter = (character) => {
+export const characterCreatedFalse = () => {
   return {
-    type: "EDIT_NEW_CHARACTER",
+    type: "CHARACTER_CREATED_FALSE"
+  }
+}
+
+export const characterCreatedTrue = () => {
+  return {
+    type: "CHARACTER_CREATED_TRUE"
+  }
+}
+
+export const createNewCharacter = (character) => {
+  return {
+    type: "CREATE_NEW_CHARACTER",
     payload: character
   }
 }
@@ -51,5 +63,12 @@ export const setRaces = (races) => {
   return {
     type: "SET_RACES",
     payload: races
+  }
+}
+
+export const updateCharacter = (character) => {
+  return {
+    type: "UPDATE_CHARACTER",
+    payload: character
   }
 }

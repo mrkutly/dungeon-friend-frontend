@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RaceDisplay = (props) => {
-  console.log(props.race)
+
   const { name, speed,
           ability_bonuses,
           starting_proficiencies,

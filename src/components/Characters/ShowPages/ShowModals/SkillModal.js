@@ -49,7 +49,7 @@ export default class SkillModal extends Component {
     const { data } = this.state
 
     return (
-      <Modal trigger={<a>See info</a>} closeIcon>
+      <Modal trigger={<a>See info</a>}>
         <Modal.Header>{skill.name}</Modal.Header>
         <Modal.Content >
           <Modal.Description>

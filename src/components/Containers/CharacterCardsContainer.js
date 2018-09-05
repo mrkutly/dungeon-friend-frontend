@@ -16,7 +16,7 @@ const CharacterCardsContainer = (props) => {
       <div className="wrapper">
         {mappedCharacters}
       </div>
-    </React.Fragment>  
+    </React.Fragment>
   )
 }
 

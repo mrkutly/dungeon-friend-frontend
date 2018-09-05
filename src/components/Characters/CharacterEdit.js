@@ -45,16 +45,12 @@ class CharacterEdit extends Component {
   mappedMenuItems = (items) => {
     const { activeItem } = this.state
     return items.map(item => {
-      const arr = item.split('')
-      const title = arr.shift().toUpperCase() + arr.join('')
       return (
         <Menu.Item
           name={item}
           active={activeItem === {item}}
           onClick={this.handleItemClick}
-        >
-          {}
-        </Menu.Item>
+        />
       )
     })
   }

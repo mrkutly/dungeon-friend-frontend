@@ -19,7 +19,7 @@ export default class SkillModal extends Component {
     console.log(data)
 
     return (
-      <Modal trigger={<a>See info</a>} closeIcon>
+      <Modal trigger={<a>See info</a>}>
         <Modal.Header>{spell.name}</Modal.Header>
         <Modal.Content >
           <Modal.Description>

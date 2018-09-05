@@ -101,7 +101,7 @@ class SelectProficiencies extends Component {
     const { starting } = this.state
 
     return (
-      <Modal trigger={<Button type="button">Choose your proficiencies</Button>}>
+      <Modal trigger={<Button type="button">Choose your proficiencies</Button>} closeIcon>
         <Modal.Header>Proficiencies</Modal.Header>
         <Modal.Content >
           <Modal.Description>

@@ -8,7 +8,7 @@ import CharacterEdit from './Characters/CharacterEdit'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
-
+import { setCurrentPage } from '../redux/actions'
 
 
 class Home extends Component {
@@ -20,8 +20,47 @@ class Home extends Component {
 
   componentDidMount() {
     setTimeout(() => {
-      this.homeDiv.current.className = 'home'
+      this.homeDiv.current.className = "home"
     }, 500)
+  }
+
+  setItem = (activeItem) => {
+    this.setState({ activeItem })
+  }
+
+  redirectToCharacters = () => {
+    this.props.setCurrentPage("characters")
+    return <Redirect to="characters" />
+  }
+
+  redirectToSignIn = () => {
+    this.props.setCurrentPage("signin")
+    return <Redirect to="signin" />
+  }
+
+  toCharacterCreate = () => {
+    this.props.setCurrentPage("create")
+    return <CreateCharacter />
+  }
+
+  toCharacterEdit = (_props) => {
+    this.props.setCurrentPage("characters")
+    return <CharacterEdit {..._props} />
+  }
+
+  toCharacterShow = (_props) => {
+    this.props.setCurrentPage("characters")
+    return <CharacterSheet {..._props} />
+  }
+
+  toCharactersIndex = () => {
+    this.props.setCurrentPage("characters")
+    return <CharacterCardsContainer />
+  }
+
+  toSignIn = () => {
+    this.props.setCurrentPage("signin")
+    return <SignIn />
   }
 
   render() {
@@ -32,11 +71,11 @@ class Home extends Component {
           <React.Fragment>
             <Navbar />
             <Container>
-              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters"/> : <SignIn />)} />
-              <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
-              <Route exact path="/characters" component={CharacterCardsContainer} />
-              <Route exact path="/characters/:id" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterSheet {...props} />)} />
-              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? <Redirect to="/signin"/> : <CharacterEdit {...props} />)} />
+              <Route exact path="/signin" render={() => (currentUser ? this.redirectToCharacters() : this.toSignIn())} />
+              <Route exact path="/create" render={() => (characterCreated ? this.redirectToCharacters() : this.toCharacterCreate())} />
+              <Route exact path="/characters" render={() => this.toCharactersIndex()} />
+              <Route exact path="/characters/:id" render={props => (!currentUser ? this.redirectToSignIn() : this.toCharacterShow(props))} />
+              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? this.redirectToSignIn() : this.toCharacterEdit(props))} />
             </Container>
           </React.Fragment>
         </Router>
@@ -52,4 +91,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Home)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentPage: (page) => dispatch( setCurrentPage(page) )
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

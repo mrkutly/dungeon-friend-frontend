@@ -123,7 +123,7 @@ class SelectStartingEquipment extends Component {
 
   render() {
     return (
-      <Modal trigger={<Button type="button">Choose your starting equipment</Button>}>
+      <Modal trigger={<Button type="button">Choose your starting equipment</Button>} closeIcon>
         <Modal.Header>Starting Equipment</Modal.Header>
         <Modal.Content >
           <Modal.Description>

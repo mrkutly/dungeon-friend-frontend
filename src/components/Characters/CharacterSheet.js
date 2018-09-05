@@ -18,16 +18,13 @@ class CharacterSheet extends Component {
   mappedMenuItems = (items) => {
     const { activeItem } = this.state
     return items.map(item => {
-      const arr = item.split('')
-      const title = arr.shift().toUpperCase() + arr.join('')
       return (
         <Menu.Item
+          key={item}
           name={item}
           active={activeItem === {item}}
           onClick={this.handleItemClick}
-        >
-          {}
-        </Menu.Item>
+        />
       )
     })
   }
@@ -37,14 +34,14 @@ class CharacterSheet extends Component {
     return h4s.map(h4 => {
       if (i === 5) {
         return (
-          <React.Fragment>
+          <React.Fragment key={`${h4} ${i}`}>
             <h4>{h4}</h4>
           </React.Fragment>
         )
       } else {
         i++
         return (
-          <React.Fragment>
+          <React.Fragment key={`${h4} ${i}`}>
             <h4>{h4}</h4>
             <Divider />
           </React.Fragment>
@@ -92,31 +89,9 @@ class CharacterSheet extends Component {
           <Grid.Row>
             <Grid.Column width={2}>
               {this.mappedH4s(stats)}
-                {/* <h4>Strength</h4>
-                <Divider />
-                <h4>Dexterity</h4>
-                <Divider />
-                <h4>Constitution</h4>
-                <Divider />
-                <h4>Wisdom</h4>
-                <Divider />
-                <h4>Intelligence</h4>
-                <Divider />
-                <h4>Charisma</h4> */}
             </Grid.Column>
             <Grid.Column width={1}>
               {this.mappedH4s(characterStats)}
-                {/* <h4>{character.strength}</h4>
-                <Divider />
-                <h4>{character.dexterity}</h4>
-                <Divider />
-                <h4>{character.constitution}</h4>
-                <Divider />
-                <h4>{character.wisdom}</h4>
-                <Divider />
-                <h4>{character.intelligence}</h4>
-                <Divider />
-                <h4>{character.charisma}</h4> */}
             </Grid.Column>
             <Grid.Column width={13}>
               { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }

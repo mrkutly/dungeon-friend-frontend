@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div id="main">
-        {this.state.welcome ? <Welcome /> : <Home /> }
+        {this.state.welcome ? <div id="black-background"><Welcome /></div> : <Home /> }
       </div>
     )
   }

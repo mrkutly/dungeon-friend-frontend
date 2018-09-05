@@ -62,7 +62,7 @@ class SelectTraits extends Component {
 
   render() {
     return (
-      <Modal trigger={<Button type="button">Choose your traits</Button>}>
+      <Modal trigger={<Button type="button">Choose your traits</Button>} closeIcon>
         <Modal.Header>Traits</Modal.Header>
         <Modal.Content >
           <Modal.Description>

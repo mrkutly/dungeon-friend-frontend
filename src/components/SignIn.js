@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Adapter from '../Adapter'
 import { connect } from 'react-redux'
 import { setCharacters, setCurrentUser } from '../redux/actions.js'
+import { Form } from 'semantic-ui-react'
 
 class SignIn extends Component {
   constructor() {
@@ -30,10 +31,13 @@ class SignIn extends Component {
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleChange} value={this.state.username}/>
-        <button type="submit">sign in</button>
-      </form>
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Field>
+          <label>Username</label>
+          <input type="text" onChange={this.handleChange} value={this.state.username}/>
+        </Form.Field>
+        <Form.Button>Submit</Form.Button>
+      </Form>
     )
   }
 }

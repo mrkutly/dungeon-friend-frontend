@@ -9,6 +9,7 @@ import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
 import SelectProficiencies from './modals/SelectProficiencies'
 import RollStats from './modals/RollStats'
+import { Form } from 'semantic-ui-react'
 
 class CreateCharacter extends Component {
 
@@ -192,25 +193,26 @@ class CreateCharacter extends Component {
 
     return (
       <div>
-        <h1 className="center">Create a Character</h1>
-        <form onSubmit={this.handleSubmit}>
+        <div className="center-text">Create a Character</div>
+        <Form onSubmit={this.handleSubmit}>
 
-          <h2>Name</h2>
-          <input type="text" value={name} onChange={this.handleNameChange} />
+          <div className="medium-header">Name</div> <br />
+          <Form.Input type="text" value={name} onChange={this.handleNameChange} />
 
-          <h2>Starting Level</h2>
-          <input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
+          <div className="medium-header">Starting Level</div> <br />
+          <Form.Input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
 
           <div className="grid">
             <div className="race-container">
-              <h1>Race</h1>
+              <div className="medium-header">Race</div> <br />
               <RaceTilesContainer />
             </div>
-
+            <br />
             <div className="class-container">
-              <h1>Class</h1>
+              <div className="medium-header">Class</div> <br />
               <JobTilesContainer />
             </div>
+            <br />
           </div>
 
           {/* Conditionally render buttons that open modals for options based on race or job */}
@@ -224,8 +226,8 @@ class CreateCharacter extends Component {
 
           { currentRace && currentJob ? <RollStats setAbilityScores={this.setAbilityScores} /> : null }
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
-          <button className="create-button" type="submit">Create</button>
-        </form>
+          <Form.Button>Create</Form.Button>
+        </Form>
       </div>
     )
   }

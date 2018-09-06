@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import CharacterCard from '../Characters/CharacterCard'
 import { connect } from 'react-redux'
 import { characterCreatedFalse } from '../../redux/actions'
 
-const CharacterCardsContainer = (props) => {
-  setTimeout(() => {
-    props.characterCreatedFalse()
-  }, 1000)
+class CharacterCardsContainer extends Component {
 
-  const mappedCharacters = props.characters.map(char => <CharacterCard key={char.id} character={char} />)
+  componentWillMount() {
+    this.setFalse = setTimeout(() => {
+      this.props.characterCreatedFalse()
+    }, 1000)
+  }
 
-  return (
-    <React.Fragment>
-      <h1 className="center">Your Characters</h1>
-      <div className="wrapper">
-        {mappedCharacters}
-      </div>
-    </React.Fragment>
-  )
+  componentWillUnmount() {
+    clearTimeout(this.setFalse)
+  }
+
+  mappedCharacters = () => {
+    return this.props.characters.map(char => <CharacterCard key={char.id} character={char} />)
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <h1 className="center">Your Characters</h1>
+        <div className="wrapper">
+          {this.mappedCharacters()}
+        </div>
+      </React.Fragment>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Grid } from 'semantic-ui-react'
 
 const JobDisplay = (props) => {
 
@@ -66,6 +67,7 @@ const JobDisplay = (props) => {
 
   return (
     <div className="display">
+
       <div>
         <h1>{name}</h1>
         <h2>Hit Die: {hit_die}</h2>

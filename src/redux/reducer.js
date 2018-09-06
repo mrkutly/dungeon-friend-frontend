@@ -2,7 +2,7 @@
 const initialState = {
   characters: [],
   characterCreated: false,
-  currentPage: "signin",
+  currentPage: null,
   currentRace: null,
   currentJob: null,
   currentUser: null,

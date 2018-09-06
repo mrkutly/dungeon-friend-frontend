@@ -5,14 +5,11 @@ import { setCharacters, setCurrentUser } from '../redux/actions.js'
 import { Form } from 'semantic-ui-react'
 
 class SignIn extends Component {
-  constructor() {
-    super()
 
-    this.state = {
-      username: ''
-    }
+  state = {
+    username: ''
   }
-
+  
   handleChange = (e) => {
     e.persist()
     this.setState({ username: e.target.value })

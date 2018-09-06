@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button } from 'semantic-ui-react'
+import { Modal, Header, Button, Grid } from 'semantic-ui-react'
 import Adapter from '../../Adapter'
 
 class SelectStartingEquipment extends Component {
@@ -82,7 +82,7 @@ class SelectStartingEquipment extends Component {
       ++i
 
       return (
-        <div key={`equipmentChoice${i}`}>
+        <Grid.Column key={`equipmentChoice${i}`}>
           <p>Choose {choice.choose} from</p>
 
           <ul>
@@ -101,7 +101,7 @@ class SelectStartingEquipment extends Component {
               )
             })}
           </ul>
-        </div>
+        </Grid.Column>
       )
     })
   }
@@ -123,7 +123,7 @@ class SelectStartingEquipment extends Component {
 
   render() {
     return (
-      <Modal trigger={<Button type="button">Choose your starting equipment</Button>} closeIcon>
+      <Modal trigger={<Button basic color="black" type="button">Choose your starting equipment</Button>} closeIcon>
         <Modal.Header>Starting Equipment</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -133,12 +133,16 @@ class SelectStartingEquipment extends Component {
             </ul>
 
             <Header>Choices:</Header>
-            {this.mappedChoices()}
+            <Grid columns={3} divided stackable>
+              <Grid.Row>
+                {this.mappedChoices()}
+              </Grid.Row>
+            </Grid>
 
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button primary onClick={this.handleSave}>
+          <Button basic color="black" onClick={this.handleSave}>
             Save
           </Button>
         </Modal.Actions>

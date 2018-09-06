@@ -62,7 +62,7 @@ class SelectTraits extends Component {
 
   render() {
     return (
-      <Modal trigger={<Button type="button">Choose your traits</Button>} closeIcon>
+      <Modal trigger={<Button basic color="black" type="button">Choose your traits</Button>} closeIcon>
         <Modal.Header>Traits</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -74,7 +74,7 @@ class SelectTraits extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button type="button" onClick={this.handleSave} primary>
+          <Button basic color="black" type="button" onClick={this.handleSave}>
             Save
           </Button>
         </Modal.Actions>

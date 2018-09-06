@@ -1,14 +1,29 @@
 import React, { Component } from 'react'
 import EquipmentModal from './ShowModals/EquipmentModal'
-import { Divider } from 'semantic-ui-react'
+import { Divider, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { updateCharacter } from '../../../redux/actions'
 
-export default class Equipment extends Component {
+class Equipment extends Component {
+
+  addItem = (item) => {
+    const character = { ...this.props.character }
+    character.equipment = [...character.equipment, item]
+    this.props.updateCharacter(character)
+  }
+
+  removeItem = (item) => {
+    const character = { ...this.props.character }
+    const itemIndex = character.equipment.findIndex(el => el === item)
+    character.equipment.splice(itemIndex, 1)
+    this.props.updateCharacter(character)
+  }
 
   mappedEquipment = () => {
     let equipment = {}
     let unique = []
 
-    this.props.equipment.forEach(item => {
+    this.props.character.equipment.forEach(item => {
       if (equipment[item.name]) {
         equipment[item.name] += 1
       } else {
@@ -21,6 +36,15 @@ export default class Equipment extends Component {
       return (
         <li key={item.name}>
           <h5>
+            {
+              this.props.edit ?
+                <React.Fragment>
+                  <Button type="button" onClick={() => this.removeItem(item)} icon="minus" />
+                  <Button type="button" onClick={() => this.addItem(item)} icon="plus" />
+                </React.Fragment>
+              :
+                null
+            }
             {equipment[item.name]} {item.name}
           </h5>
             <EquipmentModal item={item} />
@@ -38,3 +62,11 @@ export default class Equipment extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCharacter: (character) => { dispatch( updateCharacter(character) )}
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Equipment)

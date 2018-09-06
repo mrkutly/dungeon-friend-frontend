@@ -8,10 +8,15 @@ import { NavLink } from 'react-router-dom'
 // import { Dice } from '../../Dice'
 // import { Adapter } from '../../Adapter'
 import { Grid, Menu, Divider } from 'semantic-ui-react'
+import { setCurrentPage } from '../../redux/actions'
 
 
 class CharacterSheet extends Component {
   state = {}
+
+  componentWillMount() {
+    this.props.setCurrentPage("characters")
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -32,17 +37,18 @@ class CharacterSheet extends Component {
   mappedH4s = (h4s) => {
     let i = 0
     return h4s.map(h4 => {
+      const formatted = (window.innerWidth < 1004 && typeof h4 === "string" ? h4.slice(0, 3).toUpperCase() : h4)
       if (i === 5) {
         return (
           <React.Fragment key={`${h4} ${i}`}>
-            <h4>{h4}</h4>
+            <h4>{formatted}</h4>
           </React.Fragment>
         )
       } else {
         i++
         return (
           <React.Fragment key={`${h4} ${i}`}>
-            <h4>{h4}</h4>
+            <h4>{formatted}</h4>
             <Divider />
           </React.Fragment>
         )
@@ -94,7 +100,7 @@ class CharacterSheet extends Component {
               {this.mappedH4s(characterStats)}
             </Grid.Column>
             <Grid.Column width={13}>
-              { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }
+              { activeItem === "equipment" ? <Equipment character={character} edit={false} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
@@ -114,4 +120,4 @@ const mapStateToProps = (state, _props) => {
   }
 }
 
-export default connect(mapStateToProps)(CharacterSheet)
+export default connect(mapStateToProps, { setCurrentPage })(CharacterSheet)

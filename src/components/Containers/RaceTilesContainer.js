@@ -31,8 +31,13 @@ class RaceTilesContainer extends Component {
     const { currentRace } = this.props
 
     return (
-      <div className='flex-container'>
-        { currentRace ? <RaceDisplay race={currentRace} back={this.removeCurrentRace} /> : this.raceTiles() }
+      <div>
+        {
+          currentRace ?
+            <RaceDisplay race={currentRace} back={this.removeCurrentRace} />
+            :
+            <div className='flex-container'>{this.raceTiles()}</div>
+        }
       </div>
     )
   }

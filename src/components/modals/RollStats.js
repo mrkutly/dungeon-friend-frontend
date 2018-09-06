@@ -108,13 +108,13 @@ class RollStats extends Component {
     const { bonuses } = this.props
     return (
       <p>
-        Your Bonuses -
-        {bonuses[0] > 0 ? `| +${bonuses[0]} Strength |` : null }
-        {bonuses[1] > 0 ? `| +${bonuses[1]} Dexterity |` : null }
-        {bonuses[2] > 0 ? `| +${bonuses[2]} Constitution |` : null }
-        {bonuses[3] > 0 ? `| +${bonuses[3]} Intelligence |` : null }
-        {bonuses[4] > 0 ? `| +${bonuses[4]} Wisdom |` : null }
-        {bonuses[5] > 0 ? `| +${bonuses[5]} Charisma |` : null }
+        {"Your Bonuses:  "}
+        {bonuses[0] > 0 ? ` |  +${bonuses[0]} Strength  | ` : null }
+        {bonuses[1] > 0 ? ` |  +${bonuses[1]} Dexterity  | ` : null }
+        {bonuses[2] > 0 ? ` |  +${bonuses[2]} Constitution  | ` : null }
+        {bonuses[3] > 0 ? ` |  +${bonuses[3]} Intelligence  | ` : null }
+        {bonuses[4] > 0 ? ` |  +${bonuses[4]} Wisdom  | ` : null }
+        {bonuses[5] > 0 ? ` |  +${bonuses[5]} Charisma  | ` : null }
       </p>
     )
   }
@@ -151,7 +151,7 @@ class RollStats extends Component {
 
   render() {
     return (
-      <Modal trigger={<Button type="button">Roll for stats</Button>}  closeIcon>
+      <Modal trigger={<Button basic color="black" type="button">Roll for stats</Button>}  closeIcon>
         <Modal.Header>Stats</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -169,10 +169,10 @@ class RollStats extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button type="button" primary onClick={this.rollStats}>
+          <Button basic color="black" type="button" onClick={this.rollStats}>
             Roll the dice
           </Button>
-          <Button type="button" primary onClick={this.handleSave}>
+          <Button basic color="black" type="button" onClick={this.handleSave}>
             Save
           </Button>
         </Modal.Actions>

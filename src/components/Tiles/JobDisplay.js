@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Button, Divider } from 'semantic-ui-react'
 
 const JobDisplay = (props) => {
 
@@ -66,55 +66,58 @@ const JobDisplay = (props) => {
   }
 
   return (
-    <div className="display">
+    <React.Fragment>
+      <Button basic color="black" type="button" onClick={() => props.back()}> Show all classes </Button>
+      <br />
+      <br />
+      <Divider />
+      <Grid columns={4} divided stackable>
+        <Grid.Row>
+          <Grid.Column>
+            <div className="medium-header">{name}</div>
+            <div className="small-header">Hit Die: {hit_die}</div>
 
-      <div>
-        <h1>{name}</h1>
-        <h2>Hit Die: {hit_die}</h2>
-      </div>
+            <div className="small-header">Saving Throws</div>
+            <ul>
+              {mappedSavingThrows}
+            </ul>
+          </Grid.Column>
 
-      <div>
-        <h2>Starting Proficiencies</h2>
-        <ul>
-          {mappedProficiencies}
-        </ul>
-      </div>
+          <Grid.Column>
+            <div className="small-header">Profiency Choices</div>
+            {mappedProfiencyChoices}
+          </Grid.Column>
 
-      <div>
-        <h2>Profiency Choices</h2>
-        {mappedProfiencyChoices}
-      </div>
+          <Grid.Column>
+            <div className="small-header">Starting Proficiencies</div>
+            <ul>
+              {mappedProficiencies}
+            </ul>
+          </Grid.Column>
+          {
+            subclasses.length > 0 ?
+            <Grid.Column>
+              <div className="small-header">Subclasses</div>
+              <ul>
+                {subclasses.map(sub => <li key={sub.name}>{sub.name}</li>)}
+              </ul>
+            </Grid.Column> :
+            null
+          }
+        </Grid.Row>
 
-      <div>
-        <h2>Saving Throws</h2>
-        <ul>
-          {mappedSavingThrows}
-        </ul>
-      </div>
-
-      {
-        subclasses.length > 0 ?
-        <div>
-          <h2>Subclasses</h2>
-          <ul>
-            {subclasses.map(sub => <li key={sub.name}>{sub.name}</li>)}
-          </ul>
-        </div> :
-        null
-      }
-
-      {
-        spellcasting ?
-        <div>
-          <h2>Spellcasting</h2>
-          <p>Relevant ability score - {spellcasting.spellcasting_ability.name}</p>
-          {mappedSpellcasting()}
-        </div> :
-        null
-      }
-
-      <button onClick={() => props.back()}> Show all classes </button>
-    </div>
+        {
+          spellcasting ?
+          <div>
+            <div className="small-header">Spellcasting</div>
+            <p>Relevant ability score - {spellcasting.spellcasting_ability.name}</p>
+            {mappedSpellcasting()}
+          </div> :
+          null
+        }
+      </Grid>
+      <Divider />
+    </React.Fragment>
   )
 }
 

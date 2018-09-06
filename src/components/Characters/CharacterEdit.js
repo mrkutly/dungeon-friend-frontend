@@ -8,24 +8,31 @@ import SearchBar from './SearchBar'
 import { NavLink } from 'react-router-dom'
 import Adapter from '../../Adapter'
 import { Grid, Menu, Button } from 'semantic-ui-react'
-import { updateCharacter } from '../../redux/actions'
+import { updateCharacter, setCurrentPage } from '../../redux/actions'
 
 
 class CharacterEdit extends Component {
 
   state = {}
 
+  componentWillMount() {
+    this.props.setCurrentPage("characters")
+  }
+  
+  componentWillUnmount() {
+    Adapter.updateCharacter(this.props.character).then(({ character }) => {
+      this.props.updateCharacter(character)
+    })
+  }
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   handleSave = (e) => {
     e.persist()
-    Adapter.updateCharacter(this.props.character).then(r => {
+    Adapter.updateCharacter(this.props.character).then(({ character }) => {
       e.target.textContent = "Saved!"
+      this.props.updateCharacter(character)
     })
-  }
-
-  componentWillUnmount() {
-    Adapter.updateCharacter(this.props.character)
   }
 
   increase = (score) => {
@@ -47,6 +54,7 @@ class CharacterEdit extends Component {
     return items.map(item => {
       return (
         <Menu.Item
+          key={item}
           name={item}
           active={activeItem === {item}}
           onClick={this.handleItemClick}
@@ -94,7 +102,7 @@ class CharacterEdit extends Component {
             </Grid.Column>
 
             <Grid.Column width={4}>
-              <Button type="button" onClick={this.handleSave} primary>Save</Button>
+              <Button basic color="blue" type="button" onClick={this.handleSave} >Save</Button>
             </Grid.Column>
 
           </Grid.Row>
@@ -103,7 +111,7 @@ class CharacterEdit extends Component {
             <Grid.Column width={8}>
               <h1>{character.name}</h1>
               <p>Lvl {character.level} {character.race.name} {character.job.name}</p>
-              <Button type="button" onClick={() => this.increase("level")}>Lvl Up</Button>
+              <Button basic color="blue" type="button" onClick={() => this.increase("level")}>Lvl Up</Button>
             </Grid.Column>
 
             <Grid.Column width={8}>
@@ -162,7 +170,7 @@ class CharacterEdit extends Component {
             </Grid.Column>
 
             <Grid.Column width={8}>
-              { activeItem === "equipment" ? <Equipment equipment={character.equipment} /> : null }
+              { activeItem === "equipment" ? <Equipment character={character} edit={true} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
@@ -185,7 +193,8 @@ const mapStateToProps = (state, _props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateCharacter: (character) => { dispatch( updateCharacter(character) )}
+    updateCharacter: (character) => dispatch( updateCharacter(character) ),
+    setCurrentPage: (page) => dispatch( setCurrentPage(page) )
   }
 }
 

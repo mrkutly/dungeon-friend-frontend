@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import CharacterCard from '../Characters/CharacterCard'
 import { connect } from 'react-redux'
-import { characterCreatedFalse } from '../../redux/actions'
+import { characterCreatedFalse, setCurrentPage } from '../../redux/actions'
 
 class CharacterCardsContainer extends Component {
 
   componentWillMount() {
+    this.props.setCurrentPage("characters")
     this.setFalse = setTimeout(() => {
       this.props.characterCreatedFalse()
     }, 1000)
@@ -37,4 +38,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { characterCreatedFalse })(CharacterCardsContainer)
+export default connect(mapStateToProps, { characterCreatedFalse, setCurrentPage })(CharacterCardsContainer)

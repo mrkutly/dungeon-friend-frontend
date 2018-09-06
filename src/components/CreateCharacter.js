@@ -3,13 +3,14 @@ import Adapter from '../Adapter'
 import RaceTilesContainer from './Containers/RaceTilesContainer'
 import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
-import { createNewCharacter, addCharacter, characterCreatedTrue } from '../redux/actions.js'
+import { createNewCharacter, addCharacter, characterCreatedTrue, setCurrentPage } from '../redux/actions.js'
 import SelectLanguages from './modals/SelectLanguages'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
 import SelectProficiencies from './modals/SelectProficiencies'
 import RollStats from './modals/RollStats'
 import { Form } from 'semantic-ui-react'
+
 
 class CreateCharacter extends Component {
 
@@ -60,6 +61,10 @@ class CreateCharacter extends Component {
         traits: null
       })
     }
+  }
+
+  componentWillMount() {
+    this.props.setCurrentPage("create")
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -196,20 +201,22 @@ class CreateCharacter extends Component {
         <div className="center-text">Create a Character</div>
         <Form onSubmit={this.handleSubmit}>
 
-          <div className="medium-header">Name</div> <br />
+          <div className="large-header">Name</div> <br />
           <Form.Input type="text" value={name} onChange={this.handleNameChange} />
+          <br />
 
-          <div className="medium-header">Starting Level</div> <br />
+          <div className="large-header">Starting Level</div> <br />
           <Form.Input type="number" min="1" max="99" value={startingLvl} onChange={this.handleLvlChange}/>
+          <br />
 
           <div className="grid">
             <div className="race-container">
-              <div className="medium-header">Race</div> <br />
+              <div className="large-header">Race</div> <br />
               <RaceTilesContainer />
             </div>
             <br />
             <div className="class-container">
-              <div className="medium-header">Class</div> <br />
+              <div className="large-header">Class</div> <br />
               <JobTilesContainer />
             </div>
             <br />
@@ -226,7 +233,9 @@ class CreateCharacter extends Component {
 
           { currentRace && currentJob ? <RollStats setAbilityScores={this.setAbilityScores} /> : null }
           {/* Find a way to disable these buttons until a user is signed in and everything else is selected */}
-          <Form.Button>Create</Form.Button>
+          <br />
+          <br />
+          <Form.Button basic color="violet">Create</Form.Button>
         </Form>
       </div>
     )
@@ -242,4 +251,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createNewCharacter, addCharacter, characterCreatedTrue })(CreateCharacter)
+export default connect(mapStateToProps, { createNewCharacter, addCharacter, characterCreatedTrue, setCurrentPage })(CreateCharacter)

@@ -61,7 +61,7 @@ class SelectLanguages extends Component {
     const { options } = this.props
 
     return (
-      <Modal trigger={<Button type="button">Choose your languages</Button>}  closeIcon>
+      <Modal trigger={<Button basic color="black" type="button">Choose your languages</Button>}  closeIcon>
         <Modal.Header>Languages</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -72,7 +72,7 @@ class SelectLanguages extends Component {
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button type="button" primary onClick={this.handleSave}>
+          <Button basic color="black" type="button" onClick={this.handleSave}>
             Save
           </Button>
         </Modal.Actions>

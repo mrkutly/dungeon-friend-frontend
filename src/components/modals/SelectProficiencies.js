@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button } from 'semantic-ui-react'
+import { Modal, Header, Button, Grid } from 'semantic-ui-react'
 
 class SelectProficiencies extends Component {
 
@@ -73,7 +73,7 @@ class SelectProficiencies extends Component {
       ++i
 
       return (
-        <div key={prof.from[0].name}>
+        <Grid.Column key={prof.from[0].name}>
           <p>Choose {prof.choose} from</p>
           <ul>
             {prof.from.map(choice => (
@@ -88,7 +88,7 @@ class SelectProficiencies extends Component {
                 <label>{choice.name}</label>
               </li>))}
           </ul>
-        </div>
+        </Grid.Column>
       )
     })
   }
@@ -101,7 +101,7 @@ class SelectProficiencies extends Component {
     const { starting } = this.state
 
     return (
-      <Modal trigger={<Button type="button">Choose your proficiencies</Button>} closeIcon>
+      <Modal trigger={<Button basic color="black" type="button">Choose your proficiencies</Button>} closeIcon>
         <Modal.Header>Proficiencies</Modal.Header>
         <Modal.Content >
           <Modal.Description>
@@ -111,13 +111,17 @@ class SelectProficiencies extends Component {
             </ul>
 
             <Header>Choices:</Header>
-            {this.mappedProfiencyChoices()}
+            <Grid columns={3} divided stackable>
+              <Grid.Row>
+                {this.mappedProfiencyChoices()}
+              </Grid.Row>
+            </Grid>
 
 
           </Modal.Description>
         </Modal.Content>
         <Modal.Actions>
-          <Button type="button" onClick={this.handleSave} primary>
+          <Button basic color="black" type="button" onClick={this.handleSave} >
             Save
           </Button>
         </Modal.Actions>

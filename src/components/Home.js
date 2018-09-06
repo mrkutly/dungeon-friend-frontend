@@ -28,40 +28,11 @@ class Home extends Component {
     this.setState({ activeItem })
   }
 
-  redirectToCharacters = () => {
-    this.props.setCurrentPage("characters")
-    return <Redirect to="characters" />
-  }
-
-  redirectToSignIn = () => {
-    this.props.setCurrentPage("signin")
-    return <Redirect to="signin" />
-  }
-
-  toCharacterCreate = () => {
-    this.props.setCurrentPage("create")
-    return <CreateCharacter />
-  }
-
-  toCharacterEdit = (_props) => {
-    this.props.setCurrentPage("characters")
-    return <CharacterEdit {..._props} />
-  }
-
   toCharacterShow = (_props) => {
     this.props.setCurrentPage("characters")
     return <CharacterSheet {..._props} />
   }
 
-  toCharactersIndex = () => {
-    this.props.setCurrentPage("characters")
-    return <CharacterCardsContainer />
-  }
-
-  toSignIn = () => {
-    this.props.setCurrentPage("signin")
-    return <SignIn />
-  }
 
   render() {
     const { currentUser, characterCreated } = this.props
@@ -71,11 +42,11 @@ class Home extends Component {
           <React.Fragment>
             <Navbar />
             <Container>
-              <Route exact path="/signin" render={() => (currentUser ? this.redirectToCharacters() : this.toSignIn())} />
-              <Route exact path="/create" render={() => (characterCreated ? this.redirectToCharacters() : this.toCharacterCreate())} />
-              <Route exact path="/characters" render={() => this.toCharactersIndex()} />
-              <Route exact path="/characters/:id" render={props => (!currentUser ? this.redirectToSignIn() : this.toCharacterShow(props))} />
-              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? this.redirectToSignIn() : this.toCharacterEdit(props))} />
+              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters" /> : <SignIn />)} />
+              <Route exact path="/create" render={() => (characterCreated ? <Redirect to="characters" /> : <CreateCharacter />)} />
+              <Route exact path="/characters" render={() => <CharacterCardsContainer />} />
+              <Route exact path="/characters/:id" render={props => (!currentUser ? <SignIn /> : <CharacterSheet {...props} />)} />
+              <Route exact path="/characters/:id/edit" render={props => (!currentUser ? <SignIn /> : <CharacterEdit {...props} />)} />
             </Container>
           </React.Fragment>
         </Router>

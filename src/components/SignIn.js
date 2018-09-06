@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Adapter from '../Adapter'
 import { connect } from 'react-redux'
-import { setCharacters, setCurrentUser } from '../redux/actions.js'
+import { setCharacters, setCurrentUser, setCurrentPage } from '../redux/actions.js'
 import { Form } from 'semantic-ui-react'
 
 class SignIn extends Component {
@@ -9,7 +9,11 @@ class SignIn extends Component {
   state = {
     username: ''
   }
-  
+
+  componentWillMount() {
+    this.props.setCurrentPage("signin")
+  }
+
   handleChange = (e) => {
     e.persist()
     this.setState({ username: e.target.value })
@@ -22,8 +26,12 @@ class SignIn extends Component {
   }
 
   setCurrentUser = (user) => {
-    this.props.setCurrentUser(user)
-    Adapter.get(`test_users/${user.id}/characters`).then( ({ characters }) => this.props.setCharacters(characters))
+    Adapter.get(`test_users/${user.id}/characters`)
+      .then( ({ characters }) => {
+        this.props.setCharacters(characters)
+        this.props.setCurrentUser(user)
+      }
+    )
   }
 
   render() {
@@ -43,7 +51,8 @@ class SignIn extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCharacters: (characters) => { dispatch( setCharacters(characters) )},
-    setCurrentUser: (user) => { dispatch( setCurrentUser(user) )}
+    setCurrentUser: (user) => { dispatch( setCurrentUser(user) )},
+    setCurrentPage: (page) => { dispatch( setCurrentPage(page) )},
   }
 }
 

@@ -28,11 +28,20 @@ const Adapter = {
     return fetch(`${baseUrl}/starting_equipment`, {headers: { url }}).then(r => r.json())
   },
 
-  login: function(name) {
+  login: function(name, password) {
     return fetch(`${baseUrl}/sessions`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({ user: { name }})
+      body: JSON.stringify({ user: { name, password }})
+    })
+      .then(r => r.json())
+  },
+
+  signUp: function(name, password, password_confirmation) {
+    return fetch(`${baseUrl}/users`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ user: { name, password, password_confirmation } })
     })
       .then(r => r.json())
   },

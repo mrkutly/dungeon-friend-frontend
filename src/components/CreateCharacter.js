@@ -116,7 +116,7 @@ class CreateCharacter extends Component {
 
     const { name, startingLvl, languages, startingEquipment, proficiencies, traits, abilityScores } = this.state
     const { currentJob, currentRace, currentUser } = this.props
-    const test_user_id = currentUser.id
+    const user_id = currentUser.id
 
     if (!name) {
       alert("Please give your character a name.")
@@ -155,7 +155,7 @@ class CreateCharacter extends Component {
       proficiencies,
       race_id: currentRace.id,
       strength: abilityScores.strength,
-      test_user_id,
+      user_id,
       traits,
       wisdom: abilityScores.wisdom
     }

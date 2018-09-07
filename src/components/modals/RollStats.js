@@ -185,6 +185,7 @@ const mapStateToProps = (state) => {
   let bonuses = state.currentRace.data.ability_bonuses
   let extras = 0
 
+  // Comment this out if they accept my pr.
   if (state.currentRace.data.name === "Tiefling") {
     bonuses.reverse()
   }

@@ -20,7 +20,7 @@ class EquipmentModal extends Component  {
     const two_handed = this.state.data["2h_damage"]
 
     return (
-      <Modal trigger={<a>See info</a>}>
+      <Modal trigger={<a className="modal-trigger">See info</a>}>
         <Modal.Header>{item.name}</Modal.Header>
         <Modal.Content >
           <Modal.Description>

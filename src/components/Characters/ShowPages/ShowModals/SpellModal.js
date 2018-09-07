@@ -16,10 +16,9 @@ export default class SkillModal extends Component {
   render() {
     const { spell } = this.props
     const { data } = this.state
-    console.log(data)
 
     return (
-      <Modal trigger={<a>See info</a>}>
+      <Modal trigger={<a className="modal-trigger">See info</a>}>
         <Modal.Header>{spell.name}</Modal.Header>
         <Modal.Content >
           <Modal.Description>

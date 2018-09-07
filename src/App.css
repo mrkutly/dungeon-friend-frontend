@@ -164,6 +164,10 @@ li.nav-items {
   z-index: 0;
 }
 
+.modal-trigger {
+  cursor: pointer;
+}
+
 .navbar {
   background-color: black;
   position: sticky;

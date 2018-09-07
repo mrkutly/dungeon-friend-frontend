@@ -40,14 +40,14 @@ class CharacterSheet extends Component {
       const formatted = (window.innerWidth < 1004 && typeof h4 === "string" ? h4.slice(0, 3).toUpperCase() : h4)
       if (i === 5) {
         return (
-          <React.Fragment key={`${h4} ${i}`}>
+          <React.Fragment key={`${h4} ${Math.random()} ${i}`}>
             <h4>{formatted}</h4>
           </React.Fragment>
         )
       } else {
         i++
         return (
-          <React.Fragment key={`${h4} ${i}`}>
+          <React.Fragment key={`${h4} ${Math.random()} ${i}`}>
             <h4>{formatted}</h4>
             <Divider />
           </React.Fragment>

@@ -1,105 +1,87 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button, Grid, Form } from 'semantic-ui-react'
+import { Modal, Header, Button, Grid, Table } from 'semantic-ui-react'
 import { Dice } from '../../Dice'
 
 class RollStats extends Component {
 
   state = {
     rolls: [],
+    usedRolls: [],
+    strength: this.props.bonuses[0],
+    dexterity: this.props.bonuses[1],
+    constitution: this.props.bonuses[2],
+    intelligence: this.props.bonuses[3],
+    wisdom: this.props.bonuses[4],
+    charisma: this.props.bonuses[5],
+    draggingRoll: null,
+    draggingIndex: null,
   }
 
-  addBonuses = (ability, num) => {
-    const { bonuses } = this.props
-    switch (ability) {
-      case "strength":
-        num += bonuses[0];
-        break;
-
-      case "dexterity":
-        num += bonuses[1];
-        break;
-
-      case "constitution":
-        num += bonuses[2];
-        break;
-
-      case "intelligence":
-        num += bonuses[3];
-        break;
-
-      case "wisdom":
-        num += bonuses[4];
-        break;
-
-      case "charisma":
-        num += bonuses[5];
-        break;
-
-      default:
-        break;
-    }
-    return num
+  handleDragStart = (e, roll, i) => {
+    this.setState({ draggingRoll: roll, draggingIndex: i })
   }
 
-  // name === 'Half-Elf' ? Two other Ability Scores of your choice increase by 1
-
-  handleCheckbox = (e) => {
-    const splitValue = e.target.value.split(" - ")
-    const ability = splitValue[0]
-    const num = parseInt(splitValue[1], 10)
-    const i = parseInt(splitValue[2], 10) - 1
-    const notChosen = ["charisma", "constitution", "dexterity", "intelligence", "strength", "wisdom"].filter(el => el !== ability)
+  handleDrop = (e, ability) => {
+    e.preventDefault()
 
     this.setState((prevState) => {
-      const rolls = prevState.rolls.map(roll => {
-        if (roll.num === num && i === prevState.rolls.indexOf(roll)) {
-          roll[ability] = true
-          notChosen.forEach(ab => roll[ab] = false)
-        } else {
-          roll[ability] = false
-        }
-        return roll
-      })
-      return { rolls }
+      return {
+        [ability]: prevState.draggingRoll + prevState[ability],
+        draggingRoll: null,
+        usedRolls: [...prevState.usedRolls, prevState.rolls.splice(prevState.draggingIndex, 1)],
+        rolls: prevState.rolls
+      }
+    })
+  }
+
+  handleReset = (e) => {
+    this.setState((prevState) => {
+      return {
+        rolls: [...prevState.rolls, ...prevState.usedRolls],
+        usedRolls: [],
+        strength: this.props.bonuses[0],
+        dexterity: this.props.bonuses[1],
+        constitution: this.props.bonuses[2],
+        intelligence: this.props.bonuses[3],
+        wisdom: this.props.bonuses[4],
+        charisma: this.props.bonuses[5],
+        draggingRoll: null,
+        draggingIndex: null
+      }
     })
   }
 
   handleSave = (e) => {
-    const scores = this.state.rolls.map(roll => {
-      let score = {}
-
-      Object.keys(roll).forEach(ability => {
-        if (roll[ability] === true) {
-          score[ability] = this.addBonuses(ability, roll.num)
-        }
-      })
-
-      if (Object.keys(score).length === 1) {
-        return score
-      } else {
-        return null
-      }
-    })
-
-    if (scores.some(score => !score)) {
-      alert("Make sure you select a roll for each of your ability scores!")
-      return
-    } else {
-      this.props.setAbilityScores(scores)
-      e.target.textContent = "Saved!"
+    const { strength, dexterity, constitution, intelligence, wisdom, charisma } = this.state
+    let scores = {
+      strength,
+      dexterity,
+      constitution,
+      intelligence,
+      wisdom,
+      charisma
     }
+
+    this.props.setAbilityScores(scores)
+    e.target.textContent = "Saved!"
   }
 
   mappedAbilities = (abilities) => {
     return abilities.map(ability => {
+      let lAb = ability.toLowerCase()
       return (
-        <Grid.Column width={4} key={ability}>
-          <Header>{ability}</Header>
-          <ul>
-            {this.mappedRolls(ability.toLowerCase())}
-          </ul>
-        </Grid.Column>
+        <Table.Row key={`${ability} row`}>
+          <Table.Cell>
+            {ability}
+          </Table.Cell>
+          <Table.Cell
+            onDrop={(e) => this.handleDrop(e, lAb)}
+            onDragOver={(e) => e.preventDefault()}
+          >
+            {this.state[lAb]}
+          </Table.Cell>
+        </Table.Row>
       )
     })
   }
@@ -107,38 +89,18 @@ class RollStats extends Component {
   mappedBonuses = () => {
     const { bonuses } = this.props
     return (
-      <p>
-        {"Your Bonuses:  "}
-        {bonuses[0] > 0 ? ` |  +${bonuses[0]} Strength  | ` : null }
-        {bonuses[1] > 0 ? ` |  +${bonuses[1]} Dexterity  | ` : null }
-        {bonuses[2] > 0 ? ` |  +${bonuses[2]} Constitution  | ` : null }
-        {bonuses[3] > 0 ? ` |  +${bonuses[3]} Intelligence  | ` : null }
-        {bonuses[4] > 0 ? ` |  +${bonuses[4]} Wisdom  | ` : null }
-        {bonuses[5] > 0 ? ` |  +${bonuses[5]} Charisma  | ` : null }
-      </p>
+      <div>
+        <Header>{"Your Bonuses:  "}</Header>
+        <ul>
+          {bonuses[0] > 0 ? <li> +{bonuses[0]} Strength </li> : null }
+          {bonuses[1] > 0 ? <li> +{bonuses[1]} Dexterity </li> : null }
+          {bonuses[2] > 0 ? <li> +{bonuses[2]} Constitution </li> : null }
+          {bonuses[3] > 0 ? <li> +{bonuses[3]} Intelligence </li> : null }
+          {bonuses[4] > 0 ? <li> +{bonuses[4]} Wisdom </li> : null }
+          {bonuses[5] > 0 ? <li> +{bonuses[5]} Charisma </li> : null }
+        </ul>
+      </div>
     )
-  }
-
-  mappedRolls = (ability) => {
-    let i = 0
-    return this.state.rolls.map(roll => {
-      i++
-      let num = this.addBonuses(ability, roll.num)
-
-      return (
-        <Form.Field key={`${ability} - ${num} - ${i}`}>
-          <li key={`${ability} - ${num} - ${i}`}>
-            <input
-              type="checkbox"
-              value={`${ability} - ${roll.num} - ${i}`}
-              onChange={this.handleCheckbox}
-              checked={roll[ability]}
-            />
-            <label>{num}</label>
-          </li>
-        </Form.Field>
-      )
-    })
   }
 
   rollStats = (e) => {
@@ -146,9 +108,22 @@ class RollStats extends Component {
     e.target.textContent = "Re-roll"
   }
 
-  showRolls = () => {
-    const rolls = this.state.rolls.map(roll => roll.num).join(" - ")
-    return <p>{rolls}</p>
+  mappedRolls = () => {
+    let i = 0
+    return this.state.rolls.map(roll => {
+      i++
+      let index = i - 1
+      return (
+        <li
+          className="draggable"
+          draggable
+          key={`${roll} ${i}`}
+          onDragStart={(e) => this.handleDragStart(e, roll, index)}
+        >
+          {roll}
+        </li>
+      )
+    })
   }
 
   render() {
@@ -157,15 +132,33 @@ class RollStats extends Component {
         <Modal.Header>Stats</Modal.Header>
         <Modal.Content >
           <Modal.Description>
-            <Header>You rolled - {this.showRolls()}</Header>
-            {this.mappedBonuses()}
-
+            <Header>Click the button to roll the dice, then drag and drop your rolls onto the table.</Header>
             <Grid>
               <Grid.Row>
-                {this.mappedAbilities(["Strength", "Dexterity", "Constitution"])}
-              </Grid.Row>
-              <Grid.Row>
-                {this.mappedAbilities(["Intelligence", "Wisdom", "Charisma"])}
+
+                <Grid.Column width={6}>
+                  <Table celled>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Ability</Table.HeaderCell>
+                        <Table.HeaderCell>Scores</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+                      {this.mappedAbilities(["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"])}
+                    </Table.Body>
+                  </Table>
+                </Grid.Column>
+
+                <Grid.Column width={5}>
+                  <Header>Your rolls:</Header>
+                  <ul>
+                    {this.mappedRolls()}
+                  </ul>
+                </Grid.Column>
+                <Grid.Column width={5}>
+                  {this.mappedBonuses()}
+                </Grid.Column>
               </Grid.Row>
             </Grid>
           </Modal.Description>
@@ -173,6 +166,9 @@ class RollStats extends Component {
         <Modal.Actions>
           <Button basic color="black" type="button" onClick={this.rollStats}>
             Roll the dice
+          </Button>
+          <Button basic color="black" type="button" onClick={this.handleReset}>
+            Reset
           </Button>
           <Button basic color="black" type="button" onClick={this.handleSave}>
             Save

@@ -130,9 +130,6 @@ class CreateCharacter extends Component {
     } else if(!proficiencies) {
       alert("Please choose your proficiencies.")
       return
-    } else if (!traits) {
-      alert("Please choose your traits.")
-      return
     } else if (Object.values(abilityScores).some(score => score === 0)) {
       alert("Please roll for stats.")
       return
@@ -162,16 +159,10 @@ class CreateCharacter extends Component {
   }
 
   setAbilityScores = (scores) => {
-    const abilityScores = {}
-
-    scores.forEach(score => {
-      let key = Object.keys(score)[0]
-      abilityScores[key] = score[key]
-    })
     this.setState((prevState) => {
       return {
         ...prevState,
-        abilityScores: { ...abilityScores }
+        abilityScores: { ...scores }
       }
     })
   }

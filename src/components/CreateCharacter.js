@@ -139,11 +139,11 @@ class CreateCharacter extends Component {
     }
 
     return {
-      hit_die: currentJob.data.hit_die,
       charisma: abilityScores.charisma,
       constitution: abilityScores.constitution,
       dexterity: abilityScores.dexterity,
       equipment: startingEquipment,
+      hit_die: currentJob.data.hit_die,
       intelligence: abilityScores.intelligence,
       job_id: currentJob.id,
       languages,
@@ -152,8 +152,8 @@ class CreateCharacter extends Component {
       proficiencies,
       race_id: currentRace.id,
       strength: abilityScores.strength,
-      user_id,
       traits,
+      user_id,
       wisdom: abilityScores.wisdom
     }
   }

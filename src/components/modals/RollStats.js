@@ -6,52 +6,101 @@ import { Dice } from '../../Dice'
 class RollStats extends Component {
 
   state = {
-    rolls: [],
-    usedRolls: [],
-    usedAbilities: [],
-    strength: this.props.bonuses[0],
-    dexterity: this.props.bonuses[1],
-    constitution: this.props.bonuses[2],
-    intelligence: this.props.bonuses[3],
-    wisdom: this.props.bonuses[4],
     charisma: this.props.bonuses[5],
-    draggingRoll: null,
+    constitution: this.props.bonuses[2],
+    dexterity: this.props.bonuses[1],
+    draggingExtra: false,
     draggingIndex: null,
+    draggingRoll: null,
+    extras: (this.props.extras ? [1, 1] : null),
+    intelligence: this.props.bonuses[3],
+    rolls: [],
+    strength: this.props.bonuses[0],
+    usedAbilities: [],
+    usedExtras: ["charisma"],
+    usedRolls: [],
+    wisdom: this.props.bonuses[4],
   }
+
+  extras = () => {
+    let i = 0
+    return (
+      <div>
+        <Header>{"Assign to two separate abilities:"}</Header>
+        <ul>
+          {
+            this.state.extras.map(num => {
+              i++
+              return (
+                <li
+                  key={`extra ${i}`}
+                  className="draggable"
+                  draggable
+                  onDragStart={(e) => this.handleExtrasDragStart(e)}
+                  >
+                    {num}
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+      )
+    }
 
   handleDragStart = (e, roll, i) => {
     this.setState({ draggingRoll: roll, draggingIndex: i })
   }
 
+  handleExtrasDragStart = (e) => {
+    this.setState({ draggingExtra: true })
+  }
+
   handleDrop = (e, ability) => {
     e.preventDefault()
-    if (this.state.usedAbilities.includes(ability)) return
+    if (this.state.usedAbilities.includes(ability) && !this.state.draggingExtra) return
+    if (this.state.usedExtras.includes(ability) && this.state.draggingExtra) return
 
-    this.setState((prevState) => {
-      return {
-        [ability]: parseInt(prevState.draggingRoll, 10) + parseInt(prevState[ability], 10),
-        draggingRoll: null,
-        rolls: prevState.rolls,
-        usedRolls: [...prevState.usedRolls, prevState.rolls.splice(prevState.draggingIndex, 1)],
-        usedAbilities: [...prevState.usedAbilities, ability],
-      }
-    })
+    if (!this.state.draggingExtra) {
+      this.setState((prevState) => {
+        return {
+          [ability]: parseInt(prevState.draggingRoll, 10) + parseInt(prevState[ability], 10),
+          draggingRoll: null,
+          rolls: prevState.rolls,
+          usedAbilities: [...prevState.usedAbilities, ability],
+          usedRolls: [...prevState.usedRolls, prevState.rolls.splice(prevState.draggingIndex, 1)],
+        }
+      })
+    } else {
+      this.setState((prevState) => {
+        prevState.extras.splice(0, 1)
+        return {
+          [ability]: parseInt(prevState[ability], 10) + 1,
+          draggingExtra: false,
+          extras: prevState.extras,
+          usedExtras: [...prevState.usedExtras, ability],
+        }
+      })
+    }
   }
 
   handleReset = (e) => {
     this.setState((prevState) => {
       return {
+        charisma: this.props.bonuses[5],
+        constitution: this.props.bonuses[2],
+        dexterity: this.props.bonuses[1],
+        draggingExtra: false,
+        draggingIndex: null,
+        draggingRoll: null,
+        extras: (this.props.extras ? [1, 1] : null),
+        intelligence: this.props.bonuses[3],
         rolls: [...prevState.rolls, ...prevState.usedRolls],
+        strength: this.props.bonuses[0],
+        usedExtras: ["charisma"],
         usedRolls: [],
         usedAbilities: [],
-        strength: this.props.bonuses[0],
-        dexterity: this.props.bonuses[1],
-        constitution: this.props.bonuses[2],
-        intelligence: this.props.bonuses[3],
         wisdom: this.props.bonuses[4],
-        charisma: this.props.bonuses[5],
-        draggingRoll: null,
-        draggingIndex: null
       }
     })
   }
@@ -107,23 +156,6 @@ class RollStats extends Component {
     )
   }
 
-  rollStats = (e) => {
-    this.setState({
-      rolls: [...Dice.rollStats()],
-      usedRolls: [],
-      usedAbilities: [],
-      strength: this.props.bonuses[0],
-      dexterity: this.props.bonuses[1],
-      constitution: this.props.bonuses[2],
-      intelligence: this.props.bonuses[3],
-      wisdom: this.props.bonuses[4],
-      charisma: this.props.bonuses[5],
-      draggingRoll: null,
-      draggingIndex: null
-     })
-    e.target.textContent = "Re-roll"
-  }
-
   mappedRolls = () => {
     let i = 0
     return this.state.rolls.map(roll => {
@@ -140,6 +172,25 @@ class RollStats extends Component {
         </li>
       )
     })
+  }
+
+  rollStats = (e) => {
+    this.setState({
+      charisma: this.props.bonuses[5],
+      constitution: this.props.bonuses[2],
+      draggingIndex: null,
+      draggingRoll: null,
+      dexterity: this.props.bonuses[1],
+      extras: (this.props.extras ? [1, 1] : null),
+      intelligence: this.props.bonuses[3],
+      rolls: [...Dice.rollStats()],
+      strength: this.props.bonuses[0],
+      usedAbilities: [],
+      usedExtras: ["charisma"],
+      usedRolls: [],
+      wisdom: this.props.bonuses[4],
+    })
+    e.target.textContent = "Re-roll"
   }
 
   render() {
@@ -166,13 +217,20 @@ class RollStats extends Component {
                   </Table>
                 </Grid.Column>
 
-                <Grid.Column width={5}>
+                <Grid.Column width={(!!this.props.extras ? 4 : 5)}>
                   <Header>Your rolls:</Header>
                   <ul>
                     {this.mappedRolls()}
                   </ul>
                 </Grid.Column>
-                <Grid.Column width={5}>
+                <Grid.Column width={(!!this.props.extras ? 3 : 5)}>
+                  {
+                    !!this.props.extras ?
+                    <Grid.Column width={3}>
+                      {this.extras()}
+                    </Grid.Column>
+                    : null
+                  }
                   {this.mappedBonuses()}
                 </Grid.Column>
               </Grid.Row>
@@ -197,7 +255,7 @@ class RollStats extends Component {
 
 const mapStateToProps = (state) => {
   let bonuses = state.currentRace.data.ability_bonuses
-  let extras = 0
+  let extras = false
 
   // Comment this out if they accept my pr.
   if (state.currentRace.data.name === "Tiefling") {
@@ -205,7 +263,7 @@ const mapStateToProps = (state) => {
   }
 
   if (state.currentRace.data.name === "Half-Elf") {
-    extras += 2
+    extras = true
   }
 
   return {

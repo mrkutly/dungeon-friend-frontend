@@ -8,6 +8,7 @@ class RollStats extends Component {
   state = {
     rolls: [],
     usedRolls: [],
+    usedAbilities: [],
     strength: this.props.bonuses[0],
     dexterity: this.props.bonuses[1],
     constitution: this.props.bonuses[2],
@@ -24,13 +25,15 @@ class RollStats extends Component {
 
   handleDrop = (e, ability) => {
     e.preventDefault()
+    if (this.state.usedAbilities.includes(ability)) return
 
     this.setState((prevState) => {
       return {
-        [ability]: prevState.draggingRoll + prevState[ability],
+        [ability]: parseInt(prevState.draggingRoll) + parseInt(prevState[ability]),
         draggingRoll: null,
+        rolls: prevState.rolls,
         usedRolls: [...prevState.usedRolls, prevState.rolls.splice(prevState.draggingIndex, 1)],
-        rolls: prevState.rolls
+        usedAbilities: [...prevState.usedAbilities, ability],
       }
     })
   }
@@ -40,6 +43,7 @@ class RollStats extends Component {
       return {
         rolls: [...prevState.rolls, ...prevState.usedRolls],
         usedRolls: [],
+        usedAbilities: [],
         strength: this.props.bonuses[0],
         dexterity: this.props.bonuses[1],
         constitution: this.props.bonuses[2],
@@ -104,7 +108,19 @@ class RollStats extends Component {
   }
 
   rollStats = (e) => {
-    this.setState({ rolls: [...Dice.rollStats()] })
+    this.setState({
+      rolls: [...Dice.rollStats()],
+      usedRolls: [],
+      usedAbilities: [],
+      strength: this.props.bonuses[0],
+      dexterity: this.props.bonuses[1],
+      constitution: this.props.bonuses[2],
+      intelligence: this.props.bonuses[3],
+      wisdom: this.props.bonuses[4],
+      charisma: this.props.bonuses[5],
+      draggingRoll: null,
+      draggingIndex: null
+     })
     e.target.textContent = "Re-roll"
   }
 

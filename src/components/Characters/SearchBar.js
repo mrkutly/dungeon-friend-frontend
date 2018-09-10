@@ -40,9 +40,16 @@ class SearchBar extends Component {
   handleAdd = (e) => {
     const { query } = this.props
     const newItem = this.state.results.find(item => item.name === this.state.value)
+
+    // return if there is no item
+    if(!newItem) return
+    // otherwise check to see if the character already has the item
     const found = this.state.currentCharacter[query].find(el => el.name === newItem.name)
 
+    // return if the character already has that skill or proficiency
     if ((query === "skills" || query === "proficiencies") && found) return
+
+
 
     this.setState(prevState => {
       return {

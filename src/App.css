@@ -120,6 +120,12 @@ li.nav-items {
   margin: 0.5em;
 }
 
+.edit-page {
+  min-height: 29vw !important;
+  max-height: 29vw !important;
+  overflow: scroll;
+}
+
 .flex-container {
   display: flex;
   flex-direction: row;
@@ -203,6 +209,12 @@ li.nav-items {
 .show-all-jobs-btn {
   margin-left: 5%;
   margin-top: 10%;
+}
+
+.show-page {
+  min-height: 26vw !important;
+  max-height: 26vw !important;
+  overflow: scroll;
 }
 
 .site-name {

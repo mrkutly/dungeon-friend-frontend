@@ -8,30 +8,20 @@ export const Dice = {
   percentile: () => Math.floor(Math.random() * 9) * 10,
 
   rollStats: () => {
-      const rolls = []
-      const currentRoll = []
+    const rolls = []
+    const currentRoll = []
 
-      for (let i = 0; i < 6; i++) {
-        let acc = 0
+    for (let i = 0; i < 6; i++) {
+      let acc = 0
 
-        for (let k = 0; k < 4; k++) {
-          let roll = Dice.d6()
-          currentRoll.push(roll)
-          acc += roll
-        }
-        acc = acc - Math.min(...currentRoll)
-        rolls.push(acc)
+      for (let k = 0; k < 4; k++) {
+        let roll = Dice.d6()
+        currentRoll.push(roll)
+        acc += roll
       }
-      return rolls.map(roll => {
-        return {
-          num: roll,
-          strength: false,
-          dexterity: false,
-          constitution: false,
-          wisdom: false,
-          intelligence: false,
-          charisma: false
-        }
-      })
+      acc = acc - Math.min(...currentRoll)
+      rolls.push(acc)
     }
+    return rolls
+  }
 }

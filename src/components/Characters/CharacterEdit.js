@@ -21,7 +21,7 @@ class CharacterEdit extends Component {
   }
 
   // Uncomment this function and remove save butto to implement auto-saving
-  
+
   // componentWillUnmount() {
   //   Adapter.updateCharacter(this.props.character).then(({ character }) => {
   //     this.props.updateCharacter(character)
@@ -173,7 +173,7 @@ class CharacterEdit extends Component {
               </Grid>
             </Grid.Column>
 
-            <Grid.Column width={8}>
+            <Grid.Column width={11} className="edit-page">
               { activeItem === "equipment" ? <Equipment character={character} edit={true} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }

@@ -100,7 +100,7 @@ class CharacterSheet extends Component {
             <Grid.Column width={1}>
               {this.mappedH4s(characterStats)}
             </Grid.Column>
-            <Grid.Column width={13}>
+            <Grid.Column width={13} className="show-page">
               { activeItem === "equipment" ? <Equipment character={character} edit={false} /> : null }
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }

@@ -47,7 +47,7 @@ class SearchBar extends Component {
     const found = this.state.currentCharacter[query].find(el => el.name === newItem.name)
 
     // return if the character already has that skill or proficiency
-    if ((query === "skills" || query === "proficiencies") && found) return
+    if ((query === "skills" || query === "proficiencies" || query === "features") && found) return
 
 
 

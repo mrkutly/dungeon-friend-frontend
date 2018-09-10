@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Equipment from './ShowPages/Equipment'
+import Features from './ShowPages/Features'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
@@ -88,7 +89,7 @@ class CharacterSheet extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Menu>
-                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells', 'languages'])}
+                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells', 'languages', 'features'])}
               </Menu>
             </Grid.Column>
           </Grid.Row>
@@ -106,6 +107,7 @@ class CharacterSheet extends Component {
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
               { activeItem === "languages" ? <Languages langs={character.languages} /> : null }
+              { activeItem === "features" ? <Features features={character.features} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

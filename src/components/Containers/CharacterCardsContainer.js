@@ -23,7 +23,7 @@ class CharacterCardsContainer extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className="center">Your Characters</h1>
+        <div className="center-text">Your Characters</div>
         <div className="wrapper">
           {this.mappedCharacters()}
         </div>

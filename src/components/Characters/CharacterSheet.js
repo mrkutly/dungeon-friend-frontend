@@ -4,6 +4,7 @@ import Equipment from './ShowPages/Equipment'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
+import Languages from './ShowPages/Languages'
 import { NavLink } from 'react-router-dom'
 // import { Dice } from '../../Dice'
 // import { Adapter } from '../../Adapter'
@@ -87,7 +88,7 @@ class CharacterSheet extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Menu>
-                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells'])}
+                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells', 'languages'])}
               </Menu>
             </Grid.Column>
           </Grid.Row>
@@ -104,6 +105,7 @@ class CharacterSheet extends Component {
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
+              { activeItem === "languages" ? <Languages langs={character.languages} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -39,7 +39,7 @@ const RaceDisplay = (props) => {
               <li>Constitution: {name === 'Tiefling' ? ability_bonuses[3] : ability_bonuses[2]}</li>
               <li>Intelligence: {name === 'Tiefling' ? ability_bonuses[2] : ability_bonuses[3]}</li>
               <li>Wisdom: {name === 'Tiefling' ? ability_bonuses[1] : ability_bonuses[4]}</li>
-              <li>Charisma: {name === 'Tiefling' ? ability_bonuses[0] : ability_bonuses[5]}</li>
+              <li>Charisma: {name === 'Tiefling' ? ability_bonuses[0] : ability_bonuses[5]}</li><br />
               { name === 'Half-Elf' ? <li>Two other Ability Scores of your choice increase by 1</li> : null }
             </ul>
           </Grid.Column>

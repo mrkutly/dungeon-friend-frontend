@@ -16,6 +16,7 @@ class Home extends Component {
     super(props)
 
     this.homeDiv = React.createRef()
+    this.audio = React.createRef()
   }
 
   componentDidMount() {

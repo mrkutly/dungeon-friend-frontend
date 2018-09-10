@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Header, Button, Grid } from 'semantic-ui-react'
+import { Modal, Header, Button, Grid, Form } from 'semantic-ui-react'
 import { Dice } from '../../Dice'
 
 class RollStats extends Component {
@@ -126,15 +126,17 @@ class RollStats extends Component {
       let num = this.addBonuses(ability, roll.num)
 
       return (
-        <li key={`${ability} - ${num} - ${i}`}>
-          <input
-            type="checkbox"
-            value={`${ability} - ${roll.num} - ${i}`}
-            onChange={this.handleCheckbox}
-            checked={roll[ability]}
-          />
-          <label>{num}</label>
-        </li>
+        <Form.Field key={`${ability} - ${num} - ${i}`}>
+          <li key={`${ability} - ${num} - ${i}`}>
+            <input
+              type="checkbox"
+              value={`${ability} - ${roll.num} - ${i}`}
+              onChange={this.handleCheckbox}
+              checked={roll[ability]}
+            />
+            <label>{num}</label>
+          </li>
+        </Form.Field>
       )
     })
   }

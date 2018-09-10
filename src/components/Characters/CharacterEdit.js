@@ -4,6 +4,7 @@ import Equipment from './ShowPages/Equipment'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
+import Languages from './ShowPages/Languages'
 import SearchBar from './SearchBar'
 import { NavLink } from 'react-router-dom'
 import Adapter from '../../Adapter'
@@ -18,7 +19,7 @@ class CharacterEdit extends Component {
   componentWillMount() {
     this.props.setCurrentPage("characters")
   }
-  
+
   componentWillUnmount() {
     Adapter.updateCharacter(this.props.character).then(({ character }) => {
       this.props.updateCharacter(character)
@@ -68,11 +69,12 @@ class CharacterEdit extends Component {
     return scores.map(score => {
       let arr = score.split("")
       const title = arr.shift().toUpperCase() + arr.join("")
+      const formatted = (window.innerWidth < 1004 ? title.slice(0, 3).toUpperCase() : title)
 
       return (
         <Grid.Row key={score}>
           <Grid.Column width={6}>
-            <h4>{title}</h4>
+            <h4>{formatted}</h4>
           </Grid.Column>
           <Grid.Column width={4}>
             <h4>{character[score]}</h4>
@@ -146,7 +148,7 @@ class CharacterEdit extends Component {
 
             <Grid.Column width={16}>
               <Menu>
-                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells'])}
+                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells', 'languages'])}
 
                 {
                   activeItem ?
@@ -174,6 +176,7 @@ class CharacterEdit extends Component {
               { activeItem === "proficiencies" ? <Proficiencies profs={character.proficiencies} /> : null }
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
+              { activeItem === "languages" ? <Languages langs={character.languages} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -12,7 +12,7 @@ class ThreeScene extends Component {
 
 		this.renderer = new THREE.WebGLRenderer({ alpha: true });
 		this.renderer.setSize( window.innerWidth / this.props.sizeDivisor, window.innerHeight / this.props.sizeDivisor );
-		this.renderer.setClearColor( 0x9B6590, 1);
+		this.renderer.setClearColor( 0x483263, 1);
 		this.mount.appendChild(this.renderer.domElement)
 
 		let geometry = new THREE.IcosahedronGeometry(2.5);

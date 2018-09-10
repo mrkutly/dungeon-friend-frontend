@@ -29,7 +29,7 @@ class RollStats extends Component {
 
     this.setState((prevState) => {
       return {
-        [ability]: parseInt(prevState.draggingRoll) + parseInt(prevState[ability]),
+        [ability]: parseInt(prevState.draggingRoll, 10) + parseInt(prevState[ability], 10),
         draggingRoll: null,
         rolls: prevState.rolls,
         usedRolls: [...prevState.usedRolls, prevState.rolls.splice(prevState.draggingIndex, 1)],

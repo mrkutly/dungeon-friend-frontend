@@ -20,11 +20,13 @@ class CharacterEdit extends Component {
     this.props.setCurrentPage("characters")
   }
 
-  componentWillUnmount() {
-    Adapter.updateCharacter(this.props.character).then(({ character }) => {
-      this.props.updateCharacter(character)
-    })
-  }
+  // Uncomment this function and remove save butto to implement auto-saving
+  
+  // componentWillUnmount() {
+  //   Adapter.updateCharacter(this.props.character).then(({ character }) => {
+  //     this.props.updateCharacter(character)
+  //   })
+  // }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 

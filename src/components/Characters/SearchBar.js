@@ -16,7 +16,7 @@ class SearchBar extends Component {
     const { query } = this.props
 
     Adapter.get(query).then(source => {
-      // source = (source.spells ? source.spells : source)
+      source = (source.spells ? source.spells : source)
       this.setState({ source })
     })
   }
@@ -29,7 +29,7 @@ class SearchBar extends Component {
     if (prevProps.query !== this.props.query) {
       const { query } = this.props
       Adapter.get(query).then(source => {
-        // source = (source.spells ? source.spells : source)
+        source = (source.spells ? source.spells : source)
         this.setState({ source })
       })
     }

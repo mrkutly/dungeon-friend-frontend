@@ -1,6 +1,6 @@
 import React from 'react'
-import SkillModal from './ShowModals/SkillModal'
 import { Divider } from 'semantic-ui-react'
+import SkillModal from './ShowModals/SkillModal'
 
 const Skills = (props) => {
 

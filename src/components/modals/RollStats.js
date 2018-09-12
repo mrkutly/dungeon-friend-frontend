@@ -23,6 +23,8 @@ class RollStats extends Component {
   }
 
   extras = () => {
+    // This is just for half-elves, so there is some hard-coded logic in here
+    
     let i = 0
     return (
       <div>

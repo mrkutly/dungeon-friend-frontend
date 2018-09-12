@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import CharacterCard from '../Characters/CharacterCard'
 import { connect } from 'react-redux'
+import CharacterCard from '../Characters/CharacterCard'
 import { characterCreatedFalse, setCurrentPage } from '../../redux/actions'
 
 class CharacterCardsContainer extends Component {

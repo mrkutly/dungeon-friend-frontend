@@ -1,6 +1,6 @@
 import React from 'react'
-import FeatureModal from './ShowModals/FeatureModal'
 import { Divider } from 'semantic-ui-react'
+import FeatureModal from './ShowModals/FeatureModal'
 
 const Features = (props) => {
 

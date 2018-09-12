@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { Grid, Menu, Button } from 'semantic-ui-react'
+import SearchBar from './SearchBar'
 import Equipment from './ShowPages/Equipment'
 import Features from './ShowPages/Features'
+import Languages from './ShowPages/Languages'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
-import Languages from './ShowPages/Languages'
-import SearchBar from './SearchBar'
-import { NavLink } from 'react-router-dom'
 import Adapter from '../../Adapter'
-import { Grid, Menu, Button } from 'semantic-ui-react'
 import { updateCharacter, setCurrentPage } from '../../redux/actions'
 
 
@@ -21,7 +21,7 @@ class CharacterEdit extends Component {
     this.props.setCurrentPage("characters")
   }
 
-  // Uncomment this function and remove save butto to implement auto-saving
+  // Uncomment this function and remove save button to implement auto-saving
 
   // componentWillUnmount() {
   //   Adapter.updateCharacter(this.props.character).then(({ character }) => {

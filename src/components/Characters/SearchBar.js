@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
 import _ from 'lodash'
-import Adapter from '../../Adapter'
-import { Search, Grid, Popup, Button } from 'semantic-ui-react'
-import { updateCharacter } from '../../redux/actions'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Search, Grid, Popup, Button } from 'semantic-ui-react'
+import Adapter from '../../Adapter'
+import { updateCharacter } from '../../redux/actions'
 
 class SearchBar extends Component {
 

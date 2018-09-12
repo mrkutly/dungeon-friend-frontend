@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Adapter from '../Adapter'
 import { connect } from 'react-redux'
-import { setCharacters, setCurrentUser, setCurrentPage } from '../redux/actions.js'
 import { Form, Grid, Header } from 'semantic-ui-react'
+import Adapter from '../Adapter'
+import { setCharacters, setCurrentUser, setCurrentPage } from '../redux/actions.js'
 
 class SignIn extends Component {
 
@@ -31,7 +31,8 @@ class SignIn extends Component {
           alert(response.errors)
           return
         } else {
-          this.setCurrentUser(response)
+          this.setCurrentUser(response.user)
+          localStorage.setItem('token', response.token)
         }
       })
   }
@@ -88,7 +89,7 @@ class SignIn extends Component {
               <Form.Field>
                 <Form.Input type="password" label="Password" onChange={(e) => this.handleChange(e, "password")} value={this.state.password}/>
               </Form.Field>
-              <Form.Button>Submit</Form.Button>
+              <Form.Button basic color="violet">Submit</Form.Button>
             </Form>
           </Grid.Column>
 
@@ -104,7 +105,7 @@ class SignIn extends Component {
               <Form.Field>
                 <Form.Input type="password" label="Password Confirmation" onChange={(e) => this.handleChange(e, "newPasswordConfirmation")} value={this.state.newPasswordConfirmation}/>
               </Form.Field>
-              <Form.Button>Sign up</Form.Button>
+              <Form.Button basic color="violet">Sign up</Form.Button>
             </Form>
           </Grid.Column>
         </Grid.Row>
@@ -116,9 +117,9 @@ class SignIn extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCharacters: (characters) => { dispatch( setCharacters(characters) )},
-    setCurrentUser: (user) => { dispatch( setCurrentUser(user) )},
-    setCurrentPage: (page) => { dispatch( setCurrentPage(page) )},
+    setCharacters: (characters) => dispatch( setCharacters(characters) ),
+    setCurrentUser: (user) => dispatch( setCurrentUser(user) ),
+    setCurrentPage: (page) => dispatch( setCurrentPage(page) ),
   }
 }
 

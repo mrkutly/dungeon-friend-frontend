@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import Adapter from '../Adapter'
-import RaceTilesContainer from './Containers/RaceTilesContainer'
-import JobTilesContainer from './Containers/JobTilesContainer'
 import { connect } from 'react-redux'
-import { createNewCharacter, addCharacter, characterCreatedTrue, setCurrentPage } from '../redux/actions.js'
+import { Form } from 'semantic-ui-react'
+import JobTilesContainer from './Containers/JobTilesContainer'
+import RaceTilesContainer from './Containers/RaceTilesContainer'
+import RollStats from './modals/RollStats'
 import SelectLanguages from './modals/SelectLanguages'
+import SelectProficiencies from './modals/SelectProficiencies'
 import SelectStartingEquipment from './modals/SelectStartingEquipment'
 import SelectTraits from './modals/SelectTraits'
-import SelectProficiencies from './modals/SelectProficiencies'
-import RollStats from './modals/RollStats'
-import { Form } from 'semantic-ui-react'
+import Adapter from '../Adapter'
+import { createNewCharacter, addCharacter, characterCreatedTrue, setCurrentPage } from '../redux/actions.js'
 
 
 class CreateCharacter extends Component {

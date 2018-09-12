@@ -37,6 +37,17 @@ const Adapter = {
       .then(r => r.json())
   },
 
+  reAuth: function(token) {
+    return fetch(`${baseUrl}/sessions`, {
+      method: 'GET',
+      headers: {
+        ...headers,
+        'Authorization': token
+      }
+    })
+      .then(r => r.json())
+  },
+
   signUp: function(name, password, password_confirmation) {
     return fetch(`${baseUrl}/users`, {
       method: 'POST',

@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { Grid, Menu, Divider } from 'semantic-ui-react'
 import Equipment from './ShowPages/Equipment'
 import Features from './ShowPages/Features'
+import Languages from './ShowPages/Languages'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
-import Languages from './ShowPages/Languages'
-import { NavLink } from 'react-router-dom'
-// import { Dice } from '../../Dice'
-// import { Adapter } from '../../Adapter'
-import { Grid, Menu, Divider } from 'semantic-ui-react'
 import { setCurrentPage } from '../../redux/actions'
 
 

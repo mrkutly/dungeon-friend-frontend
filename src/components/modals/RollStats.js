@@ -24,7 +24,7 @@ class RollStats extends Component {
 
   extras = () => {
     // This is just for half-elves, so there is some hard-coded logic in here
-    
+
     let i = 0
     return (
       <div>
@@ -202,6 +202,7 @@ class RollStats extends Component {
         <Modal.Content >
           <Modal.Description>
             <Header>Click the button to roll the dice, then drag and drop your rolls onto the table.</Header>
+            <p>(You can always change these later on your character sheet)</p>
             <Grid>
               <Grid.Row>
 

@@ -98,7 +98,7 @@ class CharacterEdit extends Component {
 
     return (
       <React.Fragment>
-        <h1 className="center">Edit Character Sheet</h1> <br />
+        <div className="medium-header">Edit Character Sheet</div> <br />
         <Grid celled>
           <Grid.Row>
 

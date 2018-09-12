@@ -4,8 +4,6 @@ font-family: 'Quicksand', sans-serif; */
 
 body {
   font-family: 'Quicksand', sans-serif !important;
-  background-color: black;
-  color: black;
   min-width: 70rem;
   margin: 0;
 }
@@ -204,6 +202,11 @@ li.nav-items {
 
 .page-body {
   margin: 0 5%;
+}
+
+.results.transition {
+  max-height: 35vw;
+  overflow: scroll;
 }
 
 .show-all-jobs-btn {

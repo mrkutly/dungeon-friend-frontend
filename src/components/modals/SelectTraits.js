@@ -52,7 +52,7 @@ class SelectTraits extends Component {
             onChange={(e) => this.handleCheckbox(e, choose)}
             checked={traits.includes(trait.name) ? true : false}
           />
-          <label>{trait.name}</label>
+          <label> {trait.name}</label>
         </li>)
       }
     )

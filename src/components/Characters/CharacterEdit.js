@@ -98,7 +98,7 @@ class CharacterEdit extends Component {
 
     return (
       <React.Fragment>
-        <h1 className="center">Edit Character Sheet</h1>
+        <h1 className="center">Edit Character Sheet</h1> <br />
         <Grid celled>
           <Grid.Row>
 
@@ -119,12 +119,12 @@ class CharacterEdit extends Component {
               <Button basic color="blue" type="button" onClick={() => this.increase("level")}>Lvl Up</Button>
             </Grid.Column>
 
-            <Grid.Column width={8}>
+            <Grid.Column width={4}>
               <h3>HP {character.current_hp} / {character.max_hp}</h3>
 
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={8}>
+                  <Grid.Column width={5}>
 
                     <p>Current</p>
                     <Button.Group basic>
@@ -133,7 +133,7 @@ class CharacterEdit extends Component {
                     </Button.Group>
 
                   </Grid.Column>
-                  <Grid.Column width={8}>
+                  <Grid.Column width={5}>
 
                     <p>Max</p>
                     <Button.Group basic>
@@ -142,8 +142,18 @@ class CharacterEdit extends Component {
                     </Button.Group>
 
                   </Grid.Column>
+
                 </Grid.Row>
               </Grid>
+            </Grid.Column>
+
+            <Grid.Column width={4}>
+              <h3>Speed: {character.speed}</h3>
+
+              <Button.Group basic>
+                <Button type="button" onClick={() => this.decrease("speed")} icon="minus" />
+                <Button type="button" onClick={() => this.increase("speed")} icon="plus" />
+              </Button.Group>
             </Grid.Column>
 
           </Grid.Row>

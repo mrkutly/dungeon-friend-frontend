@@ -24,6 +24,7 @@ class CharacterCardsContainer extends Component {
     return (
       <React.Fragment>
         <div className="center-text">Your Characters</div>
+        <br />
         <div className="wrapper">
           {this.mappedCharacters()}
         </div>

@@ -27,10 +27,6 @@ class Home extends Component {
     if(token && !currentUser) {
       Adapter.reAuth(token).then(({ user }) => this.setCurrentUser(user))
     }
-
-    setTimeout(() => {
-      this.homeDiv.current.className = "home"
-    }, 500)
   }
 
   createPath = () => {
@@ -60,7 +56,7 @@ class Home extends Component {
   render() {
     const { currentUser } = this.props
     return (
-      <div className="home hidden" ref={this.homeDiv}>
+      <div className="home" ref={this.homeDiv}>
         <Router>
           <React.Fragment>
             <Navbar />

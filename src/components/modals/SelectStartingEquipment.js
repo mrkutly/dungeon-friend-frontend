@@ -88,7 +88,7 @@ class SelectStartingEquipment extends Component {
           <ul>
             {choice.from.map(equipment => {
               return (
-                <li key={equipment.item.name}>
+                <li key={`${equipment.item.name} ${Math.random()}`}>
 
                   <input type="checkbox"
                     value={equipment.item.name}
@@ -113,7 +113,7 @@ class SelectStartingEquipment extends Component {
     return starting.map(equipment => {
       const { item, quantity, prerequisites} = equipment
       return (
-        <li key={item.name}>
+        <li key={`${item.name} ${Math.random()}`}>
           {quantity} {item.name}
             <i>{prerequisites ? ` - Prerequisites:${prerequisites.map(pre => ` Proficiency in ${pre.proficiency.name}.`)}` : null}</i>
         </li>

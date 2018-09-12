@@ -26,6 +26,7 @@ class CreateCharacter extends Component {
     languages: null,
     name: '',
     proficiencies: null,
+    speed: 0,
     startingEquipment: null,
     startingLvl: 1,
     traits: null
@@ -151,6 +152,7 @@ class CreateCharacter extends Component {
       name,
       proficiencies,
       race_id: currentRace.id,
+      speed: currentRace.data.speed,
       strength: abilityScores.strength,
       traits,
       user_id,
@@ -189,7 +191,7 @@ class CreateCharacter extends Component {
 
     return (
       <div>
-        <div className="center-text">Create a Character</div>
+        <div className="center-text">Create a Character</div> <br />
         <Form onSubmit={this.handleSubmit}>
 
           <div className="large-header">Name</div> <br />

@@ -262,7 +262,7 @@ const mapStateToProps = (state) => {
 
   // Comment this out if they accept my pr.
   if (state.currentRace.data.name === "Tiefling") {
-    bonuses.reverse()
+    bonuses = [0, 0, 0, 1, 0, 2]
   }
 
   if (state.currentRace.data.name === "Half-Elf") {

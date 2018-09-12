@@ -1,11 +1,12 @@
 const headers = {'Content-Type': 'application/json', 'Accepts': 'application/json'}
-const baseUrl = 'https://dungeon-friend-api.herokuapp.com/'
+const baseUrl = 'https://dungeon-friend-api.herokuapp.com'
 
 const Adapter = {
 
   createCharacter: function(character) {
     return fetch(`${baseUrl}/characters`, {
       method: 'POST',
+      mode: 'cors',
       headers: headers,
       body: JSON.stringify({ character })
     })
@@ -13,7 +14,7 @@ const Adapter = {
   },
 
   get: function(endpoint) {
-    return fetch(`${baseUrl}/${endpoint}`).then(r => r.json())
+    return fetch(`${baseUrl}/${endpoint}`, { mode: 'cors' }).then(r => r.json())
   },
 
   getData: function(url) {
@@ -21,16 +22,19 @@ const Adapter = {
   },
 
   getPackData: function(urls) {
-    return fetch(`${baseUrl}/packs`, { headers: { urls } }).then(r => r.json())
+    return fetch(`${baseUrl}/packs`, { headers: { urls }, mode: 'cors' })
+      .then(r => r.json())
   },
 
   getStartingEquipment: function(url) {
-    return fetch(`${baseUrl}/starting_equipment`, {headers: { url }}).then(r => r.json())
+    return fetch(`${baseUrl}/starting_equipment`, { headers: { url }, mode: 'cors' })
+      .then(r => r.json())
   },
 
   login: function(name, password) {
     return fetch(`${baseUrl}/sessions`, {
       method: 'POST',
+      mode: 'cors',
       headers: headers,
       body: JSON.stringify({ user: { name, password }})
     })
@@ -40,6 +44,7 @@ const Adapter = {
   reAuth: function(token) {
     return fetch(`${baseUrl}/sessions`, {
       method: 'GET',
+      mode: 'cors',
       headers: {
         ...headers,
         'Authorization': token
@@ -51,6 +56,7 @@ const Adapter = {
   signUp: function(name, password, password_confirmation) {
     return fetch(`${baseUrl}/users`, {
       method: 'POST',
+      mode: 'cors',
       headers: headers,
       body: JSON.stringify({ user: { name, password, password_confirmation } })
     })
@@ -60,6 +66,7 @@ const Adapter = {
   updateCharacter: function(character) {
     return fetch(`${baseUrl}/characters/${character.id}`, {
       method: 'PATCH',
+      mode: 'cors',
       headers: headers,
       body: JSON.stringify({ character })
     })

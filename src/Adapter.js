@@ -18,7 +18,14 @@ const Adapter = {
   },
 
   getData: function(url) {
-    return fetch(url).then(r => r.json())
+    return fetch(`${baseUrl}/data`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        url: url,
+        ...headers
+      }
+    }).then(r => r.json())
   },
 
   getPackData: function(urls) {

@@ -58,11 +58,13 @@ class SignIn extends Component {
 
     Adapter.signUp(newUsername, newPassword, newPasswordConfirmation)
       .then(response => {
+        console.log(response)
         if (response.errors) {
           alert(response.errors)
           return
         } else {
-          this.setCurrentUser(response)
+          this.setCurrentUser(response.user)
+          localStorage.setItem('token', response.token)
         }
       })
   }

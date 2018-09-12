@@ -65,7 +65,7 @@ class Home extends Component {
           <React.Fragment>
             <Navbar />
             <Container>
-              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="characters" /> : <SignIn />)} />
+              <Route exact path="/signin" render={() => (currentUser ? <Redirect to="create" /> : <SignIn />)} />
               <Route exact path="/create" render={() => this.createPath()} />
               <Route exact path="/characters" render={() => this.redirectToSignIn(<CharacterCardsContainer />)} />
               <Route exact path="/characters/:id" render={props => this.redirectToSignIn(<CharacterSheet {...props} />)} />

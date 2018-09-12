@@ -166,7 +166,7 @@ class CharacterEdit extends Component {
                 {
                   activeItem ?
                   <Menu.Item position="right">
-                    search {activeItem}
+                    {`search ${activeItem} `}
                     <SearchBar query={activeItem} character={character} />
                   </Menu.Item>
                   :

@@ -24,6 +24,10 @@ export const createNewCharacter = (character) => {
   }
 }
 
+export const logout = () => {
+  return { type: "LOGOUT" }
+}
+
 export const setCharacters = (characters) => {
   return {
     type: "SET_CHARACTERS",

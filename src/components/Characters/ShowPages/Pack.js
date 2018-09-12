@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Adapter from '../../../Adapter'
 import { Divider } from 'semantic-ui-react'
+import Adapter from '../../../Adapter'
 
 export default class Pack extends Component {
 

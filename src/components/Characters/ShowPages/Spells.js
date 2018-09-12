@@ -1,9 +1,9 @@
 import React from 'react'
-import SpellModal from './ShowModals/SpellModal'
 import { Divider } from 'semantic-ui-react'
+import SpellModal from './ShowModals/SpellModal'
 
 const Spells = (props) => {
-  
+
   const mappedProfs = () => {
     const { spells } = props
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
 
-
-
 class ThreeScene extends Component {
 
 	componentDidMount() {

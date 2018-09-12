@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Adapter from '../../Adapter'
-import JobTile from '../Tiles/JobTile'
-import JobDisplay from '../Tiles/JobDisplay.js'
 import { connect } from 'react-redux'
-import { setCurrentJob, setJobs } from '../../redux/actions.js'
+import JobTile from '../Tiles/JobTile'
+import JobDisplay from '../Tiles/JobDisplay'
+import Adapter from '../../Adapter'
+import { setCurrentJob, setJobs } from '../../redux/actions'
 
 
 class JobTilesContainer extends Component {

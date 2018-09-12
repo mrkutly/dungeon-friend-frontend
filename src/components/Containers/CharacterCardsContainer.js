@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import CharacterCard from '../Characters/CharacterCard'
 import { connect } from 'react-redux'
+import CharacterCard from '../Characters/CharacterCard'
 import { characterCreatedFalse, setCurrentPage } from '../../redux/actions'
 
 class CharacterCardsContainer extends Component {
@@ -24,6 +24,7 @@ class CharacterCardsContainer extends Component {
     return (
       <React.Fragment>
         <div className="center-text">Your Characters</div>
+        <br />
         <div className="wrapper">
           {this.mappedCharacters()}
         </div>

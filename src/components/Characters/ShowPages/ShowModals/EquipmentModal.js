@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Adapter from '../../../../Adapter'
 import { Modal } from 'semantic-ui-react'
 import Pack from '../Pack'
+import Adapter from '../../../../Adapter'
 
 class EquipmentModal extends Component  {
 

@@ -85,7 +85,7 @@ class SelectProficiencies extends Component {
                   checked={(this.state[list].includes(choice.name) ? true : false)}
                 />
 
-                <label>{choice.name}</label>
+                <label> {choice.name}</label>
               </li>))}
           </ul>
         </Grid.Column>

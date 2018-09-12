@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import EquipmentModal from './ShowModals/EquipmentModal'
-import { Divider, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import { Divider, Button } from 'semantic-ui-react'
+import EquipmentModal from './ShowModals/EquipmentModal'
 import { updateCharacter } from '../../../redux/actions'
 
 class Equipment extends Component {
@@ -40,7 +40,7 @@ class Equipment extends Component {
       } else {
         return 0
       }
-    })  
+    })
 
     return unique.map(item => {
       return (

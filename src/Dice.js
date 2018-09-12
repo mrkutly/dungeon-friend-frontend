@@ -9,19 +9,11 @@ export const Dice = {
 
   rollStats: () => {
     const rolls = []
-    const currentRoll = []
 
     for (let i = 0; i < 6; i++) {
-      let acc = 0
-
-      for (let k = 0; k < 4; k++) {
-        let roll = Dice.d6()
-        currentRoll.push(roll)
-        acc += roll
-      }
-      acc = acc - Math.min(...currentRoll)
-      rolls.push(acc)
+      rolls.push(Math.floor(Math.random() * 15) + 3)
     }
+
     return rolls
   }
 }

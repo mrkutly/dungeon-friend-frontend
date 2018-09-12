@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Adapter from '../../../../Adapter'
 import { Modal } from 'semantic-ui-react'
+import Adapter from '../../../../Adapter'
 
 export default class SkillModal extends Component {
 

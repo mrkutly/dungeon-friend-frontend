@@ -52,7 +52,7 @@ class SelectLanguages extends Component {
             onChange={(e) => this.handleCheckbox(e, choose)}
             checked={languages.includes(lang.name) ? true : false}
           />
-          <label>{lang.name}</label>
+          <label> {lang.name}</label>
         </li>)
     })
   }

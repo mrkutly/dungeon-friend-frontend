@@ -1,19 +1,22 @@
 import React, { Component } from 'react'
-// import Navigation from './Navigation'
-import { NavLink } from 'react-router-dom'
-import ThreeScene from '../Logo/ThreeScene'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-import { setCurrentPage } from '../../redux/actions'
+import ThreeScene from '../Logo/ThreeScene'
+import { setCurrentPage, logout } from '../../redux/actions'
 
 class Navbar extends Component {
 
   handleClick = (e, { name }) => this.props.setCurrentPage(name)
 
-  // mappedNavLinks = ()
+  handleLogout = (e, { name }) => {
+    localStorage.clear()
+    this.props.logout()
+    this.props.setCurrentPage(name)
+  }
 
   render() {
-    const { currentPage } = this.props
+    const { currentPage, currentUser } = this.props
 
     return (
       <React.Fragment>
@@ -27,33 +30,56 @@ class Navbar extends Component {
           <ThreeScene rotation={[0, 0.008]} sizeDivisor={30} />
         </div>
         <Menu inverted>
-          <NavLink to="/create">
-            <Menu.Item
-              name="create"
-              active={currentPage === "create"}
-              onClick={this.handleClick}
-              as="div"
-            />
-          </NavLink>
 
-          <NavLink to="/characters">
-            <Menu.Item
-              name="characters"
-              active={currentPage === "characters"}
-              onClick={this.handleClick}
-              as="div"
-            />
-          </NavLink>
+          {
+            !!currentUser ?
+              <NavLink to="/create">
+                <Menu.Item
+                  name="create"
+                  active={currentPage === "create"}
+                  onClick={this.handleClick}
+                  as="div"
+                />
+              </NavLink>
+            :
+              null
+          }
 
-          <NavLink to="/signin">
-            <Menu.Item
-              name="signin"
-              active={currentPage === "signin"}
-              onClick={this.handleClick}
-              as="div"
-              disabled={!!this.props.currentUser}
-            />
-          </NavLink>
+          {
+            !!currentUser ?
+              <NavLink to="/characters">
+                <Menu.Item
+                  name="characters"
+                  active={currentPage === "characters"}
+                  onClick={this.handleClick}
+                  as="div"
+                />
+              </NavLink>
+            :
+              null
+          }
+
+
+          {
+            !currentUser ?
+              <NavLink to="/signin">
+                <Menu.Item
+                  name="signin"
+                  active={currentPage === "sign in"}
+                  onClick={this.handleClick}
+                  as="div"
+                />
+              </NavLink>
+            :
+              <NavLink to="/signin">
+                <Menu.Item
+                  name="logout"
+                  active={currentPage === "logout"}
+                  onClick={this.handleLogout}
+                  as="div"
+                />
+              </NavLink>
+          }
         </Menu>
         </React.Fragment>
 
@@ -71,13 +97,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentPage: (page) => dispatch( setCurrentPage(page) )
+    setCurrentPage: (page) => dispatch( setCurrentPage(page) ),
+    logout: () => dispatch( logout() )
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
-
-// {/* <div className="navbar hidden" ref={this.navbarDiv}> */}
-//   {/* <Logo />
-//   <Navigation /> */}
-// {/* </div> */}

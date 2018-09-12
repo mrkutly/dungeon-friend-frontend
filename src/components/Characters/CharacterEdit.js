@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { Grid, Menu, Button } from 'semantic-ui-react'
+import SearchBar from './SearchBar'
 import Equipment from './ShowPages/Equipment'
+import Features from './ShowPages/Features'
+import Languages from './ShowPages/Languages'
 import Proficiencies from './ShowPages/Proficiencies'
 import Skills from './ShowPages/Skills'
 import Spells from './ShowPages/Spells'
-import Languages from './ShowPages/Languages'
-import SearchBar from './SearchBar'
-import { NavLink } from 'react-router-dom'
 import Adapter from '../../Adapter'
-import { Grid, Menu, Button } from 'semantic-ui-react'
 import { updateCharacter, setCurrentPage } from '../../redux/actions'
 
 
@@ -20,7 +21,7 @@ class CharacterEdit extends Component {
     this.props.setCurrentPage("characters")
   }
 
-  // Uncomment this function and remove save butto to implement auto-saving
+  // Uncomment this function and remove save button to implement auto-saving
 
   // componentWillUnmount() {
   //   Adapter.updateCharacter(this.props.character).then(({ character }) => {
@@ -97,7 +98,7 @@ class CharacterEdit extends Component {
 
     return (
       <React.Fragment>
-        <h1 className="center">Edit Character Sheet</h1>
+        <div className="medium-header">Edit Character Sheet</div> <br />
         <Grid celled>
           <Grid.Row>
 
@@ -118,12 +119,12 @@ class CharacterEdit extends Component {
               <Button basic color="blue" type="button" onClick={() => this.increase("level")}>Lvl Up</Button>
             </Grid.Column>
 
-            <Grid.Column width={8}>
+            <Grid.Column width={4}>
               <h3>HP {character.current_hp} / {character.max_hp}</h3>
 
               <Grid>
                 <Grid.Row>
-                  <Grid.Column width={8}>
+                  <Grid.Column width={5}>
 
                     <p>Current</p>
                     <Button.Group basic>
@@ -132,7 +133,7 @@ class CharacterEdit extends Component {
                     </Button.Group>
 
                   </Grid.Column>
-                  <Grid.Column width={8}>
+                  <Grid.Column width={5}>
 
                     <p>Max</p>
                     <Button.Group basic>
@@ -141,8 +142,18 @@ class CharacterEdit extends Component {
                     </Button.Group>
 
                   </Grid.Column>
+
                 </Grid.Row>
               </Grid>
+            </Grid.Column>
+
+            <Grid.Column width={4}>
+              <h3>Speed: {character.speed}</h3>
+
+              <Button.Group basic>
+                <Button type="button" onClick={() => this.decrease("speed")} icon="minus" />
+                <Button type="button" onClick={() => this.increase("speed")} icon="plus" />
+              </Button.Group>
             </Grid.Column>
 
           </Grid.Row>
@@ -150,7 +161,7 @@ class CharacterEdit extends Component {
 
             <Grid.Column width={16}>
               <Menu>
-                {this.mappedMenuItems(['equipment', 'proficiencies', 'skills', 'spells', 'languages'])}
+                {this.mappedMenuItems(["equipment", "proficiencies", "skills", "spells", "languages", "features"])}
 
                 {
                   activeItem ?
@@ -179,6 +190,7 @@ class CharacterEdit extends Component {
               { activeItem === "skills" ? <Skills skills={character.skills} /> : null }
               { activeItem === "spells" ? <Spells spells={character.spells} /> : null }
               { activeItem === "languages" ? <Languages langs={character.languages} /> : null }
+              { activeItem === "features" ? <Features features={character.features} /> : null }
             </Grid.Column>
           </Grid.Row>
         </Grid>

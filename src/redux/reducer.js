@@ -38,6 +38,9 @@ export const reducer = (state = initialState, action) => {
         newCharacter: action.payload
       };
 
+    case 'LOGOUT':
+      return initialState;
+
     case 'SET_CHARACTERS':
       return {
         ...state,

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Adapter from '../../Adapter'
-import RaceTile from '../Tiles/RaceTile'
-import RaceDisplay from '../Tiles/RaceDisplay.js'
 import { connect } from 'react-redux'
+import RaceTile from '../Tiles/RaceTile'
+import RaceDisplay from '../Tiles/RaceDisplay'
+import Adapter from '../../Adapter'
 import { setCurrentRace, setRaces } from '../../redux/actions.js'
 
 

@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
 import _ from 'lodash'
-import Adapter from '../../Adapter'
-import { Search, Grid, Popup, Button } from 'semantic-ui-react'
-import { updateCharacter } from '../../redux/actions'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Search, Grid, Popup, Button } from 'semantic-ui-react'
+import Adapter from '../../Adapter'
+import { updateCharacter } from '../../redux/actions'
 
 class SearchBar extends Component {
 
@@ -47,7 +47,7 @@ class SearchBar extends Component {
     const found = this.state.currentCharacter[query].find(el => el.name === newItem.name)
 
     // return if the character already has that skill or proficiency
-    if ((query === "skills" || query === "proficiencies") && found) return
+    if ((query === "skills" || query === "proficiencies" || query === "features") && found) return
 
 
 

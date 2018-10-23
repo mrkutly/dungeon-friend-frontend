@@ -261,9 +261,9 @@ const mapStateToProps = (state) => {
   let extras = false
 
   // Comment this out if they accept my pr.
-  if (state.currentRace.data.name === "Tiefling") {
-    bonuses = [0, 0, 0, 1, 0, 2]
-  }
+  // if (state.currentRace.data.name === "Tiefling") {
+  //   bonuses = [0, 0, 0, 1, 0, 2]
+  // }
 
   if (state.currentRace.data.name === "Half-Elf") {
     extras = true
